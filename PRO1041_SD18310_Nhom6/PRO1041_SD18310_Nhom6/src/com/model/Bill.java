@@ -26,6 +26,14 @@ public class Bill {
     public Bill() {
     }
 
+    public Bill(Address addressId, Date createdAt, String id, User userId, String status) {
+        this.addressId = addressId;
+        this.createdAt = createdAt;
+        this.id = id;
+        this.userId = userId;
+        this.status = status;
+    }
+    
     public Bill(Date createdAt, String id, User userId, String status) {
         this.createdAt = createdAt;
         this.id = id;
