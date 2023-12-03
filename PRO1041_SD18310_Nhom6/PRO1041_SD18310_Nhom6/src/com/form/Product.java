@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import com.model.Color;
 import com.model.Custom;
 import com.model.Material;
+import com.model.ProductCategory;
 import com.model.ProductDetail;
 import com.model.Size;
 import com.model.Thickness;
@@ -31,6 +32,7 @@ import com.service.CustomService;
 import com.service.MaterialServict;
 import com.service.ProductDetailService;
 import com.service.ProductService;
+import com.service.Product_CategoryServict;
 import com.service.SizeSevice;
 import com.service.ThicknessService;
 import com.service.imple.CategoryImple;
@@ -39,6 +41,7 @@ import com.service.imple.CustomImple;
 import com.service.imple.MaterialImple;
 import com.service.imple.ProductDetailImple;
 import com.service.imple.ProductImple;
+import com.service.imple.Product_CategoryImple;
 import com.service.imple.SizeImple;
 import com.service.imple.ThicknessImple;
 import com.swing.EditButtons;
@@ -62,7 +65,10 @@ public class Product extends javax.swing.JPanel {
     private ColorService cls = new ColorImple();
     //them vao 3/12
     private CategoryService ctg;
-
+    
+    //them vao 4/12
+    private Product_CategoryServict pcs;
+    
     File file = new File("");
     DefaultComboBoxModel dcm;
 
@@ -111,7 +117,8 @@ public class Product extends javax.swing.JPanel {
     String id_Category_Delete;
     String id_Pr_Not_Ctegory;
     String id_Pr_Category;
-
+    //them vao 4/12
+    String id_cbbDanhMuc;
     //het
     //them cai nay 2/12
     EditButtons bt = new EditButtons();
@@ -131,7 +138,9 @@ public class Product extends javax.swing.JPanel {
         cls = new ColorImple();
         //them 3/12
         this.ctg = new CategoryImple();
-
+        //them 4/12
+        this.pcs = new Product_CategoryImple();
+        
 //        this.editTbl(tblProduct);
 //        this.editTbl(tblProduct_Detail1);
         //them 3/12
@@ -703,7 +712,36 @@ public class Product extends javax.swing.JPanel {
         Category c = new Category(name);
         return c;
     }
-
+    
+    //them 4/12
+    public String getID_Category(String name){
+        for (Category c: this.ctg.getAll()){
+            if(name.equals(c.getNameCategory())){
+               return c.getId();
+            }
+        }
+        return null;
+    }
+    
+    public ProductCategory getProduct_Category_Form_Add(){
+//        if(id_Pr_Not_Ctegory.equalsIgnoreCase("")){
+//            return null;
+//        }
+        com.model.Product pr = new com.model.Product(id_Pr_Not_Ctegory, "1");
+        Category c = new Category(true, id_cbbDanhMuc);
+        ProductCategory p = new ProductCategory(c, pr);
+        return p;
+    }
+    
+     public ProductCategory getProduct_Category_Form_Remove(){
+//        if(id_Pr_Not_Ctegory.equalsIgnoreCase("")){
+//            return null;
+//        }
+        com.model.Product pr = new com.model.Product(id_Pr_Category, "1");
+        Category c = new Category(true, id_cbbDanhMuc);
+        ProductCategory p = new ProductCategory(c, pr);
+        return p;
+    }
     //
     /**
      * This method is called from within the constructor to initialize the form.
@@ -2545,8 +2583,9 @@ public class Product extends javax.swing.JPanel {
         }
         com.model.Product pr = this.ctg.getProduct_not_Category(namePr_not_category, nameCategory, minProduct_not_Category, maxProduct_not_Category).get(row);
         id_Pr_Not_Ctegory = pr.getId().trim();
-        System.out.println(id_Pr_Not_Ctegory);
-
+        id_cbbDanhMuc = getID_Category(cbbCategory.getSelectedItem().toString());
+        System.out.println("ma san pham: "+id_Pr_Not_Ctegory);
+        System.out.println("id danh muc" + id_cbbDanhMuc);
     }//GEN-LAST:event_tblProduct_Not_CategoryMouseClicked
 
     private void btnPre_Product_Has_No_Category_YetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPre_Product_Has_No_Category_YetActionPerformed
@@ -2889,14 +2928,15 @@ public class Product extends javax.swing.JPanel {
     }//GEN-LAST:event_tblProductMouseEntered
 
     private void tblProduct_CategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_CategoryMouseClicked
-        // TODO add your handling code here:
         int row = tblProduct_Category.getSelectedRow();
         if (row < 0) {
             return;
         }
         com.model.Product pr = this.ctg.getProduct_Category(namePr_Category, nameCategory, minProduct_Category, maxProduct_Category).get(row);
         id_Pr_Category = pr.getId().trim();
-        System.out.println(id_Pr_Category);
+        id_cbbDanhMuc = getID_Category(cbbCategory.getSelectedItem().toString());
+        System.out.println("ma san pham: "+id_Pr_Category);
+        System.out.println("id danh muc" + id_cbbDanhMuc);
     }//GEN-LAST:event_tblProduct_CategoryMouseClicked
 
     private void btnPre_DanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPre_DanhMucActionPerformed
@@ -2928,6 +2968,34 @@ public class Product extends javax.swing.JPanel {
 
     private void btnXoa_prDMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_prDMActionPerformed
         // TODO add your handling code here:
+        int row = tblProduct_Category.getSelectedRow();
+        if(row < 0){
+            System.out.println("dell");
+            return;
+            
+        }
+        ProductCategory p = this.getProduct_Category_Form_Remove();
+        if(p == null){
+            return;
+        }
+        System.out.println("id sp" + p.getCategoryId().getId());
+        System.out.println("ma dm:" + p.getCategoryId().getId());
+        int row2 = JOptionPane.showConfirmDialog(this, "Bạn muốn xóa sản phẩm này vào danh mục này sao?", "Danh mục", JOptionPane.YES_NO_OPTION);
+        if (row2 == JOptionPane.YES_OPTION) {
+            if (this.pcs.Delete(p)) {
+                JOptionPane.showMessageDialog(this, "Xóathành công.");
+                this.loadCatory_Pr();
+                this.loadCatory_not_Pr();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
+        }
+        System.out.println("ma san pham: "+id_Pr_Not_Ctegory);
+        System.out.println("id danh muc" + id_cbbDanhMuc);
     }//GEN-LAST:event_btnXoa_prDMActionPerformed
 
     private void btnScan_PR_CategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScan_PR_CategoryActionPerformed
@@ -3129,7 +3197,34 @@ public class Product extends javax.swing.JPanel {
 
     private void btnThem_pr_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_pr_DMActionPerformed
         // TODO add your handling code here:
-
+        int row = tblProduct_Not_Category.getSelectedRow();
+        if(row < 0){
+            System.out.println("dell");
+            return;
+            
+        }
+        ProductCategory p = this.getProduct_Category_Form_Add();
+        if(p == null){
+            return;
+        }
+        System.out.println("id sp" + p.getCategoryId().getId());
+        System.out.println("ma dm:" + p.getCategoryId().getId());
+        int row2 = JOptionPane.showConfirmDialog(this, "Bạn muốn thêm sản phẩm này vào danh mục này sao?", "Danh mục", JOptionPane.YES_NO_OPTION);
+        if (row2 == JOptionPane.YES_OPTION) {
+            if (this.pcs.Insert(p)) {
+                JOptionPane.showMessageDialog(this, "thêm thành công.");
+                this.loadCatory_Pr();
+                this.loadCatory_not_Pr();
+            } else {
+                JOptionPane.showMessageDialog(this, "thêm thất bại");
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
+        }
+        System.out.println("ma san pham: "+id_Pr_Not_Ctegory);
+        System.out.println("id danh muc" + id_cbbDanhMuc);
     }//GEN-LAST:event_btnThem_pr_DMActionPerformed
 
 
