@@ -217,17 +217,24 @@ public class BillRepository {
     public ArrayList<Bill> getBill_status(String status1, String status2) {
         ArrayList<Bill> list = new ArrayList<>();
         try {
-            String sql = "SELECT\n"
-                    + "  bill.created_at,\n"
-                    + "  bill.id,\n"
-                    + "  user.full_name,\n"
-                    + "  user.number_phone,\n"
-                    + "  bill.status , user.id "
-                    + "FROM db_levents.bill\n"
-                    + "join db_levents.user on user.id = bill.user_id where bill.status in (?,?);";
+            String sql = """
+                         SELECT  bill.created_at,
+                                             bill.id,
+                                             user.full_name,
+                                             user.number_phone,
+                                             bill.status , 
+                                             user.id,
+                                             bill.address_id,
+                                             address.address_detail
+                                             FROM db_levents.bill
+                                             join db_levents.user on user.id = bill.user_id 
+                                             left join db_levents.address on address.id =bill.address_id
+                                             where bill.status in (?,?);
+                         """;
             ResultSet rs = JDBCHelped.executeQuery(sql, status1, status2);
             while (rs.next()) {
-                list.add(new Bill(rs.getDate(1), rs.getString(2), new User(rs.getString(6), rs.getString(3), rs.getString(4)), rs.getString(5))
+                Address address = new Address(rs.getString(6), rs.getString(7));
+                list.add(new Bill(address,rs.getDate(1), rs.getString(2), new User(rs.getString(6), rs.getString(3), rs.getString(4)), rs.getString(5))
                 );
             }
             return list;
@@ -259,6 +266,15 @@ public class BillRepository {
         try {
             String sql = "update db_levents.bill set status = ? where id =? ;";
             JDBCHelped.excuteUpdate(sql, status, idBill);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+        public boolean update_address(String address_id,String idBill) {
+        try {
+            String sql = "Update db_levents.bill set address_id = ? where id = ?;";
+            JDBCHelped.excuteUpdate(sql, address_id, idBill);
             return true;
         } catch (Exception e) {
             return false;

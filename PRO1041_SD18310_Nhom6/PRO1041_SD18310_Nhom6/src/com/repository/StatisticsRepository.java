@@ -35,7 +35,7 @@ public class StatisticsRepository {
                                              left join db_levents.address on db_levents.bill.address_id = db_levents.address.id
                                              left join db_levents.user_role on db_levents.user.id = db_levents.user_role.user_id
                                              inner join db_levents.role on db_levents.user_role.role_id = db_levents.role.id
-                                             where db_levents.bill.status = '1'
+                                             where db_levents.bill.status = '3'
                          """;
             ResultSet rs = JDBCHelped.executeQuery(sql);
             while (rs.next()) {
@@ -82,7 +82,7 @@ public class StatisticsRepository {
                                          left join db_levents.address on db_levents.bill.address_id = db_levents.address.id
                                          left join db_levents.user_role on db_levents.user.id = db_levents.user_role.user_id
                                          inner join db_levents.role on db_levents.user_role.role_id = db_levents.role.id
-                                         where db_levents.bill.status = '1'
+                                         where db_levents.bill.status = '3'
                                          AND YEAR(db_levents.bill.created_at) = YEAR(CURRENT_DATE());
                      """;
 
@@ -129,7 +129,7 @@ public class StatisticsRepository {
                                          left join db_levents.address on db_levents.bill.address_id = db_levents.address.id
                                          left join db_levents.user_role on db_levents.user.id = db_levents.user_role.user_id
                                          inner join db_levents.role on db_levents.user_role.role_id = db_levents.role.id
-                                         where db_levents.bill.status = '1'
+                                         where db_levents.bill.status = '3'
                                          AND MONTH(db_levents.bill.created_at) = ? 
                                          AND YEAR(db_levents.bill.created_at) = YEAR(CURRENT_DATE());
                      """;
