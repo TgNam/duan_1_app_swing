@@ -33,5 +33,10 @@ public class ExchangeImple implements ExchangeService{
     public ArrayList<ExchangeBill> getExchangeBills() {
         return exr.getExchangeBill();
     }
+
+    @Override
+    public ExchangeBill getExchangeBill_id(String idbill) {
+        return exr.getExchangeBill_id(idbill);
+    }
     
 }

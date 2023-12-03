@@ -14,17 +14,21 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import com.model.Bill;
 import com.model.BillDetail;
+import com.model.ExchangeBill;
 import com.model.ReturnBill;
 import com.model.ReturnBillDetail;
 import com.repository.VoucherResponsitory;
 import com.service.BillDetailService;
 import com.service.BillService;
+import com.service.ExchangeService;
 import com.service.ProductDetailService;
 import com.service.ProductService;
+import com.service.ReturnBillService;
 import com.service.UserRoleService;
 import com.service.UserService;
 import com.service.imple.BillDetailImple;
 import com.service.imple.BillImple;
+import com.service.imple.ExchangeImple;
 import com.service.imple.ProductDetailImple;
 import com.service.imple.ProductImple;
 import com.service.imple.ReturnBillDetailImple;
@@ -51,9 +55,12 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     private JFrame jFrame = new JFrame();
     private ReturnsForm returnsForm = new ReturnsForm(jFrame, true);
     private List<BillDetail> listProductReturn = null;
+    private ExchangeService exchangeService = new ExchangeImple();
+    private ReturnBillService returnBillService = new ReturnBillImple();
     //them cai nay 30/11
     private List<BillDetail> listProductExchang = null;
     private Exchang_Bill ex = new Exchang_Bill(jFrame, true);
+    private String checkclick = "0";
 
     /**
      * Creates new form InvoiceManagementJPanel
@@ -61,14 +68,28 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     public InvoiceManagementJPanel() {
         initComponents();
         columns_no_checkbox();
+        columns_tblBill();
         datarowBill(String.valueOf("1"), String.valueOf("1"));
         btnDoiHang.setVisible(false);
         btnTraHang.setVisible(false);
         btnInPhieuGH.setVisible(true);
         bthXacNhan.setVisible(false);
-        pannelLyDoHoanTra.setVisible(false);
+        bthHuy.setVisible(false);
     }
-    
+    public void columns_tblBill() {
+        tableModel = new DefaultTableModel();
+        String[] column = {"STT", "Mã hóa đơn", "Tên khách hàng", "Số điện thoại", "Trạng thái", "Ngày tạo"};
+        tableModel.setColumnIdentifiers(column);
+        TableColumnModel columnModel = tblBillDetails.getColumnModel();
+        tblBill.setModel(tableModel);
+    }
+    public void columns_tblBill_li_do() {
+        tableModel = new DefaultTableModel();
+        String[] column = {"STT", "Mã hóa đơn", "Tên khách hàng", "Số điện thoại", "Trạng thái", "Ngày tạo","Lý do"};
+        tableModel.setColumnIdentifiers(column);
+        TableColumnModel columnModel = tblBillDetails.getColumnModel();
+        tblBill.setModel(tableModel);
+    }
     public void columns_no_checkbox() {
         tableModel = new DefaultTableModel();
         String[] column = {"STT", "Tên Sản Phẩm", "Màu", "Size", "Số Lượng", "Đơn Giá"};
@@ -108,13 +129,26 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         tableModel.setRowCount(0);
         int index = 1;
         for (Bill bill : billService.getBill_status(status1, status2)) {
+            String LyDo =null;
+            String idBill = bill.getId();
+            ReturnBill returnBill = returnBillService.getBy_IdBill(idBill);
+            String reason_description = returnBill.getReasonDescription();
+            ExchangeBill exchangeBill =exchangeService.getExchangeBill_id(idBill);
+            String describe_reason = exchangeBill.getDescribeReason();
+            if ( describe_reason!=null ) {
+                LyDo = describe_reason;
+            }
+            if (reason_description!=null) {
+                LyDo = reason_description;
+            }
             tableModel.addRow(new Object[]{
                 index++,
                 bill.getId(),
                 bill.getUserId().getFullName(),
                 bill.getUserId().getNumberPhone(),
                 bill.checkTrangThai(),
-                bill.getCreatedAt()
+                bill.getCreatedAt(),
+                LyDo
             });
         }
     }
@@ -178,11 +212,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         btnTraHang = new javax.swing.JButton();
         btnInPhieuGH = new javax.swing.JButton();
         bthXacNhan = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        pannelLyDoHoanTra = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        txtLyDo = new javax.swing.JTextArea();
-        jLabel2 = new javax.swing.JLabel();
+        bthHuy = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -429,7 +459,12 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("HUỶ");
+        bthHuy.setText("HUỶ");
+        bthHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bthHuyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -438,7 +473,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bthHuy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bthXacNhan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnInPhieuGH, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
                     .addComponent(btnTraHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -457,38 +492,8 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bthXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bthHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        pannelLyDoHoanTra.setPreferredSize(new java.awt.Dimension(383, 267));
-
-        txtLyDo.setColumns(20);
-        txtLyDo.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtLyDo.setRows(5);
-        jScrollPane3.setViewportView(txtLyDo);
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel2.setText("Lý do:");
-
-        javax.swing.GroupLayout pannelLyDoHoanTraLayout = new javax.swing.GroupLayout(pannelLyDoHoanTra);
-        pannelLyDoHoanTra.setLayout(pannelLyDoHoanTraLayout);
-        pannelLyDoHoanTraLayout.setHorizontalGroup(
-            pannelLyDoHoanTraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
-            .addGroup(pannelLyDoHoanTraLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pannelLyDoHoanTraLayout.setVerticalGroup(
-            pannelLyDoHoanTraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pannelLyDoHoanTraLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -506,11 +511,6 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                     .addContainerGap()
                     .addComponent(panelFormTraHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(593, Short.MAX_VALUE)
-                    .addComponent(pannelLyDoHoanTra, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(27, 27, 27)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,72 +525,72 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                     .addContainerGap()
                     .addComponent(panelFormTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(283, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(427, Short.MAX_VALUE)
-                    .addComponent(pannelLyDoHoanTra, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(15, 15, 15)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void bthBill1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBill1ActionPerformed
         columns_no_checkbox();
+        columns_tblBill();
         datarowBill(String.valueOf("1"), String.valueOf("1"));
         checkStatus = "1";
         btnDoiHang.setVisible(false);
         btnTraHang.setVisible(false);
         btnInPhieuGH.setVisible(true);
-        bthXacNhan.setVisible(false);
-        pannelLyDoHoanTra.setVisible(false);
-        txtLyDo.setText("");
+        bthXacNhan.setVisible(true);
+        bthHuy.setVisible(false);
+        checkclick = "3";
     }//GEN-LAST:event_bthBill1ActionPerformed
 
     private void bthBill2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBill2ActionPerformed
         columns_no_checkbox();
+        columns_tblBill();
         datarowBill(String.valueOf("2"), String.valueOf("2"));
         checkStatus = "2";
         btnDoiHang.setVisible(false);
         btnTraHang.setVisible(false);
         btnInPhieuGH.setVisible(false);
         bthXacNhan.setVisible(true);
-        pannelLyDoHoanTra.setVisible(false);
-        txtLyDo.setText("");
+        bthHuy.setVisible(true);
+        checkclick = "1";
     }//GEN-LAST:event_bthBill2ActionPerformed
 
     private void bthBill3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBill3ActionPerformed
         columns_yes_checkbox();
+        columns_tblBill();
         datarowBill(String.valueOf("3"), String.valueOf("3"));
         checkStatus = "3";
         btnDoiHang.setVisible(true);
         btnTraHang.setVisible(true);
         btnInPhieuGH.setVisible(false);
         bthXacNhan.setVisible(false);
-        pannelLyDoHoanTra.setVisible(false);
-        txtLyDo.setText("");
+        bthHuy.setVisible(false);
+        checkclick = "0";
     }//GEN-LAST:event_bthBill3ActionPerformed
 
     private void bthBill46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBill46ActionPerformed
         columns_no_checkbox();
+        columns_tblBill_li_do();
         datarowBill(String.valueOf("4"), String.valueOf("6"));
         checkStatus = "46";
         btnDoiHang.setVisible(false);
         btnTraHang.setVisible(false);
         btnInPhieuGH.setVisible(false);
         bthXacNhan.setVisible(true);
-        pannelLyDoHoanTra.setVisible(true);
-        txtLyDo.setText("");
+        bthHuy.setVisible(true);
+        checkclick = "2";
     }//GEN-LAST:event_bthBill46ActionPerformed
 
     private void bthBill57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBill57ActionPerformed
         columns_no_checkbox();
+        columns_tblBill_li_do();
         datarowBill(String.valueOf("5"), String.valueOf("7"));
         checkStatus = "57";
         btnDoiHang.setVisible(false);
         btnTraHang.setVisible(false);
         btnInPhieuGH.setVisible(false);
         bthXacNhan.setVisible(false);
-        pannelLyDoHoanTra.setVisible(false);
-        txtLyDo.setText("");
+        bthHuy.setVisible(false);
+        checkclick = "0";
     }//GEN-LAST:event_bthBill57ActionPerformed
 
     private void tblBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillMouseClicked
@@ -615,7 +615,6 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                     List<ReturnBillDetail> listRbd = new ReturnBillDetailImple().getByIdBill(id);
                     loadBillReturn(listRbd);
                     ReturnBill returnBill = new ReturnBillImple().getById(listRbd.get(0).getReturnBillId().getId());
-                    txtLyDo.setText(returnBill.getReasonDescription());
                 } else if (checkStatus.equals("57")) {
                     Bill bill = billService.getBill_status("5", "7").get(row);
                     String id = bill.getId();
@@ -629,7 +628,6 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_tblBillMouseClicked
 
     private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraHangActionPerformed
-        
         int rowCount = tblBillDetails.getRowCount();
         int indexBill = tblBill.getSelectedRow();
         if (indexBill != -1) {
@@ -665,8 +663,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         int rowCount = tblBillDetails.getRowCount();
         int indexBill = tblBill.getSelectedRow();
         if (indexBill != -1) {
-            Bill bill = billService.getBill_status(checkStatus, checkStatus).get(indexBill);
-            
+            Bill bill = billService.getBill_status(checkStatus, checkStatus).get(indexBill);           
         }
     }//GEN-LAST:event_tblBillDetailsMouseClicked
 
@@ -709,14 +706,68 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             String id = bill.getId();
             billService.printerBill(Long.valueOf(id));
             JOptionPane.showMessageDialog(this, "Hóa đơn đã được lưu vào thư mục HoaDon trong ổ C", "Xuất hóa đơn", 1);
+            billService.updateStatusById(id, Integer.parseInt("2"));
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn muốn xuất", "Xuất hóa đơn", 0);
         }
+        datarowBill(String.valueOf("1"), String.valueOf("1"));
     }//GEN-LAST:event_btnInPhieuGHActionPerformed
 
     private void bthXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthXacNhanActionPerformed
-        // TODO add your handling code here:
+        int row = tblBill.getSelectedRow();
+        if (row != -1) {
+            if (checkclick.equals("1")) {
+                Bill bill = billService.getBill_status("2", "2").get(row);
+                String id = bill.getId();
+                billService.updateStatusById(id, Integer.parseInt("3"));
+                datarowBill(String.valueOf("2"), String.valueOf("2"));
+            }
+            if (checkclick.equals("2")) {
+                Bill bill = billService.getBill_status("4", "6").get(row);
+                String idBill = bill.getId();
+                ReturnBill returnBill = returnBillService.getBy_IdBill(idBill);
+                String statusReturnBill = returnBill.getStatus();
+                ExchangeBill exchangeBill =exchangeService.getExchangeBill_id(idBill);
+                String statusExchangeBill = exchangeBill.getStatus();
+                if (statusReturnBill.equals("4")) {
+                    billService.updateStatusById(idBill, Integer.parseInt("5"));
+                }
+                if (statusReturnBill.equals("6")) {
+                    billService.updateStatusById(idBill, Integer.parseInt("6"));
+                } 
+                datarowBill(String.valueOf("4"), String.valueOf("6"));
+            }
+            if (checkclick.equals("3")) {
+                Bill bill = billService.getBill_status("1", "1").get(row);
+                String idBill = bill.getId();
+                billService.updateStatusById(idBill, Integer.parseInt("3"));
+                datarowBill(String.valueOf("1"), String.valueOf("1"));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn");
+        }
+        
     }//GEN-LAST:event_bthXacNhanActionPerformed
+
+    private void bthHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthHuyActionPerformed
+        int row = tblBill.getSelectedRow();
+        if (row != -1) {
+            if (checkclick.equals("1")) {
+                Bill bill = billService.getBill_status("2", "2").get(row);
+                String id = bill.getId();
+                billService.updateStatusById(id, Integer.parseInt("1"));
+                datarowBill(String.valueOf("2"), String.valueOf("2"));
+            }
+            if (checkclick.equals("2")) {
+                Bill bill = billService.getBill_status("4", "6").get(row);
+                String idBill = bill.getId();
+                billService.updateStatusById(idBill, Integer.parseInt("3"));  
+                datarowBill(String.valueOf("4"), String.valueOf("6"));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn");
+        }
+    }//GEN-LAST:event_bthHuyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -725,13 +776,12 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     private javax.swing.JButton bthBill3;
     private javax.swing.JButton bthBill46;
     private javax.swing.JButton bthBill57;
+    private javax.swing.JButton bthHuy;
     private javax.swing.JButton bthXacNhan;
     private javax.swing.JButton btnDoiHang;
     private javax.swing.JButton btnInPhieuGH;
     private javax.swing.JButton btnTraHang;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -740,11 +790,8 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel panelFormTraHang;
-    private javax.swing.JPanel pannelLyDoHoanTra;
     private javax.swing.JTable tblBill;
     private javax.swing.JTable tblBillDetails;
-    private javax.swing.JTextArea txtLyDo;
     // End of variables declaration//GEN-END:variables
 }

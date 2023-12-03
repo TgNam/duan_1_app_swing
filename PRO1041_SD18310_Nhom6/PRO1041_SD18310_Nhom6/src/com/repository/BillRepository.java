@@ -255,4 +255,13 @@ public class BillRepository {
             return false;
         }
     }
+        public boolean update_Status(String status,String idBill) {
+        try {
+            String sql = "update db_levents.bill set status = ? where id =? ;";
+            JDBCHelped.excuteUpdate(sql, status, idBill);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

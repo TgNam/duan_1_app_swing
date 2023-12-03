@@ -19,7 +19,19 @@ public class ReturnBill {
     private String id;
     private Date updatedAt;
     private String reasonDescription;
+    private String status;
 
+    public ReturnBill(BigDecimal totalCost, Bill billId, Date createdAt, String id, Date updatedAt, String reasonDescription, String status) {
+        this.totalCost = totalCost;
+        this.billId = billId;
+        this.createdAt = createdAt;
+        this.id = id;
+        this.updatedAt = updatedAt;
+        this.reasonDescription = reasonDescription;
+        this.status = status;
+    }
+    
+    
     public ReturnBill(BigDecimal totalCost, Bill billId, Date createdAt, String id, Date updatedAt, String reasonDescription) {
         this.totalCost = totalCost;
         this.billId = billId;
@@ -85,6 +97,12 @@ public class ReturnBill {
     public void setReasonDescription(String reasonDescription) {
         this.reasonDescription = reasonDescription;
     }
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
 
