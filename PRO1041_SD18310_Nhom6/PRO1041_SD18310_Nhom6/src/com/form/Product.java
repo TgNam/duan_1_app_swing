@@ -4,6 +4,7 @@
  */
 package com.form;
 
+import com.model.Category;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -24,6 +25,7 @@ import com.model.Material;
 import com.model.ProductDetail;
 import com.model.Size;
 import com.model.Thickness;
+import com.service.CategoryService;
 import com.service.ColorService;
 import com.service.CustomService;
 import com.service.MaterialServict;
@@ -31,6 +33,7 @@ import com.service.ProductDetailService;
 import com.service.ProductService;
 import com.service.SizeSevice;
 import com.service.ThicknessService;
+import com.service.imple.CategoryImple;
 import com.service.imple.ColorImple;
 import com.service.imple.CustomImple;
 import com.service.imple.MaterialImple;
@@ -43,6 +46,7 @@ import com.swing.EditTextField;
 import java.awt.Font;
 import javax.swing.JTable;
 import table.TableCustom;
+
 /**
  *
  * @author thiet
@@ -56,6 +60,8 @@ public class Product extends javax.swing.JPanel {
     private CustomService cts;
     private SizeSevice ss;
     private ColorService cls = new ColorImple();
+    //them vao 3/12
+    private CategoryService ctg;
 
     File file = new File("");
     DefaultComboBoxModel dcm;
@@ -63,8 +69,6 @@ public class Product extends javax.swing.JPanel {
 //up date them 2 thang moi 
     int minProduct_tab1 = 1;
     int maxProduct_tab1 = 10;
-    int minProduct_tab2 = 1;
-    int maxProduct_tab2 = 10;
     int minProduct_detail = 1;
     int maxProduct_detail = 10;
     int minProduct_tab3 = 1;
@@ -75,7 +79,17 @@ public class Product extends javax.swing.JPanel {
     int minProduct_Stop_Sell = 1;
     int maxProduct_Detail_Stop_Sell = 10;
     int minProduct_Detail_Stop_Sell = 1;
+    //them vao 3/12
 
+    int maxProduct_not_Category = 10;
+    int minProduct_not_Category = 1;
+    int maxProduct_Category = 10;
+    int minProduct_Category = 1;
+
+    int maxCategory = 10;
+    int minCategory = 1;
+    int maxCategory_Delete = 10;
+    int minCategory_Delete = 1;
     //them 1/12
     int maxAttribute = 10;
     int minAttribute = 1;
@@ -89,12 +103,20 @@ public class Product extends javax.swing.JPanel {
     String idProduct_Detail_Stop_Sell;
     String nameImage_Product;
     String nameImage_Product_Detail;
-    
+    //them vao 3/12
+    String namePr_Category = "%%";
+    String nameCategory = "Áo Thun";
+    String namePr_not_category = "%%";
+    String id_Category;
+    String id_Category_Delete;
+    String id_Pr_Not_Ctegory;
+    String id_Pr_Category;
+
     //het
-    
     //them cai nay 2/12
     EditButtons bt = new EditButtons();
     EditTextField txt = new EditTextField();
+
     /**
      * Creates new form Product
      */
@@ -107,26 +129,34 @@ public class Product extends javax.swing.JPanel {
         cts = new CustomImple();
         ss = new SizeImple();
         cls = new ColorImple();
-        
+        //them 3/12
+        this.ctg = new CategoryImple();
+
 //        this.editTbl(tblProduct);
 //        this.editTbl(tblProduct_Detail1);
-        
-        this.load_Product();
-//        this.load_Product_Extra();
-        this.loadProduct_Stop();
-        this.loadProduct_Deteail_Stop_Sell();
-        this.loadProduct_Has_No_Category_Yet();
-
-        this.loadSize();
-
+        //them 3/12
         this.loadcbbCustom();
         this.loadcbbMaterial();
         this.loadcbbThickness();
         this.loadcbbSize();
         this.loadcbbColor();
+        this.loadcbbDanhMuc();
+        nameCategory = String.valueOf(cbbCategory.getItemAt(0));
+        System.out.println("1lan thoi:" + nameCategory);
+
+        this.loadCatory_not_Pr();
+        this.loadCatory_Pr();
+        this.loadCatory();
+        this.load_Product();
+        this.loadProduct_Stop();
+        this.loadCatory_Delete();
+
+        this.loadProduct_Deteail_Stop_Sell();
+
+        this.loadSize();
+
 //        this.loadcbbProduct();
-        System.out.println(idProduct_Extra);
-        
+        //them vao 3/12
         //them 2/12
         TableCustom.apply(slpProduct, TableCustom.TableType.MULTI_LINE);
         TableCustom.apply(slpProduct_Detail, TableCustom.TableType.MULTI_LINE);
@@ -134,56 +164,79 @@ public class Product extends javax.swing.JPanel {
         TableCustom.apply(slpProduct_Has_No_Category_Yet, TableCustom.TableType.MULTI_LINE);
         TableCustom.apply(slpProduct_Detail_Stop_Sell, TableCustom.TableType.MULTI_LINE);
         TableCustom.apply(slpProduc_Stop_sell, TableCustom.TableType.MULTI_LINE);
-        
-//        btnAdd_Product.setBackground(new java.awt.Color(0, 0, 0, 0));
+        TableCustom.apply(slpDanhMuc, TableCustom.TableType.MULTI_LINE);
+        // them 3/12
+        TableCustom.apply(slpDM, TableCustom.TableType.MULTI_LINE);
+        TableCustom.apply(slpCategory_Delete, TableCustom.TableType.MULTI_LINE);
         bt.Edit(btnAdd_Product);
         bt.Edit(btnClear_Product);
         bt.Edit(btnFix_Produc);
         bt.Edit(btnStop_Sell_Product);
-        
+
         bt.Edit(btnAdd_Product_Detail1);
         bt.Edit(btnClear_Product_Detail1);
         bt.Edit(btnFix_Product_Detail1);
         bt.Edit(btnStop_Sell_Product_Detail1);
-        
+
         bt.Edit(btnAdd_Attribute);
         bt.Edit(btnClear_Attribute);
         bt.Edit(btnFix_Attribute);
         bt.Edit(btnStop_Working_Attribute);
-        
+
         bt.Edit(btnRestore_Product);
-        
+
         bt.Edit(btnRestore_Product_Detail_Stop_Sell);
-        
+
         bt.Edit(btnStop_Working_Attribute);
-        
+
         bt.Edit(btnNext__Product);
         bt.Edit(btnPre__Product);
-        
+
         bt.Edit(btnNext_Product_Detail1);
         bt.Edit(btnPre_Product_Detail1);
-        
+
         bt.Edit(btnNext_Attribute);
         bt.Edit(btnPre_Attribute);
-        
+
         bt.Edit(btnNext_Product_Stop_Sell);
         bt.Edit(btnPre_Product_Stop_Sell);
-        
+
         bt.Edit(btnNext_Product_Detail_Stop_Sell);
         bt.Edit(btnPre_Product_Detail_Stop_Sell);
-        
+        //them 3/12
+        bt.Edit(btnScan_PR_Category);
+        bt.Edit(btnScan_PR_Not_Category);
+        bt.Edit(btnThem_pr_DM);
+        bt.Edit(btnXoa_prDM);
+        bt.Edit(btnNext_DanhMuc);
+        bt.Edit(btnPre_DanhMuc);
+        bt.Edit(btnNext_Product_Has_No_Category_Yet);
+        bt.Edit(btnPre_Product_Has_No_Category_Yet);
+        bt.Edit(btnPre_Category_Delete);
+        bt.Edit(btnNext_Category_Delete);
+        bt.Edit(btnKhoiPhuc);
+
+        bt.Edit(btnAdd_DM);
+        bt.Edit(btnSua_DM);
+        bt.Edit(btnXoa_DM);
+        bt.Edit(btnClear_DM);
+        bt.Edit(btnPre_DM);
+        bt.Edit(btnNext_DM);
+
         txt.edit(txtName_Product);
-        txt.edit(txtName_Product);
+        txt.edit(txtPrice);
         txt.edit(txtQuantity1);
         txt.edit(txtName_Attribute);
-        
-//        this.pnlProduct_Detail.setVisible(false);
+
+        //ngay 3/12
+        txt.edit(txtPr_Category);
+        txt.edit(txtPr_Not_Category);
+        txt.edit(txtDanhMuc);
     }
-    
+
     public void load_Product() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct.getModel();
         dtm.setRowCount(0);
-        String tt = "";
         for (com.model.Product sp : this.pds.getNext(minProduct_tab1, maxProduct_tab1)) {
             Object[] ob = {
                 sp.getId(),
@@ -233,7 +286,6 @@ public class Product extends javax.swing.JPanel {
     public void load_Product_Detail() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Detail1.getModel();
         dtm.setRowCount(0);
-        String tt = "";
         for (ProductDetail spct : this.pdds.getProductDetail_Selling_Next(idProduct_Extra, minProduct_detail, maxProduct_detail)) {
             Object[] ob = {
                 spct.getId(),
@@ -248,8 +300,6 @@ public class Product extends javax.swing.JPanel {
     public void loadSize() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
-        String tt = "";
-
         for (Size d : this.ss.getSize_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
                 d.getId(),
@@ -264,7 +314,6 @@ public class Product extends javax.swing.JPanel {
     public void loadColer() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
-        String tt = "";
         for (Color d : this.cls.getColor_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
                 d.getId(),
@@ -279,8 +328,6 @@ public class Product extends javax.swing.JPanel {
     public void loadMaterial() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
-        String tt = "";
-
         for (Material d : this.mts.getMaterial_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
                 d.getId(),
@@ -295,8 +342,6 @@ public class Product extends javax.swing.JPanel {
     public void loadThickness() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
-        String tt = "";
-
         for (Thickness d : this.tns.getThickness_sell(minAttribute, maxAttribute)) {
             Object[] ob = {
                 d.getId(),
@@ -311,8 +356,6 @@ public class Product extends javax.swing.JPanel {
     public void loadCustom() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
-        String tt = "";
-
         for (Custom d : this.cts.getCustom_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
                 d.getId(),
@@ -395,6 +438,7 @@ public class Product extends javax.swing.JPanel {
         txtQuantity1.setText("");
         txtName_Attribute.setText("");
         rdoSize.setSelected(true);
+        txtDanhMuc.setText("");
         this.loadSize();
     }
 
@@ -427,7 +471,7 @@ public class Product extends javax.swing.JPanel {
     public com.model.Product form() {
         String ten = txtName_Product.getText().trim();
         String vatLieu = cbbMaterial.getSelectedItem().toString();
-        String gia = txtName_Product.getText().trim();
+        String gia = txtPrice.getText().trim();
         String doDay = cbbThickness.getSelectedItem().toString();
         String kieuDang = cbbCustom.getSelectedItem().toString();
         String moTa = txtDescribe.getText().trim();
@@ -542,26 +586,6 @@ public class Product extends javax.swing.JPanel {
     }
 
     //them vao ngay 29/11
-    public void loadProduct_Has_No_Category_Yet() {
-        DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Has_No_Category_Yet.getModel();
-        dtm.setRowCount(0);
-        String tt = "";
-        for (com.model.Product sp : this.pds.getNext(minProduct_tab1, maxProduct_tab1)) {
-            Object[] ob = {
-                sp.getId(),
-                sp.getName_product(),
-                sp.getCreated_at(),
-                sp.getUpdated_at(),
-                sp.getCustome_id().getNameCustom(),
-                sp.getProduct_price(),
-                sp.getMaterial_id().getNameMaterial(),
-                sp.getThickness_id().getGsm() + "gsm",
-                sp.getDescription()
-            };
-            dtm.addRow(ob);
-        }
-    }
-
     //them moi 1/12
     private static byte[] readImageFile(String imagePath) throws IOException {
         File file = new File(imagePath);
@@ -581,16 +605,106 @@ public class Product extends javax.swing.JPanel {
         }
         return null;
     }
-    
+
     //them vao 2.12
-    public void editTbl(JTable table){
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
-        table.getTableHeader().setOpaque(false);
-//        table.getTableHeader().setBackground(new java.awt.Color(32,136,203));
-        table.getTableHeader().setForeground(new java.awt.Color(51,153,255));
-        table.setRowHeight( 25);
+//    public void editTbl(JTable table){
+//        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+//        table.getTableHeader().setOpaque(false);
+////        table.getTableHeader().setBackground(new java.awt.Color(32,136,203));
+//        table.getTableHeader().setForeground(new java.awt.Color(51,153,255));
+//        table.setRowHeight( 25);
+//    }
+//    tehm vao 3/12
+    public void loadCatory_not_Pr() {
+        DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Not_Category.getModel();
+        dtm.setRowCount(0);
+        for (com.model.Product sp : this.ctg.getProduct_not_Category(namePr_not_category, nameCategory, minProduct_not_Category, maxProduct_not_Category)) {
+            Object[] ob = {
+                sp.getId(),
+                sp.getName_product(),
+                sp.getCustome_id().getNameCustom(),
+                sp.getProduct_price(),
+                sp.getMaterial_id().getNameMaterial(),
+                sp.getThickness_id().getGsm() + "gsm"
+            };
+            dtm.addRow(ob);
+        }
     }
 
+    public void loadCatory_Pr() {
+        DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Category.getModel();
+        dtm.setRowCount(0);
+        for (com.model.Product sp : this.ctg.getProduct_Category(namePr_Category, nameCategory, minProduct_Category, maxProduct_Category)) {
+            Object[] ob = {
+                sp.getId(),
+                sp.getName_product(),
+                sp.getCustome_id().getNameCustom(),
+                sp.getProduct_price(),
+                sp.getMaterial_id().getNameMaterial(),
+                sp.getThickness_id().getGsm() + "gsm"
+            };
+            dtm.addRow(ob);
+        }
+    }
+
+    public void loadcbbDanhMuc() {
+        dcm = new DefaultComboBoxModel();
+        dcm.removeAllElements();
+        for (Category category : this.ctg.getCategory_Action()) {
+            String ten = String.valueOf(category.getNameCategory());
+            dcm.addElement(ten);
+        }
+        cbbCategory.setModel(dcm);
+    }
+
+    public void loadCatory() {
+        DefaultTableModel dtm = (DefaultTableModel) this.tblDM.getModel();
+        dtm.setRowCount(0);
+        for (Category category : this.ctg.getCategory_Action_Next(minCategory, maxCategory)) {
+            Object[] ob = {
+                category.getId(),
+                category.getNameCategory()
+            };
+            dtm.addRow(ob);
+        }
+    }
+
+    public void loadCatory_Delete() {
+        DefaultTableModel dtm = (DefaultTableModel) this.tblCategory_Delete.getModel();
+        dtm.setRowCount(0);
+        for (Category category : this.ctg.getCategory_not_Action_Next(minCategory_Delete, maxCategory_Delete)) {
+            Object[] ob = {
+                category.getId(),
+                category.getNameCategory()
+            };
+            dtm.addRow(ob);
+        }
+    }
+
+    public boolean checkCategory(String name) {
+        for (Category category : this.ctg.getAll()) {
+            if (name.trim().equalsIgnoreCase(category.getNameCategory().trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Category getForm_Category() {
+        String name = txtDanhMuc.getText().trim();
+        if (name.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Chua ghi du du lieu.");
+            return null;
+        }
+        if (this.checkCategory(name) == true) {
+            JOptionPane.showMessageDialog(this, "San pham nay da ton tai");
+            return null;
+        }
+        Category c = new Category(name);
+        return c;
+    }
+
+    //
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -667,11 +781,49 @@ public class Product extends javax.swing.JPanel {
         btnPre_Attribute = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         pnlDanhMuc = new javax.swing.JPanel();
+        swingTabbedPane2 = new com.swing.SwingTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        swingTabbedPane1 = new com.swing.SwingTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
         slpProduct_Has_No_Category_Yet = new javax.swing.JScrollPane();
-        tblProduct_Has_No_Category_Yet = new javax.swing.JTable();
+        tblProduct_Not_Category = new javax.swing.JTable();
         btnPre_Product_Has_No_Category_Yet = new javax.swing.JButton();
         btnNext_Product_Has_No_Category_Yet = new javax.swing.JButton();
+        btnThem_pr_DM = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        btnScan_PR_Not_Category = new javax.swing.JButton();
+        txtPr_Not_Category = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        slpDanhMuc = new javax.swing.JScrollPane();
+        tblProduct_Category = new javax.swing.JTable();
+        btnPre_DanhMuc = new javax.swing.JButton();
+        btnNext_DanhMuc = new javax.swing.JButton();
+        btnXoa_prDM = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtPr_Category = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        btnScan_PR_Category = new javax.swing.JButton();
+        cbbCategory = new com.swing.Combobox();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        txtDanhMuc = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        btnAdd_DM = new javax.swing.JButton();
+        btnSua_DM = new javax.swing.JButton();
+        btnXoa_DM = new javax.swing.JButton();
+        btnClear_DM = new javax.swing.JButton();
+        slpDM = new javax.swing.JScrollPane();
+        tblDM = new javax.swing.JTable();
+        btnPre_DM = new javax.swing.JButton();
+        btnNext_DM = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        slpCategory_Delete = new javax.swing.JScrollPane();
+        tblCategory_Delete = new javax.swing.JTable();
+        btnPre_Category_Delete = new javax.swing.JButton();
+        btnNext_Category_Delete = new javax.swing.JButton();
+        btnKhoiPhuc = new javax.swing.JButton();
         pnlSanPhamNgungBan = new javax.swing.JPanel();
         btnPre_Product_Stop_Sell = new javax.swing.JButton();
         btnNext_Product_Stop_Sell = new javax.swing.JButton();
@@ -690,6 +842,17 @@ public class Product extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         swingTab1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -757,6 +920,9 @@ public class Product extends javax.swing.JPanel {
         tblProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblProductMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblProductMouseEntered(evt);
             }
         });
         slpProduct.setViewportView(tblProduct);
@@ -1268,23 +1434,27 @@ public class Product extends javax.swing.JPanel {
 
         pnlDanhMuc.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblProduct_Has_No_Category_Yet.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblProduct_Not_Category.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Name product", "Created at", "Updated at", "Custom", "Price", "Material", "Thicknes", "Describe"
+                "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
             }
         ));
-        tblProduct_Has_No_Category_Yet.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblProduct_Not_Category.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProduct_Has_No_Category_YetMouseClicked(evt);
+                tblProduct_Not_CategoryMouseClicked(evt);
             }
         });
-        slpProduct_Has_No_Category_Yet.setViewportView(tblProduct_Has_No_Category_Yet);
+        slpProduct_Has_No_Category_Yet.setViewportView(tblProduct_Not_Category);
 
         btnPre_Product_Has_No_Category_Yet.setText("<");
         btnPre_Product_Has_No_Category_Yet.addActionListener(new java.awt.event.ActionListener() {
@@ -1300,39 +1470,414 @@ public class Product extends javax.swing.JPanel {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jLabel13.setText("Product has no category yet");
+        btnThem_pr_DM.setText("Thêm");
+        btnThem_pr_DM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThem_pr_DMActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel18.setText("Tên sản phẩm: ");
+
+        btnScan_PR_Not_Category.setText("Tìm");
+        btnScan_PR_Not_Category.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScan_PR_Not_CategoryActionPerformed(evt);
+            }
+        });
+
+        txtPr_Not_Category.setBorder(null);
+
+        jLabel19.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel19.setText("__________________________________________");
+        jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(slpProduct_Has_No_Category_Yet, javax.swing.GroupLayout.DEFAULT_SIZE, 1107, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPre_Product_Has_No_Category_Yet, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNext_Product_Has_No_Category_Yet, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnThem_pr_DM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(txtPr_Not_Category, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnScan_PR_Not_Category, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPr_Not_Category, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnScan_PR_Not_Category))
+                .addGap(18, 18, 18)
+                .addComponent(slpProduct_Has_No_Category_Yet, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPre_Product_Has_No_Category_Yet)
+                    .addComponent(btnNext_Product_Has_No_Category_Yet)
+                    .addComponent(btnThem_pr_DM))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        swingTabbedPane1.addTab("Sản phẩm chưa thêm vào danh mục", jPanel6);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblProduct_Category.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
+            }
+        ));
+        tblProduct_Category.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProduct_CategoryMouseClicked(evt);
+            }
+        });
+        slpDanhMuc.setViewportView(tblProduct_Category);
+
+        btnPre_DanhMuc.setText("<");
+        btnPre_DanhMuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPre_DanhMucActionPerformed(evt);
+            }
+        });
+
+        btnNext_DanhMuc.setText(">");
+        btnNext_DanhMuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNext_DanhMucActionPerformed(evt);
+            }
+        });
+
+        btnXoa_prDM.setText("Xóa");
+        btnXoa_prDM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoa_prDMActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Tên sản phẩm: ");
+
+        txtPr_Category.setBorder(null);
+
+        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("__________________________________________");
+        jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        btnScan_PR_Category.setText("Tìm");
+        btnScan_PR_Category.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScan_PR_CategoryActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(slpDanhMuc, javax.swing.GroupLayout.DEFAULT_SIZE, 1107, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPre_DanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNext_DanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnXoa_prDM, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(txtPr_Category, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnScan_PR_Category, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPr_Category, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnScan_PR_Category))
+                .addGap(18, 18, 18)
+                .addComponent(slpDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPre_DanhMuc)
+                    .addComponent(btnNext_DanhMuc)
+                    .addComponent(btnXoa_prDM))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        swingTabbedPane1.addTab("Sản phẩm đã thêm vào danh mục", jPanel5);
+
+        cbbCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbbCategoryMouseClicked(evt);
+            }
+        });
+        cbbCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbCategoryActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel20.setText("Danh mục:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(swingTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(swingTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        swingTabbedPane2.addTab("Danh mục sản phẩm", jPanel2);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setText("Tên Danh mục:");
+        jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 9, -1, -1));
+
+        txtDanhMuc.setBorder(null);
+        jPanel4.add(txtDanhMuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 6, 285, 20));
+
+        jLabel22.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel22.setText("_________________________________________________________");
+        jLabel22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 16, 290, 20));
+
+        btnAdd_DM.setText("Thêm");
+        btnAdd_DM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdd_DMActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnAdd_DM, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 46, 100, -1));
+
+        btnSua_DM.setText("Sửa");
+        btnSua_DM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSua_DMActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnSua_DM, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 46, 100, -1));
+
+        btnXoa_DM.setText("Xóa");
+        btnXoa_DM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoa_DMActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnXoa_DM, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 46, 100, -1));
+
+        btnClear_DM.setText("Làm mới");
+        btnClear_DM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClear_DMActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnClear_DM, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 46, 100, -1));
+
+        tblDM.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "id", "Tên"
+            }
+        ));
+        tblDM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDMMouseClicked(evt);
+            }
+        });
+        slpDM.setViewportView(tblDM);
+
+        jPanel4.add(slpDM, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1129, 390));
+
+        btnPre_DM.setText("<");
+        btnPre_DM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPre_DMActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnPre_DM, new org.netbeans.lib.awtextra.AbsoluteConstraints(917, 485, 100, -1));
+
+        btnNext_DM.setText(">");
+        btnNext_DM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNext_DMActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnNext_DM, new org.netbeans.lib.awtextra.AbsoluteConstraints(1035, 485, 100, -1));
+
+        swingTabbedPane2.addTab("Quản lý danh mục", jPanel4);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblCategory_Delete.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "id", "Name"
+            }
+        ));
+        tblCategory_Delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCategory_DeleteMouseClicked(evt);
+            }
+        });
+        slpCategory_Delete.setViewportView(tblCategory_Delete);
+
+        btnPre_Category_Delete.setText("<");
+        btnPre_Category_Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPre_Category_DeleteActionPerformed(evt);
+            }
+        });
+
+        btnNext_Category_Delete.setText(">");
+        btnNext_Category_Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNext_Category_DeleteActionPerformed(evt);
+            }
+        });
+
+        btnKhoiPhuc.setText("Khôi phục");
+        btnKhoiPhuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKhoiPhucActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(slpCategory_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPre_Category_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNext_Category_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnKhoiPhuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(slpCategory_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPre_Category_Delete)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNext_Category_Delete)
+                        .addComponent(btnKhoiPhuc)))
+                .addContainerGap(212, Short.MAX_VALUE))
+        );
+
+        swingTabbedPane2.addTab("Danh mục ngừng sử", jPanel7);
 
         javax.swing.GroupLayout pnlDanhMucLayout = new javax.swing.GroupLayout(pnlDanhMuc);
         pnlDanhMuc.setLayout(pnlDanhMucLayout);
         pnlDanhMucLayout.setHorizontalGroup(
             pnlDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDanhMucLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(slpProduct_Has_No_Category_Yet, javax.swing.GroupLayout.DEFAULT_SIZE, 1129, Short.MAX_VALUE)
-                    .addGroup(pnlDanhMucLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDanhMucLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnPre_Product_Has_No_Category_Yet, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnNext_Product_Has_No_Category_Yet, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+            .addComponent(swingTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1141, Short.MAX_VALUE)
         );
         pnlDanhMucLayout.setVerticalGroup(
             pnlDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDanhMucLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(slpProduct_Has_No_Category_Yet, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(pnlDanhMucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPre_Product_Has_No_Category_Yet)
-                    .addComponent(btnNext_Product_Has_No_Category_Yet))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(swingTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         swingTab1.addTab("Danh mục", pnlDanhMuc);
@@ -1353,7 +1898,7 @@ public class Product extends javax.swing.JPanel {
             }
         });
 
-        btnRestore_Product.setText(" Restore");
+        btnRestore_Product.setText("Khôi phục");
         btnRestore_Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRestore_ProductActionPerformed(evt);
@@ -1368,7 +1913,7 @@ public class Product extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Tên sản phẩm", "Kiểu", "Gía", "Nguyên liệu", "Độ dày"
+                "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
             }
         ));
         tblProduc_Stop_sell.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1399,20 +1944,20 @@ public class Product extends javax.swing.JPanel {
             pnlSanPhamNgungBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSanPhamNgungBanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(slpProduc_Stop_sell, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
+                .addComponent(slpProduc_Stop_sell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlSanPhamNgungBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRestore_Product)
                     .addComponent(btnPre_Product_Stop_Sell)
                     .addComponent(btnNext_Product_Stop_Sell))
-                .addGap(32, 32, 32))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
 
         swingTab1.addTab("Sản phẩm ngừng bán", pnlSanPhamNgungBan);
 
         pnlSanPhamCTNgungBan.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnRestore_Product_Detail_Stop_Sell.setText(" Restore");
+        btnRestore_Product_Detail_Stop_Sell.setText("Khôi phục");
         btnRestore_Product_Detail_Stop_Sell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRestore_Product_Detail_Stop_SellActionPerformed(evt);
@@ -1459,7 +2004,7 @@ public class Product extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlSanPhamCTNgungBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(slpProduct_Detail_Stop_Sell, javax.swing.GroupLayout.DEFAULT_SIZE, 1129, Short.MAX_VALUE)
-                    .addGroup(pnlSanPhamCTNgungBanLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSanPhamCTNgungBanLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnPre_Product_Detail_Stop_Sell, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -1472,40 +2017,32 @@ public class Product extends javax.swing.JPanel {
             pnlSanPhamCTNgungBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSanPhamCTNgungBanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(slpProduct_Detail_Stop_Sell, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 550, Short.MAX_VALUE)
+                .addComponent(slpProduct_Detail_Stop_Sell, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlSanPhamCTNgungBanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRestore_Product_Detail_Stop_Sell)
                     .addComponent(btnNext_Product_Detail_Stop_Sell)
                     .addComponent(btnPre_Product_Detail_Stop_Sell))
-                .addGap(28, 28, 28))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
 
         swingTab1.addTab("Sản phẩm chi tiết ngừng bán", pnlSanPhamCTNgungBan);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(swingTab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(swingTab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(swingTab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(swingTab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1518,7 +2055,7 @@ public class Product extends javax.swing.JPanel {
         idProduct = tblProduct.getValueAt(row_pr, 0).toString();
         txtName_Product.setText(pr.getName_product());
         cbbMaterial.setSelectedItem(pr.getMaterial_id().getNameMaterial());
-        txtName_Product.setText(pr.getProduct_price().toString());
+        txtPrice.setText(pr.getProduct_price().toString());
         cbbThickness.setSelectedItem(String.valueOf(pr.getThickness_id().getGsm()));
         cbbCustom.setSelectedItem(pr.getCustome_id().getNameCustom());
         txtDescribe.setText(pr.getDescription());
@@ -1553,6 +2090,8 @@ public class Product extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Da sua thanh cong");
             this.load_Product_Detail();
             this.load_Product();
+//            this.loadCatory_Pr();
+//            this.loadCatory_not_Pr();
 //            this.load_Product_Extra();
 //            this.loadcbbProduct();
         } else {
@@ -1599,7 +2138,6 @@ public class Product extends javax.swing.JPanel {
     private void btnClear_ProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClear_ProductActionPerformed
         // TODO add your handling code here:
         this.clear();
-        this.pnlProduct_Detail.setVisible(false);
     }//GEN-LAST:event_btnClear_ProductActionPerformed
 
     private void btnAdd_AttributeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd_AttributeActionPerformed
@@ -1875,6 +2413,8 @@ public class Product extends javax.swing.JPanel {
 //            this.loadcbbProduct();
             this.loadProduct_Stop();
             this.loadProduct_Deteail_Stop_Sell();
+//            this.loadCatory_Pr();
+//            this.loadCatory_not_Pr();
             this.clear();
         } else {
             JOptionPane.showMessageDialog(this, "Da xoa that bai");
@@ -1997,33 +2537,41 @@ public class Product extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnStop_Working_AttributeActionPerformed
 
-    private void tblProduct_Has_No_Category_YetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_Has_No_Category_YetMouseClicked
+    private void tblProduct_Not_CategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_Not_CategoryMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblProduct_Has_No_Category_YetMouseClicked
+        int row = tblProduct_Not_Category.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        com.model.Product pr = this.ctg.getProduct_not_Category(namePr_not_category, nameCategory, minProduct_not_Category, maxProduct_not_Category).get(row);
+        id_Pr_Not_Ctegory = pr.getId().trim();
+        System.out.println(id_Pr_Not_Ctegory);
+
+    }//GEN-LAST:event_tblProduct_Not_CategoryMouseClicked
 
     private void btnPre_Product_Has_No_Category_YetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPre_Product_Has_No_Category_YetActionPerformed
         // TODO add your handling code here:
-        maxProduct_tab3 -= 10;
-        minProduct_tab3 = maxProduct_tab3 - 9;
-        if (minProduct_tab3 < 1) {
-            maxProduct_tab3 = 10;
-            minProduct_tab3 = 1;
+        maxProduct_not_Category -= 10;
+        minProduct_not_Category = maxProduct_not_Category - 9;
+        if (minProduct_not_Category < 1) {
+            maxProduct_not_Category = 10;
+            minProduct_not_Category = 1;
             return;
         }
-        this.load_Product();
+        this.loadCatory_not_Pr();
     }//GEN-LAST:event_btnPre_Product_Has_No_Category_YetActionPerformed
 
     private void btnNext_Product_Has_No_Category_YetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_Product_Has_No_Category_YetActionPerformed
         // TODO add your handling code here:
-        minProduct_tab1 = maxProduct_tab3 + 1;
-        maxProduct_tab3 += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(minProduct_tab3, maxProduct_tab3));
+        minProduct_not_Category = maxProduct_not_Category + 1;
+        maxProduct_not_Category += 10;
+        boolean checkList = checkNull_Table(this.pds.getNext(minProduct_not_Category, maxProduct_not_Category));
         if (checkList) {
-            this.load_Product();
+            this.loadCatory_not_Pr();
         } else {
             JOptionPane.showMessageDialog(this, "Da het trang.");
-            maxProduct_tab3 -= 10;
-            minProduct_tab3 = maxProduct_tab3 - 9;
+            maxProduct_not_Category -= 10;
+            minProduct_not_Category = maxProduct_not_Category - 9;
             return;
         }
     }//GEN-LAST:event_btnNext_Product_Has_No_Category_YetActionPerformed
@@ -2318,6 +2866,8 @@ public class Product extends javax.swing.JPanel {
             System.out.println("mo ta:" + sp.getDescription());
             JOptionPane.showMessageDialog(this, "Them thanh cong");
             this.load_Product();
+//            this.loadCatory_Pr();
+//            this.loadCatory_not_Pr();
 //            this.load_Product_Extra();
 //            this.loadcbbProduct();
         } else {
@@ -2334,25 +2884,282 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQuantity1ActionPerformed
 
+    private void tblProductMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblProductMouseEntered
+
+    private void tblProduct_CategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_CategoryMouseClicked
+        // TODO add your handling code here:
+        int row = tblProduct_Category.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        com.model.Product pr = this.ctg.getProduct_Category(namePr_Category, nameCategory, minProduct_Category, maxProduct_Category).get(row);
+        id_Pr_Category = pr.getId().trim();
+        System.out.println(id_Pr_Category);
+    }//GEN-LAST:event_tblProduct_CategoryMouseClicked
+
+    private void btnPre_DanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPre_DanhMucActionPerformed
+        // TODO add your handling code here:
+        maxProduct_Category -= 10;
+        minProduct_Category = maxProduct_Category - 9;
+        if (minProduct_not_Category < 1) {
+            maxProduct_Category = 10;
+            minProduct_Category = 1;
+            return;
+        }
+        this.loadCatory_Pr();
+    }//GEN-LAST:event_btnPre_DanhMucActionPerformed
+
+    private void btnNext_DanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_DanhMucActionPerformed
+        // TODO add your handling code here:
+        minProduct_Category = maxProduct_Category + 1;
+        maxProduct_Category += 10;
+        boolean checkList = checkNull_Table(this.pds.getNext(minProduct_Category, maxProduct_Category));
+        if (checkList) {
+            this.loadCatory_Pr();
+        } else {
+            JOptionPane.showMessageDialog(this, "Da het trang.");
+            maxProduct_Category -= 10;
+            minProduct_Category = maxProduct_Category - 9;
+            return;
+        }
+    }//GEN-LAST:event_btnNext_DanhMucActionPerformed
+
+    private void btnXoa_prDMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_prDMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoa_prDMActionPerformed
+
+    private void btnScan_PR_CategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScan_PR_CategoryActionPerformed
+        // TODO add your handling code here:
+        namePr_Category = "%" + txtPr_Category.getText().trim() + "%";
+        this.loadCatory_Pr();
+    }//GEN-LAST:event_btnScan_PR_CategoryActionPerformed
+
+    private void btnScan_PR_Not_CategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScan_PR_Not_CategoryActionPerformed
+        // TODO add your handling code here:
+        namePr_not_category = "%" + txtPr_Not_Category.getText().trim() + "%";
+        this.loadCatory_not_Pr();
+    }//GEN-LAST:event_btnScan_PR_Not_CategoryActionPerformed
+
+    private void cbbCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCategoryMouseClicked
+
+    }//GEN-LAST:event_cbbCategoryMouseClicked
+
+    private void cbbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCategoryActionPerformed
+        // TODO add your handling code here:
+        nameCategory = cbbCategory.getSelectedItem().toString();
+        this.loadCatory_Pr();
+        this.loadCatory_not_Pr();
+    }//GEN-LAST:event_cbbCategoryActionPerformed
+
+    private void btnAdd_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd_DMActionPerformed
+        // TODO add your handling code here:
+        Category c = getForm_Category();
+        if (c == null) {
+            return;
+        }
+        int row = JOptionPane.showConfirmDialog(this, "Bạn muốn thêm danh mục này sao", "Danh mục", JOptionPane.YES_NO_OPTION);
+        if (row == JOptionPane.YES_OPTION) {
+            if (this.ctg.Insert(c)) {
+                JOptionPane.showMessageDialog(this, "thêm thành công.");
+                this.loadCatory();
+                this.loadcbbDanhMuc();
+                this.loadCatory_Delete();
+            } else {
+                JOptionPane.showMessageDialog(this, "thêm thất bại");
+                this.loadCatory();
+                this.loadcbbDanhMuc();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
+        }
+
+
+    }//GEN-LAST:event_btnAdd_DMActionPerformed
+
+    private void btnSua_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua_DMActionPerformed
+        // TODO add your handling code here:
+        Category c = getForm_Category();
+        if (c == null) {
+            return;
+        }
+        int row = JOptionPane.showConfirmDialog(this, "Bạn muốn Sửa danh mục này sao", "Danh mục", JOptionPane.YES_NO_OPTION);
+        if (row == JOptionPane.YES_OPTION) {
+            if (this.ctg.update(id_Category, c)) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công.");
+                this.loadCatory();
+                this.loadcbbDanhMuc();
+                this.loadCatory_Delete();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+                this.loadCatory();
+                this.loadcbbDanhMuc();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
+        }
+    }//GEN-LAST:event_btnSua_DMActionPerformed
+
+    private void btnXoa_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_DMActionPerformed
+        // TODO add your handling code here:
+        int row = tblDM.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        int row2 = JOptionPane.showConfirmDialog(this, "Bạn muốn Xóa danh mục này sao", "Danh mục", JOptionPane.YES_NO_OPTION);
+        if (row2 == JOptionPane.YES_OPTION) {
+            if (this.ctg.delete(id_Category)) {
+                JOptionPane.showMessageDialog(this, "Xóa thành công.");
+                this.loadCatory();
+                this.loadcbbDanhMuc();
+                this.loadCatory_Delete();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+                this.loadCatory();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
+        }
+    }//GEN-LAST:event_btnXoa_DMActionPerformed
+
+    private void btnClear_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClear_DMActionPerformed
+        // TODO add your handling code here:
+        this.clear();
+    }//GEN-LAST:event_btnClear_DMActionPerformed
+
+    private void tblDMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDMMouseClicked
+        // TODO add your handling code here:
+        int row = tblDM.getSelectedRow();
+        Category c = this.ctg.getCategory_Action_Next(minCategory, maxCategory).get(row);
+        txtDanhMuc.setText(c.getNameCategory());
+        id_Category = c.getId().trim();
+    }//GEN-LAST:event_tblDMMouseClicked
+
+    private void btnPre_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPre_DMActionPerformed
+        // TODO add your handling code here:
+        maxCategory -= 10;
+        minCategory = maxCategory - 9;
+        if (minCategory < 1) {
+            maxCategory = 10;
+            minCategory = 1;
+            return;
+        }
+        this.loadCatory();
+    }//GEN-LAST:event_btnPre_DMActionPerformed
+
+    private void btnNext_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_DMActionPerformed
+        // TODO add your handling code here:
+        minCategory = maxCategory + 1;
+        maxCategory += 10;
+        boolean checkList = checkNull_Table(this.pds.getNext(minCategory, maxCategory));
+        if (checkList) {
+            this.loadCatory_not_Pr();
+        } else {
+            JOptionPane.showMessageDialog(this, "Da het trang.");
+            maxCategory -= 10;
+            minCategory = maxCategory - 9;
+            return;
+        }
+    }//GEN-LAST:event_btnNext_DMActionPerformed
+
+    private void btnPre_Category_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPre_Category_DeleteActionPerformed
+        // TODO add your handling code here:
+        maxCategory_Delete -= 10;
+        minCategory_Delete = maxCategory_Delete - 9;
+        if (minCategory_Delete < 1) {
+            maxCategory_Delete = 10;
+            minCategory_Delete = 1;
+            return;
+        }
+        this.loadCatory_Delete();
+    }//GEN-LAST:event_btnPre_Category_DeleteActionPerformed
+
+    private void btnNext_Category_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_Category_DeleteActionPerformed
+        // TODO add your handling code here:
+        minCategory_Delete = maxCategory_Delete + 1;
+        maxCategory_Delete += 10;
+        boolean checkList = checkNull_Table(this.pds.getNext(minCategory_Delete, maxCategory_Delete));
+        if (checkList) {
+            this.loadCatory_Delete();
+        } else {
+            JOptionPane.showMessageDialog(this, "Da het trang.");
+            maxCategory_Delete -= 10;
+            minCategory_Delete = maxCategory_Delete - 9;
+            return;
+        }
+    }//GEN-LAST:event_btnNext_Category_DeleteActionPerformed
+
+    private void btnKhoiPhucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhoiPhucActionPerformed
+        // TODO add your handling code here:
+        int row = tblCategory_Delete.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        int row2 = JOptionPane.showConfirmDialog(this, "Bạn muốn khôi phục danh mục này sao?", "Danh mục", JOptionPane.YES_NO_OPTION);
+        if (row2 == JOptionPane.YES_OPTION) {
+            if (this.ctg.Restore(id_Category_Delete)) {
+                JOptionPane.showMessageDialog(this, "Khôi phục thành công.");
+                this.loadCatory();
+                this.loadcbbDanhMuc();
+                this.loadCatory_Delete();
+            } else {
+                JOptionPane.showMessageDialog(this, "Khôi phục thất bại");
+                this.loadCatory();
+                this.loadcbbDanhMuc();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
+        }
+    }//GEN-LAST:event_btnKhoiPhucActionPerformed
+
+    private void tblCategory_DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategory_DeleteMouseClicked
+        // TODO add your handling code here:
+        int row = tblCategory_Delete.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        Category c = this.ctg.getCategory_not_Action_Next(minCategory_Delete, maxCategory_Delete).get(row);
+        id_Category_Delete = c.getId();
+    }//GEN-LAST:event_tblCategory_DeleteMouseClicked
+
+    private void btnThem_pr_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_pr_DMActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnThem_pr_DMActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btgTT;
     private javax.swing.JButton btnAdd_Attribute;
+    private javax.swing.JButton btnAdd_DM;
     private javax.swing.JButton btnAdd_Product;
     private javax.swing.JButton btnAdd_Product_Detail1;
     private javax.swing.JButton btnClear_Attribute;
+    private javax.swing.JButton btnClear_DM;
     private javax.swing.JButton btnClear_Product;
     private javax.swing.JButton btnClear_Product_Detail1;
     private javax.swing.JButton btnFix_Attribute;
     private javax.swing.JButton btnFix_Produc;
     private javax.swing.JButton btnFix_Product_Detail1;
+    private javax.swing.JButton btnKhoiPhuc;
     private javax.swing.JButton btnNext_Attribute;
+    private javax.swing.JButton btnNext_Category_Delete;
+    private javax.swing.JButton btnNext_DM;
+    private javax.swing.JButton btnNext_DanhMuc;
     private javax.swing.JButton btnNext_Product_Detail1;
     private javax.swing.JButton btnNext_Product_Detail_Stop_Sell;
     private javax.swing.JButton btnNext_Product_Has_No_Category_Yet;
     private javax.swing.JButton btnNext_Product_Stop_Sell;
     private javax.swing.JButton btnNext__Product;
     private javax.swing.JButton btnPre_Attribute;
+    private javax.swing.JButton btnPre_Category_Delete;
+    private javax.swing.JButton btnPre_DM;
+    private javax.swing.JButton btnPre_DanhMuc;
     private javax.swing.JButton btnPre_Product_Detail1;
     private javax.swing.JButton btnPre_Product_Detail_Stop_Sell;
     private javax.swing.JButton btnPre_Product_Has_No_Category_Yet;
@@ -2360,9 +3167,16 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JButton btnPre__Product;
     private javax.swing.JButton btnRestore_Product;
     private javax.swing.JButton btnRestore_Product_Detail_Stop_Sell;
+    private javax.swing.JButton btnScan_PR_Category;
+    private javax.swing.JButton btnScan_PR_Not_Category;
     private javax.swing.JButton btnStop_Sell_Product;
     private javax.swing.JButton btnStop_Sell_Product_Detail1;
     private javax.swing.JButton btnStop_Working_Attribute;
+    private javax.swing.JButton btnSua_DM;
+    private javax.swing.JButton btnThem_pr_DM;
+    private javax.swing.JButton btnXoa_DM;
+    private javax.swing.JButton btnXoa_prDM;
+    private com.swing.Combobox cbbCategory;
     private com.swing.Combobox cbbColor1;
     private com.swing.Combobox cbbCustom;
     private com.swing.Combobox cbbMaterial;
@@ -2378,15 +3192,26 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblImage_Detail;
@@ -2402,22 +3227,33 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JRadioButton rdoSize;
     private javax.swing.JRadioButton rdoThickness;
     private javax.swing.JScrollPane slpAttribute;
+    private javax.swing.JScrollPane slpCategory_Delete;
+    private javax.swing.JScrollPane slpDM;
+    private javax.swing.JScrollPane slpDanhMuc;
     private javax.swing.JScrollPane slpProduc_Stop_sell;
     private javax.swing.JScrollPane slpProduct;
     private javax.swing.JScrollPane slpProduct_Detail;
     private javax.swing.JScrollPane slpProduct_Detail_Stop_Sell;
     private javax.swing.JScrollPane slpProduct_Has_No_Category_Yet;
     private com.swing.SwingTabbedPane swingTab1;
+    private com.swing.SwingTabbedPane swingTabbedPane1;
+    private com.swing.SwingTabbedPane swingTabbedPane2;
     private javax.swing.JTable tblAttribute;
+    private javax.swing.JTable tblCategory_Delete;
+    private javax.swing.JTable tblDM;
     private javax.swing.JTable tblProduc_Stop_sell;
     private javax.swing.JTable tblProduct;
+    private javax.swing.JTable tblProduct_Category;
     private javax.swing.JTable tblProduct_Detail1;
     private javax.swing.JTable tblProduct_Detail_Stop_Sell;
-    private javax.swing.JTable tblProduct_Has_No_Category_Yet;
+    private javax.swing.JTable tblProduct_Not_Category;
     private com.swing.TextAreaScroll textAreaScroll2;
+    private javax.swing.JTextField txtDanhMuc;
     private com.swing.TextArea txtDescribe;
     private javax.swing.JTextField txtName_Attribute;
     private javax.swing.JTextField txtName_Product;
+    private javax.swing.JTextField txtPr_Category;
+    private javax.swing.JTextField txtPr_Not_Category;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtQuantity1;
     // End of variables declaration//GEN-END:variables

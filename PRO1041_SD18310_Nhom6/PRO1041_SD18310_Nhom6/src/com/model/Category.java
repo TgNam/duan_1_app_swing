@@ -28,6 +28,12 @@ public class Category {
         this.updatedAt = updatedAt;
         this.nameCategory = nameCategory;
     }
+    //them cai nay 3/12
+
+    public Category(String nameCategory) {
+        this.nameCategory = nameCategory;
+    }
+    
 
     public boolean isStatus() {
         return status;
