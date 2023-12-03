@@ -96,7 +96,6 @@ public class Main extends javax.swing.JFrame {
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
-        header2.setForeground(new java.awt.Color(0, 0, 0));
         header2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
