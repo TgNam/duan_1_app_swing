@@ -112,4 +112,6 @@ public class Exchange_DetailRepository {
 
     }
     
+//    public boolean setCho_XacNhan(){
+    
 }

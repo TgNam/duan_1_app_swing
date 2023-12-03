@@ -323,6 +323,7 @@ public class ExchangeJDialog extends javax.swing.JDialog {
 
     private void tblProduct_DetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_DetailMouseClicked
         int row = tblProduct_Detail.getSelectedRow();
+        System.out.println("id b:" + idBill);
         if (row < 0) {
             return;
         } else {

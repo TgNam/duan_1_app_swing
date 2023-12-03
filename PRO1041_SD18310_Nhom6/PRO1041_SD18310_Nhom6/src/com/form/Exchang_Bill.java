@@ -13,10 +13,17 @@ import com.model.Bill;
 import com.model.BillDetail;
 import com.model.ReturnBill;
 import com.model.ReturnBillDetail;
+import com.service.BillDetailService;
+import com.service.BillService;
+import com.service.ExchangeService;
+import com.service.Exchange_detailServict;
 import com.service.imple.BillDetailImple;
 import com.service.imple.BillImple;
+import com.service.imple.Exchage_DetailImple;
+import com.service.imple.ExchangeImple;
 import com.service.imple.ReturnBillDetailImple;
 import com.service.imple.ReturnBillImple;
+import javax.swing.JFrame;
 
 /**
  *
@@ -32,6 +39,19 @@ public class Exchang_Bill extends javax.swing.JDialog {
 
     private Long idBill;
 
+    //4/12
+    private BillService bs = new BillImple();
+    private BillDetailService bdts = new BillDetailImple();
+    private ExchangeService exs = new ExchangeImple();
+    private Exchange_detailServict exb = new Exchage_DetailImple();
+
+    DefaultTableModel dtm;
+
+    String id;
+    double money_Sum;
+    String idEx;
+    private JFrame frame;
+
     public void setIdBill(Long idBill) {
         this.idBill = idBill;
     }
@@ -43,11 +63,15 @@ public class Exchang_Bill extends javax.swing.JDialog {
     public Exchang_Bill(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        id = String.valueOf(idBill);
+        System.out.println("id b:" + id);
+        frame = (JFrame) parent;
+        System.out.println(frame);
     }
 
     public void loadTableProductReturn() {
-        DefaultTableModel tableModel = (DefaultTableModel) tblProductReturn.getModel();
-        tableModel.setRowCount(0);
+        dtm = (DefaultTableModel) tblBillCT.getModel();
+        dtm.setRowCount(0);
         stt = 1;
         for (BillDetail bdt : billDetails) {
             Object[] ob = {
@@ -59,7 +83,7 @@ public class Exchang_Bill extends javax.swing.JDialog {
                 bdt.getProductDetailId().getSizeId().getNameSize(),
                 bdt.getPriceNow()
             };
-            tableModel.addRow(ob);
+            dtm.addRow(ob);
         }
     }
 
@@ -78,13 +102,42 @@ public class Exchang_Bill extends javax.swing.JDialog {
         txtDaTT.setText(bill.getIntoMoney() + "");
     }
 
+    // them vao 4/12
+    public void minus_Quantity() {
+        int row = tblBillCT.getSelectedRow();
+        if (row < 0) {
+            return;
+        } else {
+            int quantity_product = Integer.parseInt(tblBillCT.getValueAt(row, 3).toString());
+            System.out.println(quantity_product);
+            double monney_Product = Double.parseDouble(tblBillCT.getValueAt(row, 6).toString());
+            int quantity = Integer.parseInt(JOptionPane.showInputDialog(this, "Moi ban nhap"));
+            if (quantity > 0) {
+                System.out.println(quantity);
+                try {
+                   int resultQuantity = quantity_product - quantity;
+                    money_Sum += quantity * monney_Product;
+                    dtm.setValueAt(resultQuantity, row, 3);
+                    txtHoanTra.setText(String.valueOf(money_Sum));
+                 System.out.println("tong tien la" + money_Sum);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return;
+            } else {
+                System.out.println("no");
+                return;
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         panelTraHang = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblProductReturn = new javax.swing.JTable();
+        tblBillCT = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         txtMaKH = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -111,31 +164,31 @@ public class Exchang_Bill extends javax.swing.JDialog {
 
         panelTraHang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        tblProductReturn.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        tblProductReturn.setModel(new javax.swing.table.DefaultTableModel(
+        tblBillCT.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        tblBillCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Mã hóa đơn", "Tên sản phẩm", "Số  lượng ", "Màu ", "Size", "Đơn giá", "Nhập số lượng trả"
+                "STT", "Mã hóa đơn", "Tên sản phẩm", "Số  lượng ", "Màu ", "Size", "Đơn giá"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblProductReturn.setRowHeight(25);
-        tblProductReturn.setSelectionBackground(new java.awt.Color(102, 102, 102));
-        tblProductReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblBillCT.setRowHeight(25);
+        tblBillCT.setSelectionBackground(new java.awt.Color(102, 102, 102));
+        tblBillCT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProductReturnMouseClicked(evt);
+                tblBillCTMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tblProductReturn);
+        jScrollPane3.setViewportView(tblBillCT);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -301,63 +354,10 @@ public class Exchang_Bill extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblProductReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductReturnMouseClicked
-        int rowCount = tblProductReturn.getRowCount();
-        bill = billImple.getById(idBill);
+    private void tblBillCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillCTMouseClicked
+        this.minus_Quantity();
 
-        List<BillDetail> billDetails = billDetailImple.getbill_all(bill.getId());
-        Integer soLuongInput = 0;
-        Integer soLuongGoc = 0;
-        BigDecimal sumMoney = BigDecimal.ZERO;
-
-        for (int i = 0; i < rowCount; i++) {
-            if (tblProductReturn.getValueAt(i, 7) != null && tblProductReturn.getValueAt(i, 7) != "" && Integer.valueOf((String) tblProductReturn.getValueAt(i, 7)) > 0) {
-                try {
-                    soLuongInput = Integer.parseInt(tblProductReturn.getValueAt(i, 7).toString());
-                    if (soLuongInput < 0) {
-                        JOptionPane.showMessageDialog(this, "Số lượng không thể âm", "Lỗi", 2);
-                        return;
-                    }
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Vui lòng nhập số nguyên dương", "Lỗi", 2);
-                    return;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Lỗi hệ thống", "Lỗi", 2);
-                    return;
-                }
-
-                try {
-                    soLuongGoc = Integer.parseInt(tblProductReturn.getValueAt(i, 3).toString());
-                    if (soLuongInput > soLuongGoc) {
-                        JOptionPane.showMessageDialog(this, "Số lượng muốn trả không phù hợp", "Lỗi", 2);
-                        return;
-                    }
-
-                    BigDecimal productPrice = new BigDecimal(tblProductReturn.getValueAt(i, 6).toString());
-                    BigDecimal productTotal = BigDecimal.valueOf(soLuongInput).multiply(productPrice);
-                    sumMoney = sumMoney.add(productTotal);
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Vui lòng nhập số nguyên", "Lỗi", 2);
-                    return;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Lỗi hệ thống", "Lỗi", 2);
-                    return;
-                }
-            }
-            Double saleOf = 0.0;
-            if (bill.getVoucherId() != null) {
-                saleOf = bill.getVoucherId().getSaleOf(); // Giả sử saleOf là một giá trị double
-            }
-            BigDecimal discount = BigDecimal.valueOf(1).subtract(BigDecimal.valueOf(saleOf).divide(BigDecimal.valueOf(100)));
-            BigDecimal tienTra = sumMoney.multiply(discount);
-            txtHoanTra.setText(tienTra.toString());
-        }
-
-    }//GEN-LAST:event_tblProductReturnMouseClicked
+    }//GEN-LAST:event_tblBillCTMouseClicked
 
     private void jLabel5AncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel5AncestorMoved
         // TODO add your handling code here:
@@ -370,41 +370,12 @@ public class Exchang_Bill extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-        if (txtHoanTra.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Chưa nhập số lượng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (Double.valueOf(txtHoanTra.getText().trim()) <= 0) {
-            JOptionPane.showMessageDialog(this, "Chưa nhập số lượng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (txtLyDo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập lý do trả hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        ReturnBillDetailImple returnBillDetailImple = new ReturnBillDetailImple();
-        ReturnBillDetail returnBillDetail = null;
-        ReturnBill returnBill = new ReturnBill(new BigDecimal(txtHoanTra.getText()), billImple.getById(Long.valueOf(bill.getId())), txtLyDo.getText());
-
-        // nếu trả hàng thành công thì sẽ tạo ra các hóa đơn trả hàng chi tiết và chứa cá sản phẩm chi tiết
-        int soLuongTra = 0;
-        if (new ReturnBillImple().insert(returnBill)) {
-            for (int i = 0; i < tblProductReturn.getRowCount(); i++) {
-                String value = tblProductReturn.getValueAt(i, tblProductReturn.getColumnCount() - 1).toString();
-                soLuongTra = Integer.parseInt(value);
-                returnBillDetail = new ReturnBillDetail(billDetails.get(i).getPriceNow(), soLuongTra, billDetails.get(i).getProductDetailId(), new ReturnBillImple().getByIdBill(String.valueOf(bill.getId())), "4");
-                new ReturnBillDetailImple().insert(returnBillDetail);
-                // thay đổi trạng thái hóa đơn
-                billImple.updateStatusById(bill.getId(), 4);
-            }
-            JOptionPane.showMessageDialog(this, "Gửi yêu cầu trả hàng thành công", "Trả hàng", 1);
-            this.setVisible(false);
-            new InvoiceManagementJPanel().datarowBill("3", "3");
-        } else {
-            JOptionPane.showMessageDialog(this, "Gửi yêu cầu trả hàng thất bại do lỗi hệ thống", "Trả hàng", 0);
-        }
+        ExchangeJDialog ex = new ExchangeJDialog(frame, true);
+        int row = tblBillCT.getSelectedRow();
+        id = String.valueOf(idBill);
+        ex.setMoney(money_Sum);
+        ex.setIDbill(id);
+        ex.setVisible(true);
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -473,7 +444,7 @@ public class Exchang_Bill extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel panelTraHang;
-    private javax.swing.JTable tblProductReturn;
+    private javax.swing.JTable tblBillCT;
     private javax.swing.JTextField txtDaTT;
     private javax.swing.JTextField txtHoanTra;
     private javax.swing.JTextArea txtLyDo;
