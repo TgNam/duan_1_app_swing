@@ -96,7 +96,6 @@ public class Main extends javax.swing.JFrame {
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
-        header2.setForeground(new java.awt.Color(0, 0, 0));
         header2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -112,9 +111,7 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(header2, javax.swing.GroupLayout.DEFAULT_SIZE, 1150, Short.MAX_VALUE)
-                    .addGroup(panelBorder1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelBorder1Layout.setVerticalGroup(
