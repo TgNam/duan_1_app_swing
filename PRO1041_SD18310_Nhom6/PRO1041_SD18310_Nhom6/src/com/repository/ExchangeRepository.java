@@ -54,4 +54,26 @@ public class ExchangeRepository {
         }
         return null;
     }
+    
+    public ExchangeBill getExchangeBill_id(String idbill){
+        ExchangeBill exchangeBill = new ExchangeBill();
+        try {
+            String sql = "SELECT id, bill_id, created_at, updated_at, describe_reason, status FROM db_levents.exchange_bill where bill_id = ?;";
+            ResultSet rs = JDBCHelped.executeQuery(sql,idbill);
+            while (rs.next()) {                
+                String id = rs.getString(1);
+                String idBill = rs.getString(2);
+                Date created = rs.getDate(3);
+                Date updated = rs.getDate(4);
+                String describe_reason = rs.getString(5);
+                Bill b = new Bill(idBill);
+                exchangeBill = new ExchangeBill(b, created, id, updated, describe_reason, rs.getString(6));
+            }
+            return exchangeBill;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
 }
