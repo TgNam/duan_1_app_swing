@@ -63,11 +63,15 @@ public class Exchang_Bill extends javax.swing.JDialog {
     public Exchang_Bill(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        id = String.valueOf(idBill);
+        System.out.println("id b:" + id);
+        frame = (JFrame) parent;
+        System.out.println(frame);
     }
 
     public void loadTableProductReturn() {
-        DefaultTableModel tableModel = (DefaultTableModel) tblBillCT.getModel();
-        tableModel.setRowCount(0);
+        dtm = (DefaultTableModel) tblBillCT.getModel();
+        dtm.setRowCount(0);
         stt = 1;
         for (BillDetail bdt : billDetails) {
             Object[] ob = {
@@ -79,7 +83,7 @@ public class Exchang_Bill extends javax.swing.JDialog {
                 bdt.getProductDetailId().getSizeId().getNameSize(),
                 bdt.getPriceNow()
             };
-            tableModel.addRow(ob);
+            dtm.addRow(ob);
         }
     }
 
@@ -104,18 +108,18 @@ public class Exchang_Bill extends javax.swing.JDialog {
         if (row < 0) {
             return;
         } else {
-            int quantity_product = Integer.parseInt(tblBillCT.getValueAt(row, 7).toString());
+            int quantity_product = Integer.parseInt(tblBillCT.getValueAt(row, 3).toString());
             System.out.println(quantity_product);
-            double monney_Product = Double.parseDouble(tblBillCT.getValueAt(row, 10).toString());
+            double monney_Product = Double.parseDouble(tblBillCT.getValueAt(row, 6).toString());
             int quantity = Integer.parseInt(JOptionPane.showInputDialog(this, "Moi ban nhap"));
             if (quantity > 0) {
                 System.out.println(quantity);
                 try {
-                    int resultQuantity = quantity_product - quantity;
+                   int resultQuantity = quantity_product - quantity;
                     money_Sum += quantity * monney_Product;
-                    dtm.setValueAt(resultQuantity, row, 7);
+                    dtm.setValueAt(resultQuantity, row, 3);
                     txtHoanTra.setText(String.valueOf(money_Sum));
-                    System.out.println("tong tien la" + money_Sum);
+                 System.out.println("tong tien la" + money_Sum);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -366,41 +370,12 @@ public class Exchang_Bill extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
-        if (txtHoanTra.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Chưa nhập số lượng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (Double.valueOf(txtHoanTra.getText().trim()) <= 0) {
-            JOptionPane.showMessageDialog(this, "Chưa nhập số lượng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (txtLyDo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập lý do trả hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        ReturnBillDetailImple returnBillDetailImple = new ReturnBillDetailImple();
-        ReturnBillDetail returnBillDetail = null;
-        ReturnBill returnBill = new ReturnBill(new BigDecimal(txtHoanTra.getText()), billImple.getById(Long.valueOf(bill.getId())), txtLyDo.getText());
-
-        // nếu trả hàng thành công thì sẽ tạo ra các hóa đơn trả hàng chi tiết và chứa cá sản phẩm chi tiết
-        int soLuongTra = 0;
-        if (new ReturnBillImple().insert(returnBill)) {
-            for (int i = 0; i < tblBillCT.getRowCount(); i++) {
-                String value = tblBillCT.getValueAt(i, tblBillCT.getColumnCount() - 1).toString();
-                soLuongTra = Integer.parseInt(value);
-                returnBillDetail = new ReturnBillDetail(billDetails.get(i).getPriceNow(), soLuongTra, billDetails.get(i).getProductDetailId(), new ReturnBillImple().getByIdBill(String.valueOf(bill.getId())), "4");
-                new ReturnBillDetailImple().insert(returnBillDetail);
-                // thay đổi trạng thái hóa đơn
-                billImple.updateStatusById(bill.getId(), 4);
-            }
-            JOptionPane.showMessageDialog(this, "Gửi yêu cầu trả hàng thành công", "Trả hàng", 1);
-            this.setVisible(false);
-            new InvoiceManagementJPanel().datarowBill("3", "3");
-        } else {
-            JOptionPane.showMessageDialog(this, "Gửi yêu cầu trả hàng thất bại do lỗi hệ thống", "Trả hàng", 0);
-        }
+        ExchangeJDialog ex = new ExchangeJDialog(frame, true);
+        int row = tblBillCT.getSelectedRow();
+        id = String.valueOf(idBill);
+        ex.setMoney(money_Sum);
+        ex.setIDbill(id);
+        ex.setVisible(true);
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

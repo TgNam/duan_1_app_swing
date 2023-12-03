@@ -47,7 +47,7 @@ public class ExchangeJpanel extends javax.swing.JPanel {
         frame = f;
         this.loadBill();
         this.loadBillDetail();
-         this.tableExchangeBill();
+        this.tableExchangeBill();
     }
 
     public void loadBill() {
