@@ -133,7 +133,7 @@ public class ProductRepository {
                     + "product.product_price, "
                     + "material.name_material, "
                     + "thickness.gsm,"
-                    + " product.DESCRIPTION, "
+                    + "product.DESCRIPTION, "
                     + "product.status "
                     + "from product inner join custom on product.custome_id = custom.id inner join material on product.material_id = material.id inner join thickness on product.thickness_id = thickness.id where product.status = '1';";
             ResultSet rs = JDBCHelped.executeQuery(sql);
@@ -171,7 +171,7 @@ public class ProductRepository {
                     + "product.product_price, "
                     + "material.name_material, "
                     + "thickness.gsm,"
-                    + " product.DESCRIPTION, "
+                    + "product.DESCRIPTION, "
                     + "product.status "
                     + "from product inner join custom on product.custome_id = custom.id inner join material on product.material_id = material.id inner join thickness on product.thickness_id = thickness.id where product.status = '2';";
             ResultSet rs = JDBCHelped.executeQuery(sql);

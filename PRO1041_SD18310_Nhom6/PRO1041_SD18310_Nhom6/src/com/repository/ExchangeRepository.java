@@ -76,4 +76,17 @@ public class ExchangeRepository {
         return null;
     }
     
+    public boolean update_Buil(String id) {
+        try {
+            String sql = """
+                         
+                         """;
+            JDBCHelped.excuteUpdate(sql, id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }

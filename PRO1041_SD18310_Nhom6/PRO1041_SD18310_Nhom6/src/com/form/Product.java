@@ -55,7 +55,7 @@ import table.TableCustom;
  * @author thiet
  */
 public class Product extends javax.swing.JPanel {
-
+    
     private ProductService pds;
     private ProductDetailService pdds;
     private MaterialServict mts;
@@ -140,7 +140,8 @@ public class Product extends javax.swing.JPanel {
         this.ctg = new CategoryImple();
         //them 4/12
         this.pcs = new Product_CategoryImple();
-        
+        System.out.println("rong: " + this.getWidth());
+        System.out.println("do cao:" + this.getHeight());
 //        this.editTbl(tblProduct);
 //        this.editTbl(tblProduct_Detail1);
         //them 3/12
@@ -892,7 +893,7 @@ public class Product extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        swingTab1.setBackground(new java.awt.Color(255, 255, 255));
+        swingTab1.setBackground(new java.awt.Color(0, 0, 0));
 
         pnlSanPham.setBackground(new java.awt.Color(255, 255, 255));
         pnlSanPham.setForeground(new java.awt.Color(0, 0, 0));
