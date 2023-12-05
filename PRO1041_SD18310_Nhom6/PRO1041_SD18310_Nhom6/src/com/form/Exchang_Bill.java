@@ -111,22 +111,38 @@ public class Exchang_Bill extends javax.swing.JDialog {
             int quantity_product = Integer.parseInt(tblBillCT.getValueAt(row, 3).toString());
             System.out.println(quantity_product);
             double monney_Product = Double.parseDouble(tblBillCT.getValueAt(row, 6).toString());
-            int quantity = Integer.parseInt(JOptionPane.showInputDialog(this, "Moi ban nhap"));
-            if (quantity > 0) {
+            String nhap = JOptionPane.showInputDialog(this, "Moi ban nhap");
+            if(nhap.trim().equals("")){
+                JOptionPane.showMessageDialog(this, "Moi ban nhap so luong can doi");
+                return;
+            }
+            try {
+                 int quantity = Integer.parseInt(nhap);
+                  if (quantity > 0) {
+                      
                 System.out.println(quantity);
                 try {
                    int resultQuantity = quantity_product - quantity;
                     money_Sum += quantity * monney_Product;
+                    if(quantity > Integer.parseInt(tblBillCT.getValueAt(row, 3).toString())){
+                        JOptionPane.showMessageDialog(this, "So luong đổi đã quá số lượng trong bill");
+                        return;
+                    }
                     dtm.setValueAt(resultQuantity, row, 3);
                     txtHoanTra.setText(String.valueOf(money_Sum));
+                    
                  System.out.println("tong tien la" + money_Sum);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return;
             } else {
-                System.out.println("no");
+                System.out.println("So luong không được âm");
                 return;
+            }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Đây không phải số lượng");
+                e.printStackTrace();
             }
         }
     }
