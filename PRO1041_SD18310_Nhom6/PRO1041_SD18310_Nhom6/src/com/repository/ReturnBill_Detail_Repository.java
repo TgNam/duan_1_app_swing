@@ -20,7 +20,7 @@ public class ReturnBill_Detail_Repository {
     //start linh dz
     public boolean insert(ReturnBillDetail returnBillDetail) {
         String query = "INSERT INTO return_bill_detail(price_at_the_time_of_purchase, quantity_of_products_returned,"
-                + " created_at, product_detail_id,return_bill_id,status) VALUES (?,?,NOW(),?,?,?) ";
+                + " created_at, product_detail_id,return_bill_id,status,updated_at) VALUES (?,?,NOW(),?,?,?,NOW()) ";
         try {
             JDBCHelped.excuteUpdate(query, returnBillDetail.getPriceAtTheTimeOfPurchase(),
                     returnBillDetail.getQuantityOfProductsReturned(), returnBillDetail.getProductDetailId().getId(),

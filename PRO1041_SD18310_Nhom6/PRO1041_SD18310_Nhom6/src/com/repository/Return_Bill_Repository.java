@@ -27,7 +27,7 @@ public class Return_Bill_Repository {
 
     //start linh dz
     public boolean insert(ReturnBill returnBill) {
-        String query = "INSERT INTO return_bill(total_cost, bill_id, created_at, reason_description) VALUES (?,?,NOW(),?) ";
+        String query = "INSERT INTO return_bill(total_cost, bill_id, created_at, reason_description,status,updated_at) VALUES (?,?,NOW(),?,0,NOW()) ";
         try {
             JDBCHelped.excuteUpdate(query, returnBill.getTotalCost(), returnBill.getBillId().getId(), returnBill.getReasonDescription());
         } catch (Exception e) {

@@ -197,7 +197,7 @@ public class ReturnsForm extends javax.swing.JDialog {
             }
         });
 
-        cboLyDo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboLyDo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kích cỡ không phù hợp", "Màu sắc không đúng", "Chất liệu không tốt", "Sản phẩm bị hỏng", "Sự không hài lòng với chất lượng", "Thay đổi ý kiến", "Sai sót trong đặt hàng", "Phong cách không phù hợp", "Vấn đề về bảo hành" }));
 
         javax.swing.GroupLayout panelTraHangLayout = new javax.swing.GroupLayout(panelTraHang);
         panelTraHang.setLayout(panelTraHangLayout);
@@ -429,7 +429,7 @@ public class ReturnsForm extends javax.swing.JDialog {
                 returnBillDetail = new ReturnBillDetail(billDetails.get(i).getPriceNow(), soLuongTra, billDetails.get(i).getProductDetailId(), new ReturnBillImple().getByIdBill(String.valueOf(bill.getId())), "4");
                 new ReturnBillDetailImple().insert(returnBillDetail);
                 // thay đổi trạng thái hóa đơn
-                billImple.updateStatusById(bill.getId(), 4);
+                billImple.updateStatusById(bill.getId(), 1);
             }
             JOptionPane.showMessageDialog(this, "Gửi yêu cầu trả hàng thành công", "Trả hàng", 1);
             this.setVisible(false);
