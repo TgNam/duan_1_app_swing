@@ -17,7 +17,17 @@ public class ExchangeBill {
     private String id;
     private Date updatedAt;
     private String describeReason;
+    private String status;
 
+    public ExchangeBill(Bill billId, Date createdAt, String id, Date updatedAt, String describeReason, String status) {
+        this.billId = billId;
+        this.createdAt = createdAt;
+        this.id = id;
+        this.updatedAt = updatedAt;
+        this.describeReason = describeReason;
+        this.status = status;
+    }
+    
     public ExchangeBill(Bill billId, Date createdAt, String id, Date updatedAt, String describeReason) {
         this.billId = billId;
         this.createdAt = createdAt;
@@ -87,6 +97,13 @@ public class ExchangeBill {
 
     public void setDescribeReason(String describeReason) {
         this.describeReason = describeReason;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

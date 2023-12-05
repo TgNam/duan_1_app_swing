@@ -22,9 +22,9 @@ public class ExchangeRepository {
 
     public boolean Insert(ExchangeBill ex) {
         try {
-            String sql = "INSERT INTO exchange_bill (created_at, bill_id, describe_reason)\n"
+            String sql = "INSERT INTO exchange_bill (created_at, bill_id, describe_reason,status)\n"
                     + "VALUES \n"
-                    + "(?, ?,?);";
+                    + "(?, ?,?,'1');";
             JDBCHelped.excuteUpdate(sql, ex.getCreatedAt(), ex.getBillId().getId(), ex.getDescribeReason());
             return true;
         } catch (Exception e) {
@@ -54,4 +54,39 @@ public class ExchangeRepository {
         }
         return null;
     }
+    
+    public ExchangeBill getExchangeBill_id(String idbill){
+        ExchangeBill exchangeBill = new ExchangeBill();
+        try {
+            String sql = "SELECT id, bill_id, created_at, updated_at, describe_reason, status FROM db_levents.exchange_bill where bill_id = ?;";
+            ResultSet rs = JDBCHelped.executeQuery(sql,idbill);
+            while (rs.next()) {                
+                String id = rs.getString(1);
+                String idBill = rs.getString(2);
+                Date created = rs.getDate(3);
+                Date updated = rs.getDate(4);
+                String describe_reason = rs.getString(5);
+                Bill b = new Bill(idBill);
+                exchangeBill = new ExchangeBill(b, created, id, updated, describe_reason, rs.getString(6));
+            }
+            return exchangeBill;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public boolean update_Buil(String id) {
+        try {
+            String sql = """
+                         UPDATE `db_levents`.`bill` SET `status` = '7' WHERE id = ?;
+                         """;
+            JDBCHelped.excuteUpdate(sql, id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }

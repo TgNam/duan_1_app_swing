@@ -138,6 +138,12 @@ public class Product {
         this.image_Type = image_Type;
     }
     
+    //them 4/12
+
+    public Product(String id, String status) {
+        this.id = id;
+        this.status = status;
+    }
     
     
 

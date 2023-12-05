@@ -139,4 +139,22 @@ public class BillImple implements BillService {
         Word.createFile(billRes);
 
     }
+
+    @Override
+    public boolean update_Status(String status, String idBill) {
+        if (br.update_Status(status, idBill)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update_address(String address_id, String idBill) {
+        if (br.update_address(address_id, idBill)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
