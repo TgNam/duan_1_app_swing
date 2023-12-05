@@ -30,11 +30,16 @@ import com.service.ProductDetailService;
 import com.service.imple.Exchage_DetailImple;
 import com.service.imple.ExchangeImple;
 import com.service.imple.ProductDetailImple;
+import com.swing.EditButtons;
+import com.swing.EditTextField;
+import table.TableCustom;
 
 /**
  *
  * @author thiet
  */
+
+
 public class ExchangeJDialog extends javax.swing.JDialog {
 
     /**
@@ -54,6 +59,11 @@ public class ExchangeJDialog extends javax.swing.JDialog {
     String idBill;
     Timestamp created_at;
     double sum;
+    
+    
+     //them cai nay 2/12
+    EditButtons bt = new EditButtons();
+    EditTextField txt = new EditTextField();
 
     public ExchangeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -65,7 +75,14 @@ public class ExchangeJDialog extends javax.swing.JDialog {
         System.out.println(idBill);
         System.out.println(lblMoney_Sum.toString());
         this.loadProduct_Detail();
+        
+        //them 4/12
+        TableCustom.apply(slpPr_Detail, TableCustom.TableType.MULTI_LINE);
+        TableCustom.apply(slpPr_Ex, TableCustom.TableType.MULTI_LINE);
 
+        bt.Edit(btnxoa);
+        bt.Edit(btnHoanThanh);
+        
     }
 
     public void setMoney(double money) {
@@ -157,23 +174,25 @@ public class ExchangeJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
+        slpPr_Detail = new javax.swing.JScrollPane();
         tblProduct_Detail = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        btnxoa = new javax.swing.JButton();
-        btnHoanThanh = new javax.swing.JButton();
-        lblMoney_Sum = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
+        slpPr_Ex = new javax.swing.JScrollPane();
         tblProduct_Ex = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txaReason = new javax.swing.JTextArea();
+        btnHoanThanh = new javax.swing.JButton();
+        btnxoa = new javax.swing.JButton();
+        cbbReson = new com.swing.Combobox();
+        jLabel1 = new javax.swing.JLabel();
+        lblMoney_Sum = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sản phẩm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblProduct_Detail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,52 +207,9 @@ public class ExchangeJDialog extends javax.swing.JDialog {
                 tblProduct_DetailMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(tblProduct_Detail);
+        slpPr_Detail.setViewportView(tblProduct_Detail);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 948, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Tổng tiền trả");
-
-        btnxoa.setText("Xóa");
-        btnxoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnxoaActionPerformed(evt);
-            }
-        });
-
-        btnHoanThanh.setText("Hoàn thành");
-        btnHoanThanh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHoanThanhActionPerformed(evt);
-            }
-        });
-
-        lblMoney_Sum.setText("0.0 đ");
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sản phẩm đổi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP));
+        jPanel2.add(slpPr_Detail, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 39, 960, 202));
 
         tblProduct_Ex.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -255,145 +231,65 @@ public class ExchangeJDialog extends javax.swing.JDialog {
                 tblProduct_ExMouseClicked(evt);
             }
         });
-        jScrollPane6.setViewportView(tblProduct_Ex);
+        slpPr_Ex.setViewportView(tblProduct_Ex);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-        );
+        jPanel2.add(slpPr_Ex, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 286, 703, 191));
 
-        txaReason.setColumns(20);
-        txaReason.setRows(5);
-        jScrollPane1.setViewportView(txaReason);
+        btnHoanThanh.setText("Hoàn thành");
+        btnHoanThanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHoanThanhActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnHoanThanh, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 380, 100, -1));
+
+        btnxoa.setText("Xóa");
+        btnxoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnxoaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnxoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, 100, -1));
+        jPanel2.add(cbbReson, new org.netbeans.lib.awtextra.AbsoluteConstraints(779, 292, 190, -1));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Tổng tiền trả");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 253, -1, -1));
+
+        lblMoney_Sum.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        lblMoney_Sum.setForeground(new java.awt.Color(0, 0, 0));
+        lblMoney_Sum.setText("0.0 đ");
+        jPanel2.add(lblMoney_Sum, new org.netbeans.lib.awtextra.AbsoluteConstraints(844, 256, 75, -1));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Danh sách sản phẩm đổi");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 253, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Danh sách sản phẩm ");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("lí do:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 296, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lblMoney_Sum, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(38, 38, 38))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(btnxoa)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnHoanThanh)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(lblMoney_Sum))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnxoa)
-                            .addComponent(btnHoanThanh)))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tblProduct_DetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_DetailMouseClicked
-        int row = tblProduct_Detail.getSelectedRow();
-        System.out.println("id b:" + idBill);
-        if (row < 0) {
-            return;
-        } else {
-            int quantity_product = Integer.parseInt(tblProduct_Detail.getValueAt(row, 8).toString());
-            int quantity = Integer.parseInt(JOptionPane.showInputDialog(this, "Moi ban nhap so luong: "));
-            if(quantity > Integer.parseInt(tblProduct_Detail.getValueAt(row, 8).toString())){
-                JOptionPane.showMessageDialog(this, "Khong duoc nhap qua so luong sp trong kho");
-                return;
-            }
-            
-            
-            if (quantity > 0) {
-                int resultQauntity = quantity_product - quantity;
-                dtm.setValueAt(resultQauntity, row, 8);
-
-//                kien tra xem ton tai chua
-                String idCheck = tblProduct_Detail.getValueAt(row, 0).toString();
-                System.out.println(idCheck);
-                int checkEx = this.findRowInTable_Product_Ex(idCheck);
-                System.out.println("row" + checkEx);
-                
-                if (checkEx != -1) {
-                    int currentQuantity_Ex = (int) tblProduct_Ex.getValueAt(checkEx, 8);
-                    tblProduct_Ex.setValueAt(currentQuantity_Ex + quantity, checkEx, 8);
-                    String id = tblProduct_Detail.getValueAt(row, 0).toString().trim();
-                    String name_Product = tblProduct_Detail.getValueAt(row, 1).toString().trim();
-                    String name_Custom = tblProduct_Detail.getValueAt(row, 2).toString().trim();
-                    String name_Material = tblProduct_Detail.getValueAt(row, 3).toString().trim();
-                    int gsm = Integer.parseInt(tblProduct_Detail.getValueAt(row, 4).toString());
-                    String name_Coler = tblProduct_Detail.getValueAt(row, 5).toString().trim();
-                    String name_Size = tblProduct_Detail.getValueAt(row, 6).toString().trim();
-                    BigDecimal price = new BigDecimal(tblProduct_Detail.getValueAt(row, 7).toString().trim());
-
-                    Custom custom = new Custom(name_Custom);
-                    Material material = new Material(name_Material);
-                    Thickness thickness = new Thickness(gsm);
-                    Color color = new Color(name_Coler);
-                    Size size = new Size(name_Size);
-
-                    com.model.Product product = new com.model.Product(price, custom, material, thickness, name_Product);
-                    ProductDetail pdt = new ProductDetail(currentQuantity_Ex + quantity , color, id, product, size);
-                    this.List.set(checkEx, pdt);
-                    this.loadProduct_Ex();
-                } else {
-                    String id = tblProduct_Detail.getValueAt(row, 0).toString().trim();
-                    String name_Product = tblProduct_Detail.getValueAt(row, 1).toString().trim();
-                    String name_Custom = tblProduct_Detail.getValueAt(row, 2).toString().trim();
-                    String name_Material = tblProduct_Detail.getValueAt(row, 3).toString().trim();
-                    int gsm = Integer.parseInt(tblProduct_Detail.getValueAt(row, 4).toString());
-                    String name_Coler = tblProduct_Detail.getValueAt(row, 5).toString().trim();
-                    String name_Size = tblProduct_Detail.getValueAt(row, 6).toString().trim();
-                    BigDecimal price = new BigDecimal(tblProduct_Detail.getValueAt(row, 7).toString().trim());
-
-                    Custom custom = new Custom(name_Custom);
-                    Material material = new Material(name_Material);
-                    Thickness thickness = new Thickness(gsm);
-                    Color color = new Color(name_Coler);
-                    Size size = new Size(name_Size);
-
-                    com.model.Product product = new com.model.Product(price, custom, material, thickness, name_Product);
-                    ProductDetail pdt = new ProductDetail(quantity, color, id, product, size);
-                    this.List.add(pdt);
-                    this.loadProduct_Ex();
-                }
-                
-                sum = calculateTotalSum(dtmPR);
-                lblMoney_Sum.setText(String.valueOf(sum_Money - sum));
-            }
-        }
-    }//GEN-LAST:event_tblProduct_DetailMouseClicked
 
     private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
         int row = tblProduct_Ex.getSelectedRow();
@@ -459,7 +355,7 @@ public class ExchangeJDialog extends javax.swing.JDialog {
         LocalDateTime today = LocalDateTime.now();
         Timestamp todayEx = new java.sql.Timestamp(today.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli());
         created_at = todayEx;
-        ExchangeBill ex = new ExchangeBill(new Bill(idBill), created_at, txaReason.getText().trim());
+        ExchangeBill ex = new ExchangeBill(new Bill(idBill), created_at, cbbReson.getSelectedItem().toString());
         System.out.println("id bill: " + ex.getBillId().getId());
         System.out.println("ngay tao: " + ex.getCreatedAt());
         System.out.println("mo ta: " + ex.getDescribeReason());
@@ -485,6 +381,79 @@ public class ExchangeJDialog extends javax.swing.JDialog {
     private void tblProduct_ExMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_ExMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblProduct_ExMouseClicked
+
+    private void tblProduct_DetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_DetailMouseClicked
+        int row = tblProduct_Detail.getSelectedRow();
+        System.out.println("id b:" + idBill);
+        if (row < 0) {
+            return;
+        } else {
+            int quantity_product = Integer.parseInt(tblProduct_Detail.getValueAt(row, 8).toString());
+            int quantity = Integer.parseInt(JOptionPane.showInputDialog(this, "Moi ban nhap so luong: "));
+            if(quantity > Integer.parseInt(tblProduct_Detail.getValueAt(row, 8).toString())){
+                JOptionPane.showMessageDialog(this, "Khong duoc nhap qua so luong sp trong kho");
+                return;
+            }
+
+            if (quantity > 0) {
+                int resultQauntity = quantity_product - quantity;
+                dtm.setValueAt(resultQauntity, row, 8);
+
+                //                kien tra xem ton tai chua
+                String idCheck = tblProduct_Detail.getValueAt(row, 0).toString();
+                System.out.println(idCheck);
+                int checkEx = this.findRowInTable_Product_Ex(idCheck);
+                System.out.println("row" + checkEx);
+
+                if (checkEx != -1) {
+                    int currentQuantity_Ex = (int) tblProduct_Ex.getValueAt(checkEx, 8);
+                    tblProduct_Ex.setValueAt(currentQuantity_Ex + quantity, checkEx, 8);
+                    String id = tblProduct_Detail.getValueAt(row, 0).toString().trim();
+                    String name_Product = tblProduct_Detail.getValueAt(row, 1).toString().trim();
+                    String name_Custom = tblProduct_Detail.getValueAt(row, 2).toString().trim();
+                    String name_Material = tblProduct_Detail.getValueAt(row, 3).toString().trim();
+                    int gsm = Integer.parseInt(tblProduct_Detail.getValueAt(row, 4).toString());
+                    String name_Coler = tblProduct_Detail.getValueAt(row, 5).toString().trim();
+                    String name_Size = tblProduct_Detail.getValueAt(row, 6).toString().trim();
+                    BigDecimal price = new BigDecimal(tblProduct_Detail.getValueAt(row, 7).toString().trim());
+
+                    Custom custom = new Custom(name_Custom);
+                    Material material = new Material(name_Material);
+                    Thickness thickness = new Thickness(gsm);
+                    Color color = new Color(name_Coler);
+                    Size size = new Size(name_Size);
+
+                    com.model.Product product = new com.model.Product(price, custom, material, thickness, name_Product);
+                    ProductDetail pdt = new ProductDetail(currentQuantity_Ex + quantity , color, id, product, size);
+                    this.List.set(checkEx, pdt);
+                    this.loadProduct_Ex();
+                } else {
+                    String id = tblProduct_Detail.getValueAt(row, 0).toString().trim();
+                    String name_Product = tblProduct_Detail.getValueAt(row, 1).toString().trim();
+                    String name_Custom = tblProduct_Detail.getValueAt(row, 2).toString().trim();
+                    String name_Material = tblProduct_Detail.getValueAt(row, 3).toString().trim();
+                    int gsm = Integer.parseInt(tblProduct_Detail.getValueAt(row, 4).toString());
+                    String name_Coler = tblProduct_Detail.getValueAt(row, 5).toString().trim();
+                    String name_Size = tblProduct_Detail.getValueAt(row, 6).toString().trim();
+                    BigDecimal price = new BigDecimal(tblProduct_Detail.getValueAt(row, 7).toString().trim());
+
+                    Custom custom = new Custom(name_Custom);
+                    Material material = new Material(name_Material);
+                    Thickness thickness = new Thickness(gsm);
+                    Color color = new Color(name_Coler);
+                    Size size = new Size(name_Size);
+
+                    com.model.Product product = new com.model.Product(price, custom, material, thickness, name_Product);
+                    ProductDetail pdt = new ProductDetail(quantity, color, id, product, size);
+                    this.List.add(pdt);
+                    this.loadProduct_Ex();
+                }
+
+                sum = calculateTotalSum(dtmPR);
+                lblMoney_Sum.setText(String.valueOf(sum_Money - sum));
+            }
+        }
+    }//GEN-LAST:event_tblProduct_DetailMouseClicked
 
     /**
      * @param args the command line arguments
@@ -532,16 +501,16 @@ public class ExchangeJDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHoanThanh;
     private javax.swing.JButton btnxoa;
+    private com.swing.Combobox cbbReson;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lblMoney_Sum;
+    private javax.swing.JScrollPane slpPr_Detail;
+    private javax.swing.JScrollPane slpPr_Ex;
     private javax.swing.JTable tblProduct_Detail;
     private javax.swing.JTable tblProduct_Ex;
-    private javax.swing.JTextArea txaReason;
     // End of variables declaration//GEN-END:variables
 }

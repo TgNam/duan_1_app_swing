@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/ReturnsForm.java</file>
             <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/Product.java</file>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/repository/Exchange_DetailRepository.java</file>
             <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/main/Main.java</file>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/Exchang_Bill.java</file>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/ExchangeJpanel.java</file>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/service/imple/Exchage_DetailImple.java</file>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/ExchangeJDialog.java</file>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/service/Exchange_detailServict.java</file>
+            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/InvoiceManagementJPanel.java</file>
+            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/AddCreart.java</file>
         </group>
     </open-files>
 </project-private>
