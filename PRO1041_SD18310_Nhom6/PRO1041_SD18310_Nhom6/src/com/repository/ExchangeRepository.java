@@ -22,9 +22,9 @@ public class ExchangeRepository {
 
     public boolean Insert(ExchangeBill ex) {
         try {
-            String sql = "INSERT INTO exchange_bill (created_at, bill_id, describe_reason)\n"
+            String sql = "INSERT INTO exchange_bill (created_at, bill_id, describe_reason,status)\n"
                     + "VALUES \n"
-                    + "(?, ?,?);";
+                    + "(?, ?,?,'1');";
             JDBCHelped.excuteUpdate(sql, ex.getCreatedAt(), ex.getBillId().getId(), ex.getDescribeReason());
             return true;
         } catch (Exception e) {
@@ -74,6 +74,19 @@ public class ExchangeRepository {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public boolean update_Buil(String id) {
+        try {
+            String sql = """
+                         
+                         """;
+            JDBCHelped.excuteUpdate(sql, id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     
 }

@@ -409,14 +409,20 @@ public class BillJPanel extends javax.swing.JPanel {
                 }
                 int hoi = JOptionPane.showConfirmDialog(this, "Hiện tại trong giỏ hàng có sản phẩm:" + string0 + "\nĐã vượt quá số lượng trong kho bạn có muốn \n" + "Lấy sản phẩm đó không");
                 if (hoi != JOptionPane.YES_NO_OPTION) {
-                    JOptionPane.showMessageDialog(this, "Bạn đã lấy sản phẩm ");
+                    JOptionPane.showMessageDialog(this, "Bạn đã giữ sản phẩm ");
                     return false;
                 }
                 for (BillDetail billDetail : listBillDetailQuantity()) {
-                    billDetailService.Update_bill_datail(productDetailService.getById(billDetail.getProductDetailId().getId()).getQuantity(), billDetail.getId());
-                }
-                JOptionPane.showMessageDialog(this, "Bạn đã update sản phẩm ");
-                return true;
+                    if (productDetailService.getById(billDetail.getProductDetailId().getId()).getQuantity()>0) {
+                        billDetailService.Update_bill_datail(productDetailService.getById(billDetail.getProductDetailId().getId()).getQuantity(), billDetail.getId());
+                    return false;
+                    }else{
+                        billDetailService.delete_bill_datail_ShoppingCart(billDetail);
+                        String nameProduct = billDetail.getProductDetailId().getProductId().getName_product()+"|"+billDetail.getProductDetailId().getSizeId().getNameSize()+"|"+billDetail.getProductDetailId().getColorId().getNameColor();
+                        JOptionPane.showMessageDialog(this, "Sản phẩm: "+nameProduct+" Đã hết hàng");
+                        return false;
+                    }                    
+                }                
             } else {
                 return true;
             }
@@ -425,6 +431,7 @@ public class BillJPanel extends javax.swing.JPanel {
             e.printStackTrace();
             return false;
         }
+        return false;
     }
 
     //kiểm tra xem voucher có đc sử dụng hay không 

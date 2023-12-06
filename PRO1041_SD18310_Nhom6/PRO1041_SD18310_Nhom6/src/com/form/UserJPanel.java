@@ -327,6 +327,8 @@ public class UserJPanel extends javax.swing.JPanel {
         bthKhoiPhuc = new javax.swing.JButton();
         bthResetTable = new javax.swing.JButton();
 
+        jTabbedPane1.setForeground(new java.awt.Color(0, 0, 0));
+
         tblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -374,6 +376,7 @@ public class UserJPanel extends javax.swing.JPanel {
 
         bthUpdateUser.setBackground(new java.awt.Color(153, 204, 255));
         bthUpdateUser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        bthUpdateUser.setForeground(new java.awt.Color(0, 0, 0));
         bthUpdateUser.setText("Update Thông Tin Nhân Viên");
         bthUpdateUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,6 +386,7 @@ public class UserJPanel extends javax.swing.JPanel {
 
         bthResetForm.setBackground(new java.awt.Color(153, 204, 255));
         bthResetForm.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        bthResetForm.setForeground(new java.awt.Color(0, 0, 0));
         bthResetForm.setText("Xóa From Thông Tin");
         bthResetForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -392,6 +396,7 @@ public class UserJPanel extends javax.swing.JPanel {
 
         BthRemoveStatus.setBackground(new java.awt.Color(153, 204, 255));
         BthRemoveStatus.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        BthRemoveStatus.setForeground(new java.awt.Color(0, 0, 0));
         BthRemoveStatus.setText("Xóa Nhân Viên");
         BthRemoveStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -544,6 +549,7 @@ public class UserJPanel extends javax.swing.JPanel {
 
         bthKhoiPhuc.setBackground(new java.awt.Color(153, 204, 255));
         bthKhoiPhuc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bthKhoiPhuc.setForeground(new java.awt.Color(0, 0, 0));
         bthKhoiPhuc.setText("Khôi phục Khách Hàng");
         bthKhoiPhuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -553,6 +559,7 @@ public class UserJPanel extends javax.swing.JPanel {
 
         bthResetTable.setBackground(new java.awt.Color(153, 204, 255));
         bthResetTable.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        bthResetTable.setForeground(new java.awt.Color(0, 0, 0));
         bthResetTable.setText("Reset Table");
         bthResetTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
