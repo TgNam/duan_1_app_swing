@@ -250,6 +250,8 @@ public class ExchangeJDialog extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnxoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, 100, -1));
+
+        cbbReson.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "loi hang", "khong muon dung sp nay", " " }));
         jPanel2.add(cbbReson, new org.netbeans.lib.awtextra.AbsoluteConstraints(779, 292, 190, -1));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -359,14 +361,19 @@ public class ExchangeJDialog extends javax.swing.JDialog {
         System.out.println("id bill: " + ex.getBillId().getId());
         System.out.println("ngay tao: " + ex.getCreatedAt());
         System.out.println("mo ta: " + ex.getDescribeReason());
+        boolean successMessageShown = false; 
         if (exs.Insert(ex)) {
-            JOptionPane.showMessageDialog(this, "Them 1");
+//            JOptionPane.showMessageDialog(this, "Them 1");
             for (int i = 0; i < row; i++) {
                 int sl = Integer.parseInt(tblProduct_Ex.getValueAt(i, 8).toString());
                 String idSP = tblProduct_Ex.getValueAt(i, 0).toString();
                 ExchangeBillDetail exd = new ExchangeBillDetail(sl, new ExchangeBill(created_at), new ProductDetail(idSP));
-                if (this.exds.insert(exd) == true && this.pdds.getQuantity(idSP, sl)) {
-                    JOptionPane.showMessageDialog(this, "them 2 thanh cong");
+                if (this.exds.insert(exd) == true && this.pdds.getQuantity(idSP, sl) && this.exs.getUpdate_Bill(idBill)) {
+                    if(!successMessageShown){
+                        JOptionPane.showMessageDialog(this, "Đổi hàng thành công");
+                        successMessageShown = true;
+                    }
+                    this.loadProduct_Detail();
                 } else {
                     JOptionPane.showMessageDialog(this, "them 2 that bai");
                 }

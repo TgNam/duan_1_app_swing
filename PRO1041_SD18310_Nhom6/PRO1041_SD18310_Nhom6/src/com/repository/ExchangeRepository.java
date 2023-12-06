@@ -79,7 +79,7 @@ public class ExchangeRepository {
     public boolean update_Buil(String id) {
         try {
             String sql = """
-                         
+                         UPDATE `db_levents`.`bill` SET `status` = '7' WHERE id = ?;
                          """;
             JDBCHelped.excuteUpdate(sql, id);
             return true;

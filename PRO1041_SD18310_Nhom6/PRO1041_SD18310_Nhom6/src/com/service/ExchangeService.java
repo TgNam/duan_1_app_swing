@@ -17,4 +17,7 @@ public interface ExchangeService {
     //them 26/11
     public ArrayList<ExchangeBill> getExchangeBills();
     ExchangeBill getExchangeBill_id(String idbill);
+    
+    //them vao 5/12
+    public boolean getUpdate_Bill(String id);
 }

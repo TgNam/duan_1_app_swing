@@ -38,5 +38,14 @@ public class ExchangeImple implements ExchangeService{
     public ExchangeBill getExchangeBill_id(String idbill) {
         return exr.getExchangeBill_id(idbill);
     }
+
+    @Override
+    public boolean getUpdate_Bill(String id) {
+        if(exr.update_Buil(id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
 }
