@@ -16,6 +16,9 @@ import com.service.UserService;
 import com.service.imple.AddressImple;
 import com.service.imple.UserImple;
 import com.service.imple.UserRoleImple;
+import com.swing.EditButtons;
+import com.swing.EditTextField;
+import java.awt.FlowLayout;
 
 /**
  *
@@ -28,12 +31,26 @@ public class AddCreart extends javax.swing.JPanel {
     private UserRoleService urs = new UserRoleImple();
     private UserService us = new UserImple();
     private AddressService as = new AddressImple();
-
+    
+    //them vao 7/12
+    private  EditButtons bt = new EditButtons();
+    private EditTextField txt = new EditTextField();
     /**
      * Creates new form AddCreart
      */
     public AddCreart() {
         initComponents();
+        pnlTong.setLayout(new FlowLayout(FlowLayout.CENTER));
+        bt.EditAddCreart(bthadd);
+        bt.EditAddCreart(bthResetForm);
+        
+        txt.edit(txtfullname);
+        txt.edit(txtemail);
+        txt.edit(txtnumblephone);
+        txt.edit(txtaddress);
+        txt.edit(txtdateofbirth);
+        txt.edit(txtaccount);
+        txt.edit(txtpassword);
     }
 
     //lấy thời gian hiện tại
@@ -198,53 +215,48 @@ public class AddCreart extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel4 = new javax.swing.JPanel();
-        txtfullname = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtemail = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtnumblephone = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtdateofbirth = new javax.swing.JTextField();
+        pnlTong = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        txtaccount = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtpassword = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txtaddress = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        rdoadmin = new javax.swing.JRadioButton();
-        rdoemployee = new javax.swing.JRadioButton();
         bthadd = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         bthResetForm = new javax.swing.JButton();
-        rdocustomer = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtfullname = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtemail = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtnumblephone = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtaddress = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtdateofbirth = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtaccount = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtpassword = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        rdocustomer = new com.swing.RadioButtonCustom();
+        rdoadmin = new com.swing.RadioButtonCustom();
+        rdoemployee = new com.swing.RadioButtonCustom();
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setText("Họ và tên:");
+        pnlTong.setBackground(new java.awt.Color(255, 255, 255));
+        pnlTong.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel3.setText("Email:");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setText("Số điện thoại:");
-
-        jLabel5.setText("Ngày Sinh:");
-
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Tài Khoản:");
-
-        jLabel7.setText("Mật Khẩu:");
-
-        jLabel8.setText("Địa Chỉ:");
-
-        jLabel9.setText("Vai Trò:");
-
-        buttonGroup1.add(rdoadmin);
-        rdoadmin.setSelected(true);
-        rdoadmin.setText("ADMIN");
-
-        buttonGroup1.add(rdoemployee);
-        rdoemployee.setText("EMPLOYEE");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 66, -1, -1));
 
         bthadd.setBackground(new java.awt.Color(153, 204, 255));
         bthadd.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -254,6 +266,37 @@ public class AddCreart extends javax.swing.JPanel {
                 bthaddActionPerformed(evt);
             }
         });
+        jPanel1.add(bthadd, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 290, 680, 52));
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Địa Chỉ:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 50, -1));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Mật Khẩu:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 125, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Vai Trò:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 191, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Ngày Sinh:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Số điện thoại:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, -1));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Email:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 40, -1));
 
         bthResetForm.setBackground(new java.awt.Color(153, 204, 255));
         bthResetForm.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -263,117 +306,126 @@ public class AddCreart extends javax.swing.JPanel {
                 bthResetFormActionPerformed(evt);
             }
         });
+        jPanel1.add(bthResetForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 360, 680, 47));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Họ và tên:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, -1));
+
+        txtfullname.setBorder(null);
+        jPanel1.add(txtfullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 280, 24));
+
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("____________________________________________________________");
+        jLabel10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 290, 10));
+
+        txtemail.setBorder(null);
+        jPanel1.add(txtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 24));
+
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("____________________________________________________________");
+        jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 290, 10));
+
+        txtnumblephone.setBorder(null);
+        jPanel1.add(txtnumblephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 280, 24));
+
+        jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel12.setText("____________________________________________________________");
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 290, 10));
+
+        txtaddress.setBorder(null);
+        jPanel1.add(txtaddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 280, 24));
+
+        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("____________________________________________________________");
+        jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 290, 10));
+
+        txtdateofbirth.setBorder(null);
+        jPanel1.add(txtdateofbirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 280, 24));
+
+        jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("____________________________________________________________");
+        jLabel14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 290, 10));
+
+        txtaccount.setBorder(null);
+        jPanel1.add(txtaccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 280, 24));
+
+        jLabel15.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("____________________________________________________________");
+        jLabel15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 290, 10));
+
+        txtpassword.setBorder(null);
+        jPanel1.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 280, 24));
+
+        jLabel16.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("____________________________________________________________");
+        jLabel16.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 290, 10));
 
         buttonGroup1.add(rdocustomer);
-        rdocustomer.setText("Customer ");
+        rdocustomer.setForeground(new java.awt.Color(0, 0, 0));
+        rdocustomer.setText("CUSTOMER");
+        jPanel1.add(rdocustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 220, -1, -1));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(327, 327, 327)
-                                .addComponent(jLabel5))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(309, 309, 309)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6)
-                                    .addComponent(txtdateofbirth, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtaccount, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(rdoadmin)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rdoemployee)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rdocustomer))))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtemail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                                .addComponent(txtfullname, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(txtnumblephone, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(txtaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(bthadd, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(bthResetForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        buttonGroup1.add(rdoadmin);
+        rdoadmin.setForeground(new java.awt.Color(0, 0, 0));
+        rdoadmin.setText("ADMIN");
+        jPanel1.add(rdoadmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
+
+        buttonGroup1.add(rdoemployee);
+        rdoemployee.setForeground(new java.awt.Color(0, 0, 0));
+        rdoemployee.setText("EMPLOYEE");
+        jPanel1.add(rdoemployee, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, -1, -1));
+
+        javax.swing.GroupLayout pnlTongLayout = new javax.swing.GroupLayout(pnlTong);
+        pnlTong.setLayout(pnlTongLayout);
+        pnlTongLayout.setHorizontalGroup(
+            pnlTongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTongLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(425, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtfullname, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtdateofbirth, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtaccount, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtnumblephone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdoadmin)
-                    .addComponent(rdoemployee)
-                    .addComponent(rdocustomer))
-                .addGap(45, 45, 45)
-                .addComponent(bthadd, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bthResetForm, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        pnlTongLayout.setVerticalGroup(
+            pnlTongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTongLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1007, Short.MAX_VALUE)
+            .addGap(0, 1150, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlTong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 648, Short.MAX_VALUE)
+            .addGap(0, 670, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlTong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -416,6 +468,13 @@ public class AddCreart extends javax.swing.JPanel {
     private javax.swing.JButton bthResetForm;
     private javax.swing.JButton bthadd;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -424,10 +483,11 @@ public class AddCreart extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton rdoadmin;
-    private javax.swing.JRadioButton rdocustomer;
-    private javax.swing.JRadioButton rdoemployee;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel pnlTong;
+    private com.swing.RadioButtonCustom rdoadmin;
+    private com.swing.RadioButtonCustom rdocustomer;
+    private com.swing.RadioButtonCustom rdoemployee;
     private javax.swing.JTextField txtaccount;
     private javax.swing.JTextField txtaddress;
     private javax.swing.JTextField txtdateofbirth;

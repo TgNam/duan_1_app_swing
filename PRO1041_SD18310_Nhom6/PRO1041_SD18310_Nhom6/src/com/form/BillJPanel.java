@@ -435,7 +435,7 @@ public class BillJPanel extends javax.swing.JPanel {
         try {
             if (Double.parseDouble("0.0") < Double.parseDouble(jLGiamGia.getText())) {
                 idVoucher = txtVoucher.getText();
-                voucherResponsitory.updateStatus(idVoucher);
+//                voucherResponsitory.updateStatus(idVoucher);
                 return idVoucher;
             }
         } catch (Exception e) {
