@@ -1,6 +1,7 @@
 package com.main;
 
 import com.event.EventMenuSelected;
+import com.form.AddCreart;
 import java.awt.Color;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -27,7 +28,8 @@ public class Main extends javax.swing.JFrame {
     private Delivery_notesJpanel phieuGiaoHang;
     private InvoiceManagementJPanel quanLyHoaDon;
     private StatisticsJPanel thongKe;
-
+    private AddCreart themUser;
+    
     public Main() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -40,6 +42,7 @@ public class Main extends javax.swing.JFrame {
         phieuGiaoHang = new Delivery_notesJpanel();
         thongKe = new StatisticsJPanel();
         quanLyHoaDon = new InvoiceManagementJPanel();
+        themUser = new AddCreart();
         
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
@@ -72,7 +75,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
         //  set when system open start with home form
-        setForm(new Product());
+        System.out.println("rong: " + mainPanel.getWidth());
+        System.out.println("cao:" + mainPanel.getHeight());
+//        setForm(phieuGiamGia);
     }
 
     private void setForm(JComponent com) {

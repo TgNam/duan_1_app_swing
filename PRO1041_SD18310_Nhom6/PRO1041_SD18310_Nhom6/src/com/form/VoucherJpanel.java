@@ -12,6 +12,9 @@ import com.model.Voucher;
 import com.repository.UserVoucherResponsitory;
 import com.service.imple.UserImple;
 import com.service.imple.VoucherImple;
+import com.swing.EditButtons;
+import com.swing.EditTextField;
+import table.TableCustom;
 
 /**
  *
@@ -23,13 +26,31 @@ public class VoucherJpanel extends javax.swing.JPanel {
     private int index = -1;
     private UserVoucherResponsitory userVoucherResponsitory = new UserVoucherResponsitory();
     private UserImple userImple = new UserImple();
-
+    
+     //them cai nay 8/12
+    EditButtons bt = new EditButtons();
+    EditTextField txt = new EditTextField();
+    
     public VoucherJpanel() {
         initComponents();
         FormVoucherPanel.setVisible(false);
         FormVoucherUpdate.setVisible(false);
         fillTableVoucher();
         fillTableKhachHang();
+        //them vao 8/12
+        TableCustom.apply(slpKH, TableCustom.TableType.MULTI_LINE);
+        TableCustom.apply(slpKH2, TableCustom.TableType.MULTI_LINE);
+        TableCustom.apply(slpVoucher, TableCustom.TableType.MULTI_LINE);
+        
+        txt.edit(txtSaleOf);
+        txt.edit(txtSaleOf1);
+        
+        bt.Edit(btnCreateVoucher);
+        bt.Edit(btnCreate);
+        bt.Edit(btnBack);
+        bt.Edit(btnUUpdate1);
+        bt.Edit(btnRemove1);
+        bt.Edit(btnBack1);
     }
 
     public void fillTableVoucher() {
@@ -152,44 +173,188 @@ public class VoucherJpanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TableVoucherPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblVoucher = new javax.swing.JTable();
-        btnCreateVoucher = new javax.swing.JButton();
         FormVoucherPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtSaleOf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jXStartAt = new org.jdesktop.swingx.JXDatePicker();
         jXEndAt = new org.jdesktop.swingx.JXDatePicker();
         btnCreate = new javax.swing.JButton();
+        txtSaleOf = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        slpKH = new javax.swing.JScrollPane();
         tblKhachHang = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
+        TableVoucherPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        slpVoucher = new javax.swing.JScrollPane();
+        tblVoucher = new javax.swing.JTable();
+        btnCreateVoucher = new javax.swing.JButton();
         FormVoucherUpdate = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        txtSaleOf1 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jXStartAt1 = new org.jdesktop.swingx.JXDatePicker();
         jXEndAt1 = new org.jdesktop.swingx.JXDatePicker();
         btnUUpdate1 = new javax.swing.JButton();
         btnRemove1 = new javax.swing.JButton();
+        txtSaleOf1 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        slpKH2 = new javax.swing.JScrollPane();
         tblKhachHang1 = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         btnBack1 = new javax.swing.JButton();
 
-        jLabel1.setBackground(new java.awt.Color(51, 51, 51));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        FormVoucherPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel3.setText("Giảm giá: ");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 76, 24));
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel5.setText("Thời gian bắt đầu: ");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 96, -1));
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel6.setText("Thời gian kết thúc: ");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 96, -1));
+        jPanel1.add(jXStartAt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 350, -1));
+        jPanel1.add(jXEndAt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 350, -1));
+
+        btnCreate.setBackground(new java.awt.Color(51, 51, 51));
+        btnCreate.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnCreate.setForeground(new java.awt.Color(255, 255, 255));
+        btnCreate.setText("CREATE");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 352, 44));
+
+        txtSaleOf.setBorder(null);
+        jPanel1.add(txtSaleOf, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 340, 24));
+
+        jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel14.setText("________________________________________________________________________");
+        jLabel14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 360, 10));
+
+        jLabel2.setBackground(new java.awt.Color(3, 155, 216));
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("TẠO VOUCHER");
+        jLabel2.setToolTipText("");
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        jLabel2.setOpaque(true);
+
+        slpKH.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tblKhachHang.setAutoCreateRowSorter(true);
+        tblKhachHang.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Tên khách hàng", "Số điện thoại", "Email", "Chọn"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        slpKH.setViewportView(tblKhachHang);
+        if (tblKhachHang.getColumnModel().getColumnCount() > 0) {
+            tblKhachHang.getColumnModel().getColumn(0).setMinWidth(100);
+            tblKhachHang.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tblKhachHang.getColumnModel().getColumn(0).setMaxWidth(100);
+            tblKhachHang.getColumnModel().getColumn(2).setResizable(false);
+            tblKhachHang.getColumnModel().getColumn(3).setResizable(false);
+            tblKhachHang.getColumnModel().getColumn(4).setMinWidth(70);
+            tblKhachHang.getColumnModel().getColumn(4).setPreferredWidth(5);
+            tblKhachHang.getColumnModel().getColumn(4).setMaxWidth(70);
+        }
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel7.setText("Chọn khách hàng:");
+
+        btnBack.setBackground(new java.awt.Color(51, 51, 51));
+        btnBack.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout FormVoucherPanelLayout = new javax.swing.GroupLayout(FormVoucherPanel);
+        FormVoucherPanel.setLayout(FormVoucherPanelLayout);
+        FormVoucherPanelLayout.setHorizontalGroup(
+            FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FormVoucherPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(FormVoucherPanelLayout.createSequentialGroup()
+                        .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                            .addGroup(FormVoucherPanelLayout.createSequentialGroup()
+                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(slpKH, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        FormVoucherPanelLayout.setVerticalGroup(
+            FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormVoucherPanelLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FormVoucherPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(slpKH, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        add(FormVoucherPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 9, 1140, 650));
+
+        TableVoucherPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setBackground(new java.awt.Color(3, 155, 216));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Danh sách voucher");
         jLabel1.setToolTipText("");
@@ -221,7 +386,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
                 tblVoucherMousePressed(evt);
             }
         });
-        jScrollPane1.setViewportView(tblVoucher);
+        slpVoucher.setViewportView(tblVoucher);
 
         btnCreateVoucher.setBackground(new java.awt.Color(51, 51, 51));
         btnCreateVoucher.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -237,202 +402,54 @@ public class VoucherJpanel extends javax.swing.JPanel {
         TableVoucherPanel.setLayout(TableVoucherPanelLayout);
         TableVoucherPanelLayout.setHorizontalGroup(
             TableVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TableVoucherPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCreateVoucher))
+            .addGroup(TableVoucherPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(TableVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(slpVoucher, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1128, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TableVoucherPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCreateVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         TableVoucherPanelLayout.setVerticalGroup(
             TableVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TableVoucherPanelLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCreateVoucher)
-                .addContainerGap())
-        );
-
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel3.setText("Giảm giá: ");
-
-        txtSaleOf.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtSaleOf.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel5.setText("Thời gian bắt đầu: ");
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel6.setText("Thời gian kết thúc: ");
-
-        btnCreate.setBackground(new java.awt.Color(51, 51, 51));
-        btnCreate.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        btnCreate.setForeground(new java.awt.Color(255, 255, 255));
-        btnCreate.setText("CREATE");
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtSaleOf)
-                            .addComponent(jXStartAt, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jXEndAt, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSaleOf, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jXStartAt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jXEndAt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
-        );
-
-        jLabel2.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("TẠO VOUCHER");
-        jLabel2.setToolTipText("");
-        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
-        jLabel2.setOpaque(true);
-
-        jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        tblKhachHang.setAutoCreateRowSorter(true);
-        tblKhachHang.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Tên khách hàng", "Số điện thoại", "Email", "Chọn"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tblKhachHang);
-        if (tblKhachHang.getColumnModel().getColumnCount() > 0) {
-            tblKhachHang.getColumnModel().getColumn(0).setMinWidth(100);
-            tblKhachHang.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tblKhachHang.getColumnModel().getColumn(0).setMaxWidth(100);
-            tblKhachHang.getColumnModel().getColumn(2).setResizable(false);
-            tblKhachHang.getColumnModel().getColumn(3).setResizable(false);
-            tblKhachHang.getColumnModel().getColumn(4).setMinWidth(70);
-            tblKhachHang.getColumnModel().getColumn(4).setPreferredWidth(5);
-            tblKhachHang.getColumnModel().getColumn(4).setMaxWidth(70);
-        }
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel7.setText("Chọn khách hàng:");
-
-        btnBack.setBackground(new java.awt.Color(51, 51, 51));
-        btnBack.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("Back");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout FormVoucherPanelLayout = new javax.swing.GroupLayout(FormVoucherPanel);
-        FormVoucherPanel.setLayout(FormVoucherPanelLayout);
-        FormVoucherPanelLayout.setHorizontalGroup(
-            FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(FormVoucherPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FormVoucherPanelLayout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(296, 296, 296))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormVoucherPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FormVoucherPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 350, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2)))
-        );
-        FormVoucherPanelLayout.setVerticalGroup(
-            FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormVoucherPanelLayout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
+                .addComponent(slpVoucher, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(FormVoucherPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBack)))
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addComponent(btnCreateVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        add(TableVoucherPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 9, 1140, 650));
+
+        FormVoucherUpdate.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel8.setText("Giảm giá: ");
-
-        txtSaleOf1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtSaleOf1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 76, 24));
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel10.setText("Thời gian bắt đầu: ");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 96, -1));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel11.setText("Thời gian kết thúc: ");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 96, -1));
+
+        jXStartAt1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXStartAt1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jXStartAt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 330, -1));
+        jPanel2.add(jXEndAt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 330, -1));
 
         btnUUpdate1.setBackground(new java.awt.Color(51, 51, 51));
         btnUUpdate1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -443,6 +460,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
                 btnUUpdate1ActionPerformed(evt);
             }
         });
+        jPanel2.add(btnUUpdate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 140, 44));
 
         btnRemove1.setBackground(new java.awt.Color(51, 51, 51));
         btnRemove1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -453,67 +471,25 @@ public class VoucherJpanel extends javax.swing.JPanel {
                 btnRemove1ActionPerformed(evt);
             }
         });
+        jPanel2.add(btnRemove1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 140, 43));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnUUpdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRemove1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSaleOf1)
-                                    .addComponent(jXStartAt1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(jXEndAt1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSaleOf1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jXStartAt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jXEndAt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemove1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUUpdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63))
-        );
+        txtSaleOf1.setBorder(null);
+        jPanel2.add(txtSaleOf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 320, 24));
 
-        jLabel12.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel9.setText("_____________________________________________________________________");
+        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 340, 10));
+
+        jLabel12.setBackground(new java.awt.Color(3, 155, 216));
         jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("CHỈNH SỬA VOUCHER");
         jLabel12.setToolTipText("");
         jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
         jLabel12.setOpaque(true);
 
-        jScrollPane3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        slpKH2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tblKhachHang1.setAutoCreateRowSorter(true);
         tblKhachHang1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
@@ -540,7 +516,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(tblKhachHang1);
+        slpKH2.setViewportView(tblKhachHang1);
         if (tblKhachHang1.getColumnModel().getColumnCount() > 0) {
             tblKhachHang1.getColumnModel().getColumn(0).setMinWidth(100);
             tblKhachHang1.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -552,7 +528,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
             tblKhachHang1.getColumnModel().getColumn(4).setMaxWidth(70);
         }
 
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel13.setText("Chọn khách hàng");
 
         btnBack1.setBackground(new java.awt.Color(51, 51, 51));
@@ -569,19 +545,21 @@ public class VoucherJpanel extends javax.swing.JPanel {
         FormVoucherUpdate.setLayout(FormVoucherUpdateLayout);
         FormVoucherUpdateLayout.setHorizontalGroup(
             FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(FormVoucherUpdateLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormVoucherUpdateLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(FormVoucherUpdateLayout.createSequentialGroup()
-                        .addComponent(btnBack1)
-                        .addGap(0, 822, Short.MAX_VALUE))
-                    .addGroup(FormVoucherUpdateLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                            .addGroup(FormVoucherUpdateLayout.createSequentialGroup()
+                                .addComponent(btnBack1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3)))))
+                            .addComponent(slpKH2, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         FormVoucherUpdateLayout.setVerticalGroup(
             FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -590,36 +568,17 @@ public class VoucherJpanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(35, 35, 35)
-                .addComponent(btnBack1)
-                .addContainerGap(524, Short.MAX_VALUE))
+                .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FormVoucherUpdateLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBack1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(slpKH2, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TableVoucherPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(FormVoucherPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(FormVoucherUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(TableVoucherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(356, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(FormVoucherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 191, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(FormVoucherUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(FormVoucherUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 9, 1140, 650));
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVoucherMouseClicked
@@ -779,6 +738,10 @@ public class VoucherJpanel extends javax.swing.JPanel {
         FormVoucherUpdate.setVisible(false);
     }//GEN-LAST:event_btnBack1ActionPerformed
 
+    private void jXStartAt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXStartAt1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jXStartAt1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FormVoucherPanel;
@@ -795,21 +758,23 @@ public class VoucherJpanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private org.jdesktop.swingx.JXDatePicker jXEndAt;
     private org.jdesktop.swingx.JXDatePicker jXEndAt1;
     private org.jdesktop.swingx.JXDatePicker jXStartAt;
     private org.jdesktop.swingx.JXDatePicker jXStartAt1;
+    private javax.swing.JScrollPane slpKH;
+    private javax.swing.JScrollPane slpKH2;
+    private javax.swing.JScrollPane slpVoucher;
     private javax.swing.JTable tblKhachHang;
     private javax.swing.JTable tblKhachHang1;
     private javax.swing.JTable tblVoucher;
