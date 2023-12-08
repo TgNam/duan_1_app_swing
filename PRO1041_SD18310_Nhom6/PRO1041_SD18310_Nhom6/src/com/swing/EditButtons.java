@@ -25,6 +25,30 @@ public class EditButtons {
     public void Edit(JButton button) {
 //        button.setSize(new Dimension(100, 35));
         button.setBackground(new Color(0, 0, 0, 0));
+        Dimension buttonSize = new Dimension(100, 20);
+        button.setPreferredSize(buttonSize);
+        Font f = new Font("Times New Roman", Font.BOLD, 14);
+        button.setFont(f);
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        button.setForeground(new Color(51,51,51));
+    }
+    
+    //them vao 8/12
+     public void EditAddCreart(JButton button) {
+//        button.setSize(new Dimension(100, 35));
+        button.setBackground(new Color(0, 0, 0, 0));
+         Dimension buttonSize = new Dimension(160, 28);
+            button.setPreferredSize(buttonSize);
+        Font f = new Font("Times New Roman", Font.BOLD, 14);
+        button.setFont(f);
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+    }
+     
+     public void EditEmployee_and_client(JButton button) {
+//        button.setSize(new Dimension(100, 35));
+        button.setBackground(new Color(0, 0, 0, 0));
+        Dimension buttonSize = new Dimension(154, 20);
+        button.setPreferredSize(buttonSize);
         Font f = new Font("Times New Roman", Font.BOLD, 14);
         button.setFont(f);
         button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));

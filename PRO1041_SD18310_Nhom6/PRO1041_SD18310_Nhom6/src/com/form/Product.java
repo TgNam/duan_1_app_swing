@@ -140,8 +140,6 @@ public class Product extends javax.swing.JPanel {
         this.ctg = new CategoryImple();
         //them 4/12
         this.pcs = new Product_CategoryImple();
-        System.out.println("rong: " + this.getWidth());
-        System.out.println("do cao:" + this.getHeight());
 //        this.editTbl(tblProduct);
 //        this.editTbl(tblProduct_Detail1);
         //them 3/12
@@ -755,7 +753,6 @@ public class Product extends javax.swing.JPanel {
 
         btgTT = new javax.swing.ButtonGroup();
         jButton2 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         swingTab1 = new com.swing.SwingTabbedPane();
         pnlSanPham = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -880,43 +877,25 @@ public class Product extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         swingTab1.setBackground(new java.awt.Color(0, 0, 0));
 
         pnlSanPham.setBackground(new java.awt.Color(255, 255, 255));
-        pnlSanPham.setForeground(new java.awt.Color(0, 0, 0));
         pnlSanPham.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         pnlSanPham.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Tên sản phẩm:");
         pnlSanPham.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Vật liệu:");
         pnlSanPham.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 84, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Giá:");
         pnlSanPham.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 84, -1));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Độ dày:");
         pnlSanPham.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 84, -1));
 
@@ -924,16 +903,13 @@ public class Product extends javax.swing.JPanel {
         pnlSanPham.add(txtName_Product, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 209, 24));
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Mô tả:");
         pnlSanPham.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 84, -1));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Kiểu dáng:");
         pnlSanPham.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 84, -1));
 
-        tblProduct.setBackground(new java.awt.Color(255, 255, 255));
         tblProduct.setForeground(new java.awt.Color(255, 255, 255));
         tblProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -966,10 +942,9 @@ public class Product extends javax.swing.JPanel {
         });
         slpProduct.setViewportView(tblProduct);
 
-        pnlSanPham.add(slpProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 373, 1123, 169));
+        pnlSanPham.add(slpProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 373, 1123, 220));
 
         btnFix_Produc.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnFix_Produc.setForeground(new java.awt.Color(0, 0, 0));
         btnFix_Produc.setText("Sửa");
         btnFix_Produc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -979,7 +954,6 @@ public class Product extends javax.swing.JPanel {
         pnlSanPham.add(btnFix_Produc, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 338, 100, -1));
 
         btnStop_Sell_Product.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnStop_Sell_Product.setForeground(new java.awt.Color(0, 0, 0));
         btnStop_Sell_Product.setText("Ngừng bán");
         btnStop_Sell_Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -989,7 +963,6 @@ public class Product extends javax.swing.JPanel {
         pnlSanPham.add(btnStop_Sell_Product, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 338, 100, -1));
 
         btnClear_Product.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnClear_Product.setForeground(new java.awt.Color(0, 0, 0));
         btnClear_Product.setText("Làm mới");
         btnClear_Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -999,36 +972,32 @@ public class Product extends javax.swing.JPanel {
         pnlSanPham.add(btnClear_Product, new org.netbeans.lib.awtextra.AbsoluteConstraints(324, 338, 100, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("gsm");
         pnlSanPham.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 37, -1));
 
         btnPre__Product.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnPre__Product.setForeground(new java.awt.Color(0, 0, 0));
         btnPre__Product.setText("<");
         btnPre__Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPre__ProductActionPerformed(evt);
             }
         });
-        pnlSanPham.add(btnPre__Product, new org.netbeans.lib.awtextra.AbsoluteConstraints(905, 560, 100, -1));
+        pnlSanPham.add(btnPre__Product, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 600, 100, -1));
 
         btnNext__Product.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnNext__Product.setForeground(new java.awt.Color(0, 0, 0));
         btnNext__Product.setText(">");
         btnNext__Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNext__ProductActionPerformed(evt);
             }
         });
-        pnlSanPham.add(btnNext__Product, new org.netbeans.lib.awtextra.AbsoluteConstraints(1023, 560, 100, -1));
+        pnlSanPham.add(btnNext__Product, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 600, 100, -1));
 
         pnlProduct_Detail.setBackground(new java.awt.Color(255, 255, 255));
         pnlProduct_Detail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlProduct_Detail.setForeground(new java.awt.Color(255, 255, 255));
 
         btnAdd_Product_Detail1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnAdd_Product_Detail1.setForeground(new java.awt.Color(0, 0, 0));
         btnAdd_Product_Detail1.setText("Thêm");
         btnAdd_Product_Detail1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1037,7 +1006,6 @@ public class Product extends javax.swing.JPanel {
         });
 
         btnFix_Product_Detail1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnFix_Product_Detail1.setForeground(new java.awt.Color(0, 0, 0));
         btnFix_Product_Detail1.setText("Sửa");
         btnFix_Product_Detail1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1046,7 +1014,6 @@ public class Product extends javax.swing.JPanel {
         });
 
         btnStop_Sell_Product_Detail1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnStop_Sell_Product_Detail1.setForeground(new java.awt.Color(0, 0, 0));
         btnStop_Sell_Product_Detail1.setText("Ngừng bán");
         btnStop_Sell_Product_Detail1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1055,7 +1022,6 @@ public class Product extends javax.swing.JPanel {
         });
 
         btnClear_Product_Detail1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnClear_Product_Detail1.setForeground(new java.awt.Color(0, 0, 0));
         btnClear_Product_Detail1.setText("Làm mới");
         btnClear_Product_Detail1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1071,19 +1037,15 @@ public class Product extends javax.swing.JPanel {
         });
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Kích cỡ:");
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Màu:");
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Số  lượng:");
 
         btnPre_Product_Detail1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnPre_Product_Detail1.setForeground(new java.awt.Color(0, 0, 0));
         btnPre_Product_Detail1.setText("<");
         btnPre_Product_Detail1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1092,7 +1054,6 @@ public class Product extends javax.swing.JPanel {
         });
 
         btnNext_Product_Detail1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnNext_Product_Detail1.setForeground(new java.awt.Color(0, 0, 0));
         btnNext_Product_Detail1.setText(">");
         btnNext_Product_Detail1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1122,7 +1083,6 @@ public class Product extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblImage_Detail.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        lblImage_Detail.setForeground(new java.awt.Color(0, 0, 0));
         lblImage_Detail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage_Detail.setText("Ảnh");
         lblImage_Detail.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1148,14 +1108,11 @@ public class Product extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cbbColor1.setForeground(new java.awt.Color(0, 0, 0));
         cbbColor1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
-        cbbSize1.setForeground(new java.awt.Color(0, 0, 0));
         cbbSize1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("____________________________________________________________________");
         jLabel10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -1251,7 +1208,6 @@ public class Product extends javax.swing.JPanel {
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblImage.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        lblImage.setForeground(new java.awt.Color(0, 0, 0));
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setText("Ảnh");
         lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1280,7 +1236,6 @@ public class Product extends javax.swing.JPanel {
         pnlSanPham.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, 174));
 
         btnAdd_Product.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        btnAdd_Product.setForeground(new java.awt.Color(0, 0, 0));
         btnAdd_Product.setText("Thêm");
         btnAdd_Product.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1290,7 +1245,6 @@ public class Product extends javax.swing.JPanel {
         pnlSanPham.add(btnAdd_Product, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 338, 100, -1));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("__________________________________________");
         jLabel8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         pnlSanPham.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 210, 10));
@@ -1298,15 +1252,12 @@ public class Product extends javax.swing.JPanel {
         txtPrice.setBorder(null);
         pnlSanPham.add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 209, 24));
 
-        cbbMaterial.setForeground(new java.awt.Color(0, 0, 0));
         cbbMaterial.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         pnlSanPham.add(cbbMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 92, 210, 30));
 
-        cbbThickness.setForeground(new java.awt.Color(0, 0, 0));
         cbbThickness.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         pnlSanPham.add(cbbThickness, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 210, 30));
 
-        cbbCustom.setForeground(new java.awt.Color(0, 0, 0));
         cbbCustom.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         cbbCustom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1316,7 +1267,6 @@ public class Product extends javax.swing.JPanel {
         pnlSanPham.add(cbbCustom, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 210, -1));
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("__________________________________________");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         pnlSanPham.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 210, 10));
@@ -1464,7 +1414,6 @@ public class Product extends javax.swing.JPanel {
         pnlThuocTinh.add(btnPre_Attribute, new org.netbeans.lib.awtextra.AbsoluteConstraints(917, 485, 100, -1));
 
         jLabel17.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("_________________________________________________________");
         jLabel17.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         pnlThuocTinh.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 350, -1));
@@ -1517,7 +1466,6 @@ public class Product extends javax.swing.JPanel {
         });
 
         jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Tên sản phẩm: ");
 
         btnScan_PR_Not_Category.setText("Tìm");
@@ -1530,7 +1478,6 @@ public class Product extends javax.swing.JPanel {
         txtPr_Not_Category.setBorder(null);
 
         jLabel19.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("__________________________________________");
         jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -1625,13 +1572,11 @@ public class Product extends javax.swing.JPanel {
         });
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Tên sản phẩm: ");
 
         txtPr_Category.setBorder(null);
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("__________________________________________");
         jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -1703,7 +1648,6 @@ public class Product extends javax.swing.JPanel {
         });
 
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Danh mục:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1729,7 +1673,7 @@ public class Product extends javax.swing.JPanel {
                     .addComponent(cbbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(swingTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                .addComponent(swingTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1745,7 +1689,6 @@ public class Product extends javax.swing.JPanel {
         jPanel4.add(txtDanhMuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 6, 285, 20));
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("_________________________________________________________");
         jLabel22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 16, 290, 20));
@@ -1900,7 +1843,7 @@ public class Product extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNext_Category_Delete)
                         .addComponent(btnKhoiPhuc)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         swingTabbedPane2.addTab("Danh mục ngừng sử", jPanel7);
@@ -1989,7 +1932,7 @@ public class Product extends javax.swing.JPanel {
                     .addComponent(btnRestore_Product)
                     .addComponent(btnPre_Product_Stop_Sell)
                     .addComponent(btnNext_Product_Stop_Sell))
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         swingTab1.addTab("Sản phẩm ngừng bán", pnlSanPhamNgungBan);
@@ -2062,7 +2005,7 @@ public class Product extends javax.swing.JPanel {
                     .addComponent(btnRestore_Product_Detail_Stop_Sell)
                     .addComponent(btnNext_Product_Detail_Stop_Sell)
                     .addComponent(btnPre_Product_Detail_Stop_Sell))
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         swingTab1.addTab("Sản phẩm chi tiết ngừng bán", pnlSanPhamCTNgungBan);
@@ -2073,16 +2016,11 @@ public class Product extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(swingTab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(swingTab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(swingTab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(swingTab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -3301,7 +3239,6 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
