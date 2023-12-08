@@ -4,6 +4,7 @@
  */
 package com.service;
 
+import com.model.ExchangeBill;
 import java.util.ArrayList;
 import com.model.ExchangeBillDetail;
 
@@ -16,4 +17,6 @@ public interface Exchange_detailServict {
     public boolean insert(ExchangeBillDetail ex);
     //26/11
     public ArrayList<ExchangeBillDetail> getExchangeBillDetail(String id);
+    boolean delete_exchangeBillDetal(ExchangeBill exchangeBill);
+    ArrayList<ExchangeBillDetail> getExBill_idBill(String id) ;
 }

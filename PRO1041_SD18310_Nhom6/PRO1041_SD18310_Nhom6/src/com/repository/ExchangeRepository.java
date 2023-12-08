@@ -88,5 +88,28 @@ public class ExchangeRepository {
             return false;
         }
     }
-    
+    public boolean update_status(ExchangeBill exchangeBill) {
+        try {
+            String sql = """
+                         update db_levents.exchange_bill set status = 1 where id = ?;
+                         """;
+            JDBCHelped.excuteUpdate(sql, exchangeBill.getId());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean delete_exchangeBill(String id ) {
+        try {
+            String sql = """
+                         DELETE FROM db_levents.exchange_bill where bill_id = ?;
+                         """;
+            JDBCHelped.excuteUpdate(sql, id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

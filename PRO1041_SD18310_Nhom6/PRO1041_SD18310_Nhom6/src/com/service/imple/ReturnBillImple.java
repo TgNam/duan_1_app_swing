@@ -45,4 +45,22 @@ public class ReturnBillImple implements ReturnBillService {
             return null;
         }     
     }
+
+    @Override
+    public boolean update_status(ReturnBill returnBill) {
+        if (returnBillRepository.update_status(returnBill)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete_returnBill(String id) {
+        if(returnBillRepository.delete_returnBill(id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

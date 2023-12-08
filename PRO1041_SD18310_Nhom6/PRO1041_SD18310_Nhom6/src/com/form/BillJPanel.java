@@ -15,11 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import com.model.Product;
-import com.model.Product;
-import com.model.Product;
-import com.model.Product;
-import com.model.Product;
 import com.model.ProductDetail;
 import com.model.User;
 import com.model.Voucher;
@@ -415,7 +410,7 @@ public class BillJPanel extends javax.swing.JPanel {
                 for (BillDetail billDetail : listBillDetailQuantity()) {
                     if (productDetailService.getById(billDetail.getProductDetailId().getId()).getQuantity()>0) {
                         billDetailService.Update_bill_datail(productDetailService.getById(billDetail.getProductDetailId().getId()).getQuantity(), billDetail.getId());
-                    return false;
+                        return false;
                     }else{
                         billDetailService.delete_bill_datail_ShoppingCart(billDetail);
                         String nameProduct = billDetail.getProductDetailId().getProductId().getName_product()+"|"+billDetail.getProductDetailId().getSizeId().getNameSize()+"|"+billDetail.getProductDetailId().getColorId().getNameColor();

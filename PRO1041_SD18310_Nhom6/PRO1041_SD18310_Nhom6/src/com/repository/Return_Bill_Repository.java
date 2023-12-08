@@ -82,4 +82,25 @@ public class Return_Bill_Repository {
             return null;
         }       
     }
+        public boolean update_status(ReturnBill returnBill) {
+        String query = "update db_levents.return_bill set status = 1 where id = ?;";
+        try {
+            JDBCHelped.excuteUpdate(query, returnBill.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+        
+        public boolean delete_returnBill(String id) {
+        String query = "DELETE FROM db_levents.return_bill where bill_id = ?;";
+        try {
+            JDBCHelped.excuteUpdate(query, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

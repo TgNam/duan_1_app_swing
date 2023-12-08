@@ -218,7 +218,8 @@ public class BillRepository {
         ArrayList<Bill> list = new ArrayList<>();
         try {
             String sql = """
-                         SELECT  bill.created_at,
+                         SELECT  
+                                             bill.created_at,
                                              bill.id,
                                              user.full_name,
                                              user.number_phone,

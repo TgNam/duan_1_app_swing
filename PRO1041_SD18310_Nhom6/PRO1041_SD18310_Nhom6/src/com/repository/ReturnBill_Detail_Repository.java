@@ -4,6 +4,8 @@
  */
 package com.repository;
 
+import com.model.ExchangeBill;
+import com.model.ReturnBill;
 import com.model.ReturnBillDetail;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -66,4 +68,16 @@ public class ReturnBill_Detail_Repository {
         return list;
     }
     // end linh dz
+    public boolean delete_returnBillDetal(ReturnBill returnBill) {
+        try {
+            String sql = """
+                         DELETE FROM db_levents.return_bill_detail where return_bill_id = ? ;
+                         """;
+            JDBCHelped.excuteUpdate(sql, returnBill.getId());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

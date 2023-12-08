@@ -4,6 +4,7 @@
  */
 package com.service;
 
+import com.model.ReturnBill;
 import java.util.List;
 import com.model.ReturnBillDetail;
 
@@ -15,4 +16,5 @@ public interface ReturnBillDetailService {
     boolean insert(com.model.ReturnBillDetail returnBillDetail);
     public List<ReturnBillDetail> getAll();
     public List<ReturnBillDetail> getByIdBill(String idBill);
+    boolean delete_returnBillDetal(ReturnBill returnBill);
 }

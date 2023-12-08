@@ -4,6 +4,7 @@
  */
 package com.service.imple;
 
+import com.model.ExchangeBill;
 import java.util.ArrayList;
 import com.model.ExchangeBillDetail;
 import com.repository.Exchange_DetailRepository;
@@ -32,6 +33,20 @@ public class Exchage_DetailImple implements Exchange_detailServict{
     @Override
     public ArrayList<ExchangeBillDetail> getExchangeBillDetail(String id) {
         return edr.getExBill(id);
+    }
+
+    @Override
+    public boolean delete_exchangeBillDetal(ExchangeBill exchangeBill) {
+       if(edr.delete_exchangeBillDetal(exchangeBill)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public ArrayList<ExchangeBillDetail> getExBill_idBill(String id) {
+        return edr.getExBill_idBill(id);
     }
     
 }

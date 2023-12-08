@@ -20,4 +20,6 @@ public interface ExchangeService {
     
     //them vao 5/12
     public boolean getUpdate_Bill(String id);
+    boolean update_status(ExchangeBill exchangeBill);
+    boolean delete_exchangeBill(String id);
 }
