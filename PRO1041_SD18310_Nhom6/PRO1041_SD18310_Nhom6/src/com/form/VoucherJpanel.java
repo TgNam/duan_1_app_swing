@@ -159,22 +159,13 @@ public class VoucherJpanel extends javax.swing.JPanel {
     }
 
     private String generateRandomId() {
-        // Số chữ số trong ID
         int numberOfDigits = 10;
-
-        // Tạo một đối tượng Random
         Random random = new Random();
-
-        // StringBuilder để xây dựng ID
         StringBuilder idBuilder = new StringBuilder();
-
-        // Sinh ngẫu nhiên từ 0 đến 9 và thêm vào StringBuilder
         for (int i = 0; i < numberOfDigits; i++) {
             int digit = random.nextInt(10);
             idBuilder.append(digit);
         }
-
-        // Chuyển StringBuilder thành chuỗi và trả về
         return idBuilder.toString();
     }
 
@@ -731,7 +722,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
                 FormVoucherPanel.setVisible(false);
                 FormVoucherUpdate.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(this, "Không thể xóa voucher này!!!", "Quản lý user", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Voucher đang được sử dụng", "Quản lý user", JOptionPane.ERROR_MESSAGE);
             }
 
         } else {

@@ -13,6 +13,7 @@ import com.form.InvoiceManagementJPanel;
 import com.form.Product;
 import com.form.SaleProductJpanel;
 import com.form.StatisticsJPanel;
+import com.form.ThongKeCuaLinh;
 import com.form.UserJPanel;
 import com.form.VoucherJpanel;
 
@@ -64,7 +65,7 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 7) {
                     setForm(phieuGiaoHang);
                 }else if (index == 8) {
-                    setForm(thongKe);
+                    setForm(new ThongKeCuaLinh());
                 } else if (index == 9) {
                     int shutDown = JOptionPane.showConfirmDialog(new JFrame(), "Bạn có muốn thoát không", "Thoát", JOptionPane.YES_NO_OPTION);
                     if(shutDown == JOptionPane.YES_OPTION){
@@ -81,7 +82,6 @@ public class Main extends javax.swing.JFrame {
 
     private void setForm(JComponent com) {
         mainPanel.removeAll();
-        
         mainPanel.add(com);
         mainPanel.repaint();
         mainPanel.revalidate();
