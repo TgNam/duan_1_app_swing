@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.sql.*;
 
-
 public class StatisticsRepository {
 
     public ArrayList<Bill> getBil_All() {
@@ -61,11 +60,11 @@ public class StatisticsRepository {
         }
         return null;
     }
-    
+
     public ArrayList<Bill> getBil_Year() {
-    ArrayList<Bill> list = new ArrayList<>();
-    try {
-        String sql = """
+        ArrayList<Bill> list = new ArrayList<>();
+        try {
+            String sql = """
                      select db_levents.bill.id, 
                                          db_levents.user.full_name,
                                          db_levents.user.number_phone ,
@@ -86,33 +85,34 @@ public class StatisticsRepository {
                                          AND YEAR(db_levents.bill.created_at) = YEAR(CURRENT_DATE());
                      """;
 
-        ResultSet rs = JDBCHelped.executeQuery(sql);
-        while (rs.next()) {
-            String id = rs.getString(1);
-            String name = rs.getString(2);
-            String number_Phone = rs.getString(3);
-            BigDecimal into_money = rs.getBigDecimal(4);
-            BigDecimal total_cost = rs.getBigDecimal(5);
-            String address_detail = rs.getString(6);
-            Date created_at = rs.getDate(7);
-            Date delivery_date = rs.getDate(8);
-            Date updated_at = rs.getDate(9);
-            String voucher = rs.getString(10);
-            String status = rs.getString(11);
-            Bill b;
-            b = new Bill(into_money, total_cost, new Address(address_detail), created_at, delivery_date, id, updated_at, new User(name, number_Phone), new Voucher(voucher), status);
-            list.add(b);
+            ResultSet rs = JDBCHelped.executeQuery(sql);
+            while (rs.next()) {
+                String id = rs.getString(1);
+                String name = rs.getString(2);
+                String number_Phone = rs.getString(3);
+                BigDecimal into_money = rs.getBigDecimal(4);
+                BigDecimal total_cost = rs.getBigDecimal(5);
+                String address_detail = rs.getString(6);
+                Date created_at = rs.getDate(7);
+                Date delivery_date = rs.getDate(8);
+                Date updated_at = rs.getDate(9);
+                String voucher = rs.getString(10);
+                String status = rs.getString(11);
+                Bill b;
+                b = new Bill(into_money, total_cost, new Address(address_detail), created_at, delivery_date, id, updated_at, new User(name, number_Phone), new Voucher(voucher), status);
+                list.add(b);
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return list;
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return null;
     }
-    return null;
-}
+
     public ArrayList<Bill> getBil_Month(int month) {
-    ArrayList<Bill> list = new ArrayList<>();
-    try {
-        String sql = """
+        ArrayList<Bill> list = new ArrayList<>();
+        try {
+            String sql = """
                      select db_levents.bill.id, 
                                          db_levents.user.full_name,
                                          db_levents.user.number_phone ,
@@ -134,31 +134,52 @@ public class StatisticsRepository {
                                          AND YEAR(db_levents.bill.created_at) = YEAR(CURRENT_DATE());
                      """;
 
-        // Sử dụng PreparedStatement để tránh tình trạng SQL injection
-        try (PreparedStatement pstmt = JDBCHelped.getConnection().prepareStatement(sql)) {
-            pstmt.setInt(1, month);
+            // Sử dụng PreparedStatement để tránh tình trạng SQL injection
+            try (PreparedStatement pstmt = JDBCHelped.getConnection().prepareStatement(sql)) {
+                pstmt.setInt(1, month);
 
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                String id = rs.getString(1);
-                String name = rs.getString(2);
-                String number_Phone = rs.getString(3);
-                BigDecimal into_money = rs.getBigDecimal(4);
-                BigDecimal total_cost = rs.getBigDecimal(5);
-                String address_detail = rs.getString(6);
-                Date created_at = rs.getDate(7);
-                Date delivery_date = rs.getDate(8);
-                Date updated_at = rs.getDate(9);
-                String voucher = rs.getString(10);
-                String status = rs.getString(11);
-                Bill b = new Bill(into_money, total_cost, new Address(address_detail), created_at, delivery_date, id, updated_at, new User(name, number_Phone), new Voucher(voucher), status);
-                list.add(b);
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString(1);
+                    String name = rs.getString(2);
+                    String number_Phone = rs.getString(3);
+                    BigDecimal into_money = rs.getBigDecimal(4);
+                    BigDecimal total_cost = rs.getBigDecimal(5);
+                    String address_detail = rs.getString(6);
+                    Date created_at = rs.getDate(7);
+                    Date delivery_date = rs.getDate(8);
+                    Date updated_at = rs.getDate(9);
+                    String voucher = rs.getString(10);
+                    String status = rs.getString(11);
+                    Bill b = new Bill(into_money, total_cost, new Address(address_detail), created_at, delivery_date, id, updated_at, new User(name, number_Phone), new Voucher(voucher), status);
+                    list.add(b);
+                }
             }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return list;
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return null;
     }
-    return null;
-}
+
+    // BingChiLing is here
+    public BigDecimal getRevenue() {
+        String query = "SELECT SUM(b1.into_money - COALESCE(rb.total_cost, 0)) AS revenue\n"
+                + "FROM db_levents.bill b1\n"
+                + "LEFT JOIN return_bill rb ON b1.id = rb.bill_id\n"
+                + "WHERE b1.status IN (3, 7, 5);";
+        BigDecimal revenue = BigDecimal.ZERO;
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query);
+            if (rs.next()) {
+                revenue = rs.getBigDecimal("revenue");
+                System.out.println(rs.getBigDecimal(1));
+            }
+            return revenue;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return BigDecimal.ZERO;
+        }
+    }
+    // end
 }
