@@ -318,7 +318,7 @@ public class ProductDetailRepository {
                     + "join db_levents.product on product.id = product_detail.product_id\n"
                     + "join db_levents.color on color.id = product_detail.color_id\n"
                     + "join db_levents.size on size.id = product_detail.size_id\n" 
-                    + "where db_levents.product.id = ? and product_detail.status = ?;";
+                    + "where db_levents.product.id = ? and product_detail.status = ? and db_levents.product_detail.quantity  > 0;";
 
             ResultSet rs = JDBCHelped.executeQuery(sql, id, status);
             while (rs.next()) {

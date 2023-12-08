@@ -16,21 +16,26 @@ import javax.swing.table.TableColumnModel;
 import com.model.Bill;
 import com.model.BillDetail;
 import com.model.ExchangeBill;
+import com.model.ExchangeBillDetail;
 import com.model.ReturnBill;
 import com.model.ReturnBillDetail;
+import com.repository.Return_Bill_Repository;
 import com.repository.VoucherResponsitory;
 import com.service.AddressService;
 import com.service.BillDetailService;
 import com.service.BillService;
 import com.service.ExchangeService;
+import com.service.Exchange_detailServict;
 import com.service.ProductDetailService;
 import com.service.ProductService;
+import com.service.ReturnBillDetailService;
 import com.service.ReturnBillService;
 import com.service.UserRoleService;
 import com.service.UserService;
 import com.service.imple.AddressImple;
 import com.service.imple.BillDetailImple;
 import com.service.imple.BillImple;
+import com.service.imple.Exchage_DetailImple;
 import com.service.imple.ExchangeImple;
 import com.service.imple.ProductDetailImple;
 import com.service.imple.ProductImple;
@@ -61,10 +66,13 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     private Validate vl = new Validate();
     private String checkStatus = "1";
     private JFrame jFrame = new JFrame();
+    private Exchange_detailServict exchange_detailServict = new Exchage_DetailImple();
     private ReturnsForm returnsForm = new ReturnsForm(jFrame, true);
     private List<BillDetail> listProductReturn = null;
     private ExchangeService exchangeService = new ExchangeImple();
     private ReturnBillService returnBillService = new ReturnBillImple();
+    private ReturnBillDetailService returnBillDetailService = new ReturnBillDetailImple();
+    private Exchange_detailServict exchangeDetailServict = new Exchage_DetailImple();
     //them cai nay 30/11
     private List<BillDetail> listProductExchang = null;
     private Exchang_Bill ex = new Exchang_Bill(jFrame, true);
@@ -79,14 +87,12 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         initComponents();
         columns_no_checkbox();
         columns_tblBill();
-        datarowBill(String.valueOf("1"), String.valueOf("1"));
-//        btnDoiHang.setVisible(false);
-//        btnTraHang.setVisible(false);
-//        btnInPhieuGH.setVisible(true);
-//        bthXacNhan.setVisible(false);
-//        bthHuy.setVisible(false);
-        ActionEvent evt = null;
-        bthBill1ActionPerformed(evt);
+        btnDoiHang.setVisible(false);
+        btnTraHang.setVisible(false);
+        btnInPhieuGH.setVisible(false);
+        bthXacNhan.setVisible(false);
+        bthHuy.setVisible(false);
+        
     }
     //lấy thời gian hiện tại
     public static Date getCurrentDateTime() {
@@ -125,7 +131,13 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         TableColumnModel columnModel = tblBillDetails.getColumnModel();
         tblBill.setModel(tableModel);
     }
-
+    public void columns_no_price_checkbox() {
+        tableModel = new DefaultTableModel();
+        String[] column = {"STT", "Tên Sản Phẩm", "Màu", "Size", "Số Lượng"};
+        tableModel.setColumnIdentifiers(column);
+        TableColumnModel columnModel = tblBillDetails.getColumnModel();
+        tblBillDetails.setModel(tableModel);
+    }
     public void columns_no_checkbox() {
         tableModel = new DefaultTableModel();
         String[] column = {"STT", "Tên Sản Phẩm", "Màu", "Size", "Số Lượng", "Đơn Giá"};
@@ -218,6 +230,21 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 rbd.getProductDetailId().getSizeId().getNameSize(),
                 rbd.getQuantityOfProductsReturned(),
                 rbd.getPriceAtTheTimeOfPurchase()
+            };
+            tableModel.addRow(ob);
+        }
+    }
+    public void loadBillExchangeBill(List<ExchangeBillDetail> list) {
+        tableModel = (DefaultTableModel) this.tblBillDetails.getModel();
+        tableModel.setRowCount(0);
+        int index = 1;
+        for (ExchangeBillDetail ex : list) {
+            Object[] ob = {
+                index++,              
+                ex.getProductDetailId().getProductId().getName_product(),
+                ex.getProductDetailId().getColorId().getNameColor(),
+                ex.getProductDetailId().getSizeId().getNameSize(),
+                ex.getQuantityOfProductsReturned(),
             };
             tableModel.addRow(ob);
         }
@@ -610,13 +637,32 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 } else if (checkStatus.equals("46")) {
                     Bill bill = billService.getBill_status("4", "6").get(row);
                     String id = bill.getId();
-                    List<ReturnBillDetail> listRbd = new ReturnBillDetailImple().getByIdBill(id);
-                    loadBillReturn(listRbd);
-                    ReturnBill returnBill = new ReturnBillImple().getById(listRbd.get(0).getReturnBillId().getId());
+                    String status = bill.getStatus();
+                    if (status.equals("6")) {
+                        columns_no_price_checkbox();
+                        List<ExchangeBillDetail> listEx = exchange_detailServict.getExBill_idBill(id);
+                        loadBillExchangeBill(listEx);
+                    }
+                    if (status.equals("4")) {
+                        columns_no_checkbox();
+                        List<ReturnBillDetail> listRbd = new ReturnBillDetailImple().getByIdBill(id);
+                        loadBillReturn(listRbd); 
+                    }
+                    
                 } else if (checkStatus.equals("57")) {
                     Bill bill = billService.getBill_status("5", "7").get(row);
                     String id = bill.getId();
-                    loadBillDetail(id);
+                    String status = bill.getStatus();
+                    if (status.equals("5")) {
+                        columns_no_checkbox();
+                        List<ReturnBillDetail> listRbd = new ReturnBillDetailImple().getByIdBill(id);
+                        loadBillReturn(listRbd); 
+                    }
+                    if (status.equals("7")) {
+                        columns_no_price_checkbox();
+                        List<ExchangeBillDetail> listEx = exchange_detailServict.getExBill_idBill(id);
+                        loadBillExchangeBill(listEx);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -744,15 +790,16 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             if (checkclick.equals("2")) {
                 Bill bill = billService.getBill_status("4", "6").get(row);
                 String idBill = bill.getId();
+                String statusBill = bill.getStatus();
                 ReturnBill returnBill = returnBillService.getBy_IdBill(idBill);
-                String statusReturnBill = returnBill.getStatus();
-                ExchangeBill exchangeBill = exchangeService.getExchangeBill_id(idBill);
-                String statusExchangeBill = exchangeBill.getStatus();
-                if (statusReturnBill.equals("4")) {
-                    billService.updateStatusById(idBill, Integer.parseInt("5"));
+                ExchangeBill exchangeBill = exchangeService.getExchangeBill_id(idBill);                           
+                if (statusBill.equals("6")) {
+                    exchangeService.update_status(exchangeBill);
+                    billService.updateStatusById(idBill, Integer.parseInt("7"));
                 }
-                if (statusReturnBill.equals("6")) {
-                    billService.updateStatusById(idBill, Integer.parseInt("6"));
+                if (statusBill.equals("4")) {
+                    returnBillService.update_status(returnBill);
+                    billService.updateStatusById(idBill, Integer.parseInt("5"));
                 }
                 datarowBill(String.valueOf("4"), String.valueOf("6"));
             }
@@ -765,7 +812,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 addressService.add_address(nowDate, address);
                 Address addressObject = us.getAddress(nowDate, address);
                 String idaddressObject = addressObject.getId();
-                billService.update_address(idaddressObject, idBill);           
+                billService.update_address(idaddressObject, idBill);        
                 billService.updateStatusById(idBill, Integer.parseInt("3"));
                 datarowBill(String.valueOf("1"), String.valueOf("1"));
             }
@@ -787,6 +834,17 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             if (checkclick.equals("2")) {
                 Bill bill = billService.getBill_status("4", "6").get(row);
                 String idBill = bill.getId();
+                String statusBill = bill.getStatus();
+                ReturnBill returnBill = returnBillService.getBy_IdBill(idBill);
+                ExchangeBill exchangeBill = exchangeService.getExchangeBill_id(idBill);
+                if (statusBill.equals("4")) {                  
+                   returnBillDetailService.delete_returnBillDetal(returnBill);
+                   returnBillService.delete_returnBill(idBill);
+                }
+                if (statusBill.equals("6")) {
+                   exchangeDetailServict.delete_exchangeBillDetal(exchangeBill);
+                   exchangeService.delete_exchangeBill(idBill);
+                }
                 billService.updateStatusById(idBill, Integer.parseInt("3"));
                 datarowBill(String.valueOf("4"), String.valueOf("6"));
             }

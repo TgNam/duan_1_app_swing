@@ -4,6 +4,8 @@
  */
 package com.repository;
 
+import com.model.ExchangeBill;
+import com.model.ReturnBill;
 import com.model.ReturnBillDetail;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class ReturnBill_Detail_Repository {
     //start linh dz
     public boolean insert(ReturnBillDetail returnBillDetail) {
         String query = "INSERT INTO return_bill_detail(price_at_the_time_of_purchase, quantity_of_products_returned,"
-                + " created_at, product_detail_id,return_bill_id,status) VALUES (?,?,NOW(),?,?,?) ";
+                + " created_at, product_detail_id,return_bill_id,status,updated_at) VALUES (?,?,NOW(),?,?,?,NOW()) ";
         try {
             JDBCHelped.excuteUpdate(query, returnBillDetail.getPriceAtTheTimeOfPurchase(),
                     returnBillDetail.getQuantityOfProductsReturned(), returnBillDetail.getProductDetailId().getId(),
@@ -66,4 +68,16 @@ public class ReturnBill_Detail_Repository {
         return list;
     }
     // end linh dz
+    public boolean delete_returnBillDetal(ReturnBill returnBill) {
+        try {
+            String sql = """
+                         DELETE FROM db_levents.return_bill_detail where return_bill_id = ? ;
+                         """;
+            JDBCHelped.excuteUpdate(sql, returnBill.getId());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
