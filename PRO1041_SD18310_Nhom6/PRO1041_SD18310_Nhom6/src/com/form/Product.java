@@ -1846,7 +1846,7 @@ public class Product extends javax.swing.JPanel {
                 .addContainerGap(99, Short.MAX_VALUE))
         );
 
-        swingTabbedPane2.addTab("Danh mục ngừng sử", jPanel7);
+        swingTabbedPane2.addTab("Danh mục ngừng sử dụng", jPanel7);
 
         javax.swing.GroupLayout pnlDanhMucLayout = new javax.swing.GroupLayout(pnlDanhMuc);
         pnlDanhMuc.setLayout(pnlDanhMucLayout);

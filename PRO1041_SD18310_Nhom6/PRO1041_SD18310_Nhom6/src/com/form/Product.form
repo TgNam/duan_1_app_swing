@@ -1622,8 +1622,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Danh m&#x1ee5;c ng&#x1eeb;ng s&#x1eed;">
-                        <Property name="tabTitle" type="java.lang.String" value="Danh m&#x1ee5;c ng&#x1eeb;ng s&#x1eed;"/>
+                      <JTabbedPaneConstraints tabName="Danh m&#x1ee5;c ng&#x1eeb;ng s&#x1eed; d&#x1ee5;ng">
+                        <Property name="tabTitle" type="java.lang.String" value="Danh m&#x1ee5;c ng&#x1eeb;ng s&#x1eed; d&#x1ee5;ng"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
