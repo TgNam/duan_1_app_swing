@@ -10,6 +10,7 @@ import com.form.BillJPanel;
 import com.form.Delivery_notesJpanel;
 import com.form.EMPLOYEEJPanel;
 import com.form.InvoiceManagementJPanel;
+import com.form.LoginJDialog;
 import com.form.Product;
 import com.form.SaleProductJpanel;
 import com.form.StatisticsJPanel;
@@ -29,9 +30,13 @@ public class Main extends javax.swing.JFrame {
     private InvoiceManagementJPanel quanLyHoaDon;
     private StatisticsJPanel thongKe;
     private AddCreart themUser;
+    private LoginJDialog login;
     
     public Main() {
         initComponents();
+        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
+        login.setVisible(true);
+        
         setBackground(new Color(0, 0, 0, 0));
         sanPham = new Product();
         khachHang = new UserJPanel();
@@ -77,7 +82,7 @@ public class Main extends javax.swing.JFrame {
         //  set when system open start with home form
         System.out.println("rong: " + mainPanel.getWidth());
         System.out.println("cao:" + mainPanel.getHeight());
-//        setForm(phieuGiamGia);
+        setForm(sanPham);
     }
 
     private void setForm(JComponent com) {
