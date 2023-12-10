@@ -55,7 +55,7 @@ import table.TableCustom;
  * @author thiet
  */
 public class Product extends javax.swing.JPanel {
-    
+
     private ProductService pds;
     private ProductDetailService pdds;
     private MaterialServict mts;
@@ -65,10 +65,10 @@ public class Product extends javax.swing.JPanel {
     private ColorService cls = new ColorImple();
     //them vao 3/12
     private CategoryService ctg;
-    
+
     //them vao 4/12
     private Product_CategoryServict pcs;
-    
+
     File file = new File("");
     DefaultComboBoxModel dcm;
 
@@ -211,6 +211,7 @@ public class Product extends javax.swing.JPanel {
 
         bt.Edit(btnNext_Product_Detail_Stop_Sell);
         bt.Edit(btnPre_Product_Detail_Stop_Sell);
+        
         //them 3/12
         bt.Edit(btnScan_PR_Category);
         bt.Edit(btnScan_PR_Not_Category);
@@ -230,11 +231,17 @@ public class Product extends javax.swing.JPanel {
         bt.Edit(btnClear_DM);
         bt.Edit(btnPre_DM);
         bt.Edit(btnNext_DM);
-
+        
+        //them vao 10/12
+        bt.Edit(btnTimSP);
+        
         txt.edit(txtName_Product);
         txt.edit(txtPrice);
         txt.edit(txtQuantity1);
         txt.edit(txtName_Attribute);
+        
+        
+        
 
         //ngay 3/12
         txt.edit(txtPr_Category);
@@ -246,7 +253,8 @@ public class Product extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct.getModel();
         dtm.setRowCount(0);
         int i = 1;
-        for (com.model.Product sp : this.pds.getNext(minProduct_tab1, maxProduct_tab1)) {
+        
+        for (com.model.Product sp : this.pds.getNext(txtTenTim.getText().trim(),minProduct_tab1, maxProduct_tab1)) {
             Object[] ob = {
                 i,
                 sp.getId(),
@@ -348,7 +356,7 @@ public class Product extends javax.swing.JPanel {
     public void loadMaterial() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
-        int i =1;
+        int i = 1;
         for (Material d : this.mts.getMaterial_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
                 i,
@@ -382,7 +390,7 @@ public class Product extends javax.swing.JPanel {
     public void loadCustom() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
-        int  i = 1;
+        int i = 1;
         for (Custom d : this.cts.getCustom_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
                 i,
@@ -647,7 +655,7 @@ public class Product extends javax.swing.JPanel {
     public void loadCatory_not_Pr() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Not_Category.getModel();
         dtm.setRowCount(0);
-        int i =1;
+        int i = 1;
         for (com.model.Product sp : this.ctg.getProduct_not_Category(namePr_not_category, nameCategory, minProduct_not_Category, maxProduct_not_Category)) {
             Object[] ob = {
                 i,
@@ -666,7 +674,7 @@ public class Product extends javax.swing.JPanel {
     public void loadCatory_Pr() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Category.getModel();
         dtm.setRowCount(0);
-        int i =1;
+        int i = 1;
         for (com.model.Product sp : this.ctg.getProduct_Category(namePr_Category, nameCategory, minProduct_Category, maxProduct_Category)) {
             Object[] ob = {
                 i,
@@ -695,7 +703,7 @@ public class Product extends javax.swing.JPanel {
     public void loadCatory() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblDM.getModel();
         dtm.setRowCount(0);
-        int i =1;
+        int i = 1;
         for (Category category : this.ctg.getCategory_Action_Next(minCategory, maxCategory)) {
             Object[] ob = {
                 i,
@@ -744,18 +752,18 @@ public class Product extends javax.swing.JPanel {
         Category c = new Category(name);
         return c;
     }
-    
+
     //them 4/12
-    public String getID_Category(String name){
-        for (Category c: this.ctg.getAll()){
-            if(name.equals(c.getNameCategory())){
-               return c.getId();
+    public String getID_Category(String name) {
+        for (Category c : this.ctg.getAll()) {
+            if (name.equals(c.getNameCategory())) {
+                return c.getId();
             }
         }
         return null;
     }
-    
-    public ProductCategory getProduct_Category_Form_Add(){
+
+    public ProductCategory getProduct_Category_Form_Add() {
 //        if(id_Pr_Not_Ctegory.equalsIgnoreCase("")){
 //            return null;
 //        }
@@ -764,8 +772,8 @@ public class Product extends javax.swing.JPanel {
         ProductCategory p = new ProductCategory(c, pr);
         return p;
     }
-    
-     public ProductCategory getProduct_Category_Form_Remove(){
+
+    public ProductCategory getProduct_Category_Form_Remove() {
 //        if(id_Pr_Not_Ctegory.equalsIgnoreCase("")){
 //            return null;
 //        }
@@ -774,6 +782,7 @@ public class Product extends javax.swing.JPanel {
         ProductCategory p = new ProductCategory(c, pr);
         return p;
     }
+
     //
     /**
      * This method is called from within the constructor to initialize the form.
@@ -832,6 +841,9 @@ public class Product extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         textAreaScroll2 = new com.swing.TextAreaScroll();
         txtDescribe = new com.swing.TextArea();
+        txtTenTim = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        btnTimSP = new javax.swing.JButton();
         pnlThuocTinh = new javax.swing.JPanel();
         btnStop_Working_Attribute = new javax.swing.JButton();
         btnClear_Attribute = new javax.swing.JButton();
@@ -975,7 +987,7 @@ public class Product extends javax.swing.JPanel {
         });
         slpProduct.setViewportView(tblProduct);
 
-        pnlSanPham.add(slpProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 373, 1123, 220));
+        pnlSanPham.add(slpProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 413, 1123, 180));
 
         btnFix_Produc.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         btnFix_Produc.setText("Sửa");
@@ -1310,6 +1322,22 @@ public class Product extends javax.swing.JPanel {
 
         pnlSanPham.add(textAreaScroll2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 210, 90));
 
+        txtTenTim.setBorder(null);
+        pnlSanPham.add(txtTenTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 370, 290, 20));
+
+        jLabel23.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jLabel23.setText("_____________________________________________________________");
+        jLabel23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        pnlSanPham.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 390, 320, 10));
+
+        btnTimSP.setText("Tìm");
+        btnTimSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimSPActionPerformed(evt);
+            }
+        });
+        pnlSanPham.add(btnTimSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 370, 90, 30));
+
         swingTab1.addTab("Sản phẩm", pnlSanPham);
 
         pnlThuocTinh.setBackground(new java.awt.Color(255, 255, 255));
@@ -1388,13 +1416,13 @@ public class Product extends javax.swing.JPanel {
         pnlThuocTinh.add(rdoColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(547, 7, -1, -1));
 
         btgTT.add(rdoMaterial);
-        rdoMaterial.setText("Nguyên liệu");
+        rdoMaterial.setText("Vật liệu");
         rdoMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdoMaterialActionPerformed(evt);
             }
         });
-        pnlThuocTinh.add(rdoMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 7, -1, -1));
+        pnlThuocTinh.add(rdoMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 7, 80, -1));
 
         btgTT.add(rdoThickness);
         rdoThickness.setText("Độ dày");
@@ -1860,9 +1888,10 @@ public class Product extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnPre_Category_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(btnKhoiPhuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNext_Category_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnKhoiPhuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(118, 118, 118)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -2061,7 +2090,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.pnlProduct_Detail.setVisible(true);
         int row_pr = tblProduct.getSelectedRow();
-        com.model.Product pr = this.pds.getNext(minProduct_tab1, maxProduct_tab1).get(row_pr);
+        com.model.Product pr = this.pds.getNext(txtTenTim.getText().trim(),minProduct_tab1, maxProduct_tab1).get(row_pr);
         idProduct = tblProduct.getValueAt(row_pr, 0).toString();
         txtName_Product.setText(pr.getName_product());
         cbbMaterial.setSelectedItem(pr.getMaterial_id().getNameMaterial());
@@ -2096,18 +2125,25 @@ public class Product extends javax.swing.JPanel {
         if (sp == null) {
             return;
         }
-        if (this.pds.sua(idProduct, sp) == true) {
-            JOptionPane.showMessageDialog(this, "Da sua thanh cong");
-            this.load_Product_Detail();
-            this.load_Product();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (this.pds.sua(idProduct, sp) == true) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                this.load_Product_Detail();
+                this.load_Product();
 //            this.loadCatory_Pr();
 //            this.loadCatory_not_Pr();
 //            this.load_Product_Extra();
 //            this.loadcbbProduct();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                return;
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Da sua that bai");
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
             return;
         }
+
     }//GEN-LAST:event_btnFix_ProducActionPerformed
 
     private void rdoColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoColorActionPerformed
@@ -2156,83 +2192,89 @@ public class Product extends javax.swing.JPanel {
         if (ten.equals("")) {
             return;
         }
-        if (rdoSize.isSelected() == true) {
-            Size s = new Size(ten);
-
-            if (this.ss.Insert(s)) {
-                JOptionPane.showMessageDialog(this, "Da them size.");
-                this.loadSize();
-                this.loadcbbCustom();
-                this.loadcbbMaterial();
-                this.loadcbbThickness();
-                this.loadcbbSize();
-                this.loadcbbColor();
-            }
-
-        } else if (rdoColor.isSelected() == true) {
-            Color c = new Color(ten);
-
-            if (this.cls.them(c)) {
-                JOptionPane.showMessageDialog(this, "Da them mau");
-                this.loadColer();
-                this.loadcbbCustom();
-                this.loadcbbMaterial();
-                this.loadcbbThickness();
-                this.loadcbbSize();
-                this.loadcbbColor();
-            }
-
-        } else if (rdoMaterial.isSelected() == true) {
-            Material m = new Material(ten);
-            if (m == null) {
-                return;
-            }
-            if (this.mts.them(m)) {
-                JOptionPane.showMessageDialog(this, "Da them vat lieu.");
-                this.loadMaterial();
-                this.loadcbbCustom();
-                this.loadcbbMaterial();
-                this.loadcbbThickness();
-                this.loadcbbSize();
-                this.loadcbbColor();
-            }
-
-        } else if (rdoThickness.isSelected() == true) {
-            try {
-                int dd = Integer.parseInt(ten);
-                Thickness t = new Thickness(dd);
-                if (t == null) {
-                    return;
-                }
-                if (this.tns.them(t)) {
-                    JOptionPane.showMessageDialog(this, "Da them do day.");
-                    this.loadThickness();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Thêm", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (rdoSize.isSelected() == true) {
+                Size s = new Size(ten);
+                if (this.ss.Insert(s)) {
+                    JOptionPane.showMessageDialog(this, "Đã thêm size.");
+                    this.loadSize();
                     this.loadcbbCustom();
                     this.loadcbbMaterial();
                     this.loadcbbThickness();
                     this.loadcbbSize();
                     this.loadcbbColor();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-        } else if (rdoCustom.isSelected() == true) {
-            Custom c = new Custom(ten);
-            if (c == null) {
-                return;
-            }
-            if (this.cts.them(c)) {
-                JOptionPane.showMessageDialog(this, "Da them kieu.");
-                this.loadCustom();
-                this.loadcbbCustom();
-                this.loadcbbMaterial();
-                this.loadcbbThickness();
-                this.loadcbbSize();
-                this.loadcbbColor();
-            }
+            } else if (rdoColor.isSelected() == true) {
+                Color c = new Color(ten);
 
+                if (this.cls.them(c)) {
+                    JOptionPane.showMessageDialog(this, "Đã thêm màu");
+                    this.loadColer();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            } else if (rdoMaterial.isSelected() == true) {
+                Material m = new Material(ten);
+                if (m == null) {
+                    return;
+                }
+                if (this.mts.them(m)) {
+                    JOptionPane.showMessageDialog(this, "Đã thêm Vật liệu.");
+                    this.loadMaterial();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            } else if (rdoThickness.isSelected() == true) {
+                try {
+                    int dd = Integer.parseInt(ten);
+                    Thickness t = new Thickness(dd);
+                    if (t == null) {
+                        return;
+                    }
+                    if (this.tns.them(t)) {
+                        JOptionPane.showMessageDialog(this, "Đã thêm độ dày.");
+                        this.loadThickness();
+                        this.loadcbbCustom();
+                        this.loadcbbMaterial();
+                        this.loadcbbThickness();
+                        this.loadcbbSize();
+                        this.loadcbbColor();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (rdoCustom.isSelected() == true) {
+                Custom c = new Custom(ten);
+                if (c == null) {
+                    return;
+                }
+                if (this.cts.them(c)) {
+                    JOptionPane.showMessageDialog(this, "Đã thêm kiểu.");
+                    this.loadCustom();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
         }
+
     }//GEN-LAST:event_btnAdd_AttributeActionPerformed
 
     private void btnFix_AttributeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFix_AttributeActionPerformed
@@ -2241,11 +2283,95 @@ public class Product extends javax.swing.JPanel {
         if (ten.equals("")) {
             return;
         }
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (rdoSize.isSelected() == true) {
+                Size s = new Size(ten);
+
+                if (this.ss.Update(idTT, s)) {
+                    JOptionPane.showMessageDialog(this, "Đã sửa size.");
+                    this.loadSize();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            } else if (rdoColor.isSelected() == true) {
+                Color c = new Color(ten);
+
+                if (this.cls.sua(idTT, c)) {
+                    JOptionPane.showMessageDialog(this, "Đã sửa màu.");
+                    this.loadColer();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            } else if (rdoMaterial.isSelected() == true) {
+                Material m = new Material(ten);
+                if (m == null) {
+                    return;
+                }
+                if (this.mts.sua(idTT, m)) {
+                    JOptionPane.showMessageDialog(this, "Đã sửa vật liệu.");
+                    this.loadMaterial();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            } else if (rdoThickness.isSelected() == true) {
+                try {
+                    int dd = Integer.parseInt(ten);
+                    Thickness t = new Thickness(dd);
+                    if (t == null) {
+                        return;
+                    }
+                    if (this.tns.sua(idTT, t)) {
+                        JOptionPane.showMessageDialog(this, "Đã sửa độ dày.");
+                        this.loadThickness();
+                        this.loadcbbCustom();
+                        this.loadcbbMaterial();
+                        this.loadcbbThickness();
+                        this.loadcbbSize();
+                        this.loadcbbColor();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (rdoCustom.isSelected() == true) {
+                Custom c = new Custom(ten);
+                if (c == null) {
+                    return;
+                }
+                if (this.cts.sua(idTT, c)) {
+                    JOptionPane.showMessageDialog(this, "Đã sửa kiểu.");
+                    this.loadCustom();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
+        }
         if (rdoSize.isSelected() == true) {
             Size s = new Size(ten);
 
             if (this.ss.Update(idTT, s)) {
-                JOptionPane.showMessageDialog(this, "Da sua size.");
+                JOptionPane.showMessageDialog(this, "Đã sửa size.");
                 this.loadSize();
                 this.loadcbbCustom();
                 this.loadcbbMaterial();
@@ -2258,7 +2384,7 @@ public class Product extends javax.swing.JPanel {
             Color c = new Color(ten);
 
             if (this.cls.sua(idTT, c)) {
-                JOptionPane.showMessageDialog(this, "Da them mau");
+                JOptionPane.showMessageDialog(this, "Đã sửa màu.");
                 this.loadColer();
                 this.loadcbbCustom();
                 this.loadcbbMaterial();
@@ -2273,7 +2399,7 @@ public class Product extends javax.swing.JPanel {
                 return;
             }
             if (this.mts.sua(idTT, m)) {
-                JOptionPane.showMessageDialog(this, "Da them vat lieu.");
+                JOptionPane.showMessageDialog(this, "Đã sửa vật liệu.");
                 this.loadMaterial();
                 this.loadcbbCustom();
                 this.loadcbbMaterial();
@@ -2290,7 +2416,7 @@ public class Product extends javax.swing.JPanel {
                     return;
                 }
                 if (this.tns.sua(idTT, t)) {
-                    JOptionPane.showMessageDialog(this, "Da them do day.");
+                    JOptionPane.showMessageDialog(this, "Đã sửa độ dày.");
                     this.loadThickness();
                     this.loadcbbCustom();
                     this.loadcbbMaterial();
@@ -2308,7 +2434,7 @@ public class Product extends javax.swing.JPanel {
                 return;
             }
             if (this.cts.sua(idTT, c)) {
-                JOptionPane.showMessageDialog(this, "Da them kieu.");
+                JOptionPane.showMessageDialog(this, "Đã sửa kiểu.");
                 this.loadCustom();
                 this.loadcbbCustom();
                 this.loadcbbMaterial();
@@ -2348,7 +2474,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minProduct_tab1 = maxProduct_tab1 + 1;
         maxProduct_tab1 += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(minProduct_tab1, maxProduct_tab1));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minProduct_tab1, maxProduct_tab1));
         if (checkList) {
             this.load_Product();
         } else {
@@ -2392,14 +2518,21 @@ public class Product extends javax.swing.JPanel {
         if (idProduct_Stop_Sell.equalsIgnoreCase("")) {
             return;
         }
-        if (this.pds.KhoiPhuc(idProduct_Stop_Sell)) {
-            JOptionPane.showMessageDialog(this, "Khoi phuc thanh cong");
-            //            product = new Product(f);
-            this.loadProduct_Stop();
-            this.load_Product();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Khôi phục", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (this.pds.KhoiPhuc(idProduct_Stop_Sell)) {
+                JOptionPane.showMessageDialog(this, "Khôi phục thành công.");
+                //            product = new Product(f);
+                this.loadProduct_Stop();
+                this.load_Product();
 //            this.loadcbbProduct();
 //            this.load_Product_Extra();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
         }
+
     }//GEN-LAST:event_btnRestore_ProductActionPerformed
 
     private void tblProduc_Stop_sellMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduc_Stop_sellMouseClicked
@@ -2415,21 +2548,28 @@ public class Product extends javax.swing.JPanel {
         if (txtName_Product.getText().trim().equalsIgnoreCase("")) {
             return;
         }
-        if (this.pds.xoa(txtName_Product.getText().trim()) == true) {
-            JOptionPane.showMessageDialog(this, "Da xoa thanh cong");
-            this.load_Product_Detail();
-            this.load_Product();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Ngừng bán", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (this.pds.xoa(txtName_Product.getText().trim()) == true) {
+                JOptionPane.showMessageDialog(this, "Sản phẩm đã ngừng bán.");
+                this.load_Product_Detail();
+                this.load_Product();
 //            this.load_Product_Extra();
 //            this.loadcbbProduct();
-            this.loadProduct_Stop();
-            this.loadProduct_Deteail_Stop_Sell();
+                this.loadProduct_Stop();
+                this.loadProduct_Deteail_Stop_Sell();
 //            this.loadCatory_Pr();
 //            this.loadCatory_not_Pr();
-            this.clear();
+                this.clear();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thất bại.");
+                return;
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Da xoa that bai");
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
             return;
         }
+
     }//GEN-LAST:event_btnStop_Sell_ProductActionPerformed
 
     private void btnRestore_Product_Detail_Stop_SellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestore_Product_Detail_Stop_SellActionPerformed
@@ -2437,11 +2577,18 @@ public class Product extends javax.swing.JPanel {
         if (idProduct_Detail_Stop_Sell == null) {
             return;
         }
-        if (pdds.khoiPhuc(idProduct_Detail_Stop_Sell)) {
-            JOptionPane.showMessageDialog(this, "Da khoi phuc");
-            this.loadProduct_Deteail_Stop_Sell();
-            this.load_Product_Detail();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (pdds.khoiPhuc(idProduct_Detail_Stop_Sell)) {
+                JOptionPane.showMessageDialog(this, "Khôi phục thành công.");
+                this.loadProduct_Deteail_Stop_Sell();
+                this.load_Product_Detail();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
         }
+
     }//GEN-LAST:event_btnRestore_Product_Detail_Stop_SellActionPerformed
 
     private void btnNext_Product_Detail_Stop_SellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNext_Product_Detail_Stop_SellActionPerformed
@@ -2485,66 +2632,73 @@ public class Product extends javax.swing.JPanel {
         if (idTT.equals("")) {
             return;
         }
-        if (rdoSize.isSelected() == true) {
-            if (this.ss.remove(idTT)) {
-                JOptionPane.showMessageDialog(this, "Da Xoa size.");
-                this.loadSize();
-                this.loadcbbCustom();
-                this.loadcbbMaterial();
-                this.loadcbbThickness();
-                this.loadcbbSize();
-                this.loadcbbColor();
-            }
-
-        } else if (rdoColor.isSelected() == true) {
-            if (this.cls.xoa(idTT)) {
-                JOptionPane.showMessageDialog(this, "Da xoa mau");
-                this.loadColer();
-                this.loadcbbCustom();
-                this.loadcbbMaterial();
-                this.loadcbbThickness();
-                this.loadcbbSize();
-                this.loadcbbColor();
-            }
-
-        } else if (rdoMaterial.isSelected() == true) {
-            if (this.mts.xoa(idTT)) {
-                JOptionPane.showMessageDialog(this, "Da xoa vat lieu.");
-                this.loadMaterial();
-                this.loadcbbCustom();
-                this.loadcbbMaterial();
-                this.loadcbbThickness();
-                this.loadcbbSize();
-                this.loadcbbColor();
-            }
-
-        } else if (rdoThickness.isSelected() == true) {
-            try {
-                if (this.tns.xoa(idTT)) {
-                    JOptionPane.showMessageDialog(this, "Da xoa do day.");
-                    this.loadThickness();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Xóa", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (rdoSize.isSelected() == true) {
+                if (this.ss.remove(idTT)) {
+                    JOptionPane.showMessageDialog(this, "Đã xóa size.");
+                    this.loadSize();
                     this.loadcbbCustom();
                     this.loadcbbMaterial();
                     this.loadcbbThickness();
                     this.loadcbbSize();
                     this.loadcbbColor();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-        } else if (rdoCustom.isSelected() == true) {
-            if (this.cts.xoa(idTT)) {
-                JOptionPane.showMessageDialog(this, "Da them kieu.");
-                this.loadCustom();
-                this.loadcbbCustom();
-                this.loadcbbMaterial();
-                this.loadcbbThickness();
-                this.loadcbbSize();
-                this.loadcbbColor();
-            }
+            } else if (rdoColor.isSelected() == true) {
+                if (this.cls.xoa(idTT)) {
+                    JOptionPane.showMessageDialog(this, "Đã xóa màu.");
+                    this.loadColer();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
 
+            } else if (rdoMaterial.isSelected() == true) {
+                if (this.mts.xoa(idTT)) {
+                    JOptionPane.showMessageDialog(this, "Đã xóa vật liệu.");
+                    this.loadMaterial();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            } else if (rdoThickness.isSelected() == true) {
+                try {
+                    if (this.tns.xoa(idTT)) {
+                        JOptionPane.showMessageDialog(this, "Đã xóa độ dạy.");
+                        this.loadThickness();
+                        this.loadcbbCustom();
+                        this.loadcbbMaterial();
+                        this.loadcbbThickness();
+                        this.loadcbbSize();
+                        this.loadcbbColor();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (rdoCustom.isSelected() == true) {
+                if (this.cts.xoa(idTT)) {
+                    JOptionPane.showMessageDialog(this, "Đã xóa kiểu.");
+                    this.loadCustom();
+                    this.loadcbbCustom();
+                    this.loadcbbMaterial();
+                    this.loadcbbThickness();
+                    this.loadcbbSize();
+                    this.loadcbbColor();
+                }
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
+            return;
         }
+
     }//GEN-LAST:event_btnStop_Working_AttributeActionPerformed
 
     private void tblProduct_Not_CategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProduct_Not_CategoryMouseClicked
@@ -2556,7 +2710,7 @@ public class Product extends javax.swing.JPanel {
         com.model.Product pr = this.ctg.getProduct_not_Category(namePr_not_category, nameCategory, minProduct_not_Category, maxProduct_not_Category).get(row);
         id_Pr_Not_Ctegory = pr.getId().trim();
         id_cbbDanhMuc = getID_Category(cbbCategory.getSelectedItem().toString());
-        System.out.println("ma san pham: "+id_Pr_Not_Ctegory);
+        System.out.println("ma san pham: " + id_Pr_Not_Ctegory);
         System.out.println("id danh muc" + id_cbbDanhMuc);
     }//GEN-LAST:event_tblProduct_Not_CategoryMouseClicked
 
@@ -2576,7 +2730,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minProduct_not_Category = maxProduct_not_Category + 1;
         maxProduct_not_Category += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(minProduct_not_Category, maxProduct_not_Category));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minProduct_not_Category, maxProduct_not_Category));
         if (checkList) {
             this.loadCatory_not_Pr();
         } else {
@@ -2601,13 +2755,20 @@ public class Product extends javax.swing.JPanel {
         if (prdt == null) {
             return;
         }
-        if (pdds.them(prdt) == true) {
-            JOptionPane.showMessageDialog(this, "them thanh cong");
-            this.load_Product_Detail();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Thêm", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (pdds.them(prdt) == true) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công.");
+                this.load_Product_Detail();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+                return;
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "them that bai");
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
             return;
         }
+
     }//GEN-LAST:event_btnAdd_Product_Detail1ActionPerformed
 
     private void btnFix_Product_Detail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFix_Product_Detail1ActionPerformed
@@ -2617,13 +2778,20 @@ public class Product extends javax.swing.JPanel {
             return;
         }
         ProductDetail spct = formct();
-        if (this.pdds.sua(idProduct_Detail, spct) == true) {
-            JOptionPane.showMessageDialog(this, "Da sua thanh cong");
-            this.load_Product_Detail();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (this.pdds.sua(idProduct_Detail, spct) == true) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công.");
+                this.load_Product_Detail();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                return;
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Sua that bai");
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
             return;
         }
+
     }//GEN-LAST:event_btnFix_Product_Detail1ActionPerformed
 
     private void btnStop_Sell_Product_Detail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStop_Sell_Product_Detail1ActionPerformed
@@ -2632,14 +2800,21 @@ public class Product extends javax.swing.JPanel {
         if (row < 0) {
             return;
         }
-        if (this.pdds.xoa(idProduct_Detail) == true) {
-            JOptionPane.showMessageDialog(this, "Da ngung ban");
-            this.load_Product_Detail();
-            this.clear();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Ngừng bán", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (this.pdds.xoa(idProduct_Detail) == true) {
+                JOptionPane.showMessageDialog(this, "Sản phẩm đã ngừng bán.");
+                this.load_Product_Detail();
+                this.clear();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thất bại.");
+                return;
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Da ngung ba that bai");
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
             return;
         }
+
     }//GEN-LAST:event_btnStop_Sell_Product_Detail1ActionPerformed
 
     private void btnClear_Product_Detail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClear_Product_Detail1ActionPerformed
@@ -2688,7 +2863,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minProduct_detail = maxProduct_detail + 1;
         maxProduct_detail += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(minProduct_detail, maxProduct_detail));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minProduct_detail, maxProduct_detail));
         if (checkList) {
             this.load_Product_Detail();
         } else {
@@ -2754,7 +2929,7 @@ public class Product extends javax.swing.JPanel {
         if (rdoSize.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
             if (checkList) {
                 this.loadSize();
             } else {
@@ -2766,7 +2941,7 @@ public class Product extends javax.swing.JPanel {
         } else if (rdoColor.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
             if (checkList) {
                 this.loadColer();
             } else {
@@ -2778,7 +2953,7 @@ public class Product extends javax.swing.JPanel {
         } else if (rdoMaterial.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
             if (checkList) {
                 this.loadMaterial();
             } else {
@@ -2790,7 +2965,7 @@ public class Product extends javax.swing.JPanel {
         } else if (rdoThickness.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
             if (checkList) {
                 this.loadThickness();
             } else {
@@ -2802,7 +2977,7 @@ public class Product extends javax.swing.JPanel {
         } else if (rdoCustom.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
             if (checkList) {
                 this.loadCustom();
             } else {
@@ -2868,23 +3043,29 @@ public class Product extends javax.swing.JPanel {
         if (checkSPKOSD(txtName_Product.getText().trim()) == false) {
             return;
         }
-        if (pds.them(sp) == true) {
-            System.out.println("ten: " + sp.getName_product());
-            System.out.println("vat lieu id: " + sp.getMaterial_id().getNameMaterial());
-            System.out.println("gia" + sp.getProduct_price());
-            System.out.println("do day: " + sp.getThickness_id().getGsm());
-            System.out.println("kieu dang: " + sp.getCustome_id().getNameCustom());
-            System.out.println("mo ta:" + sp.getDescription());
-            JOptionPane.showMessageDialog(this, "Them thanh cong");
-            this.load_Product();
+        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Thêm", JOptionPane.YES_NO_OPTION);
+        if (check == JOptionPane.YES_OPTION) {
+            if (pds.them(sp) == true) {
+                System.out.println("ten: " + sp.getName_product());
+                System.out.println("vat lieu id: " + sp.getMaterial_id().getNameMaterial());
+                System.out.println("gia" + sp.getProduct_price());
+                System.out.println("do day: " + sp.getThickness_id().getGsm());
+                System.out.println("kieu dang: " + sp.getCustome_id().getNameCustom());
+                System.out.println("mo ta:" + sp.getDescription());
+                JOptionPane.showMessageDialog(this, "Thêm thành công.");
+                this.load_Product();
 //            this.loadCatory_Pr();
 //            this.loadCatory_not_Pr();
 //            this.load_Product_Extra();
 //            this.loadcbbProduct();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại.");
+                return;
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Them that bai");
-            return;
+            JOptionPane.showMessageDialog(this, "Đã hủy.");
         }
+
     }//GEN-LAST:event_btnAdd_ProductActionPerformed
 
     private void cbbCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCustomActionPerformed
@@ -2907,7 +3088,7 @@ public class Product extends javax.swing.JPanel {
         com.model.Product pr = this.ctg.getProduct_Category(namePr_Category, nameCategory, minProduct_Category, maxProduct_Category).get(row);
         id_Pr_Category = pr.getId().trim();
         id_cbbDanhMuc = getID_Category(cbbCategory.getSelectedItem().toString());
-        System.out.println("ma san pham: "+id_Pr_Category);
+        System.out.println("ma san pham: " + id_Pr_Category);
         System.out.println("id danh muc" + id_cbbDanhMuc);
     }//GEN-LAST:event_tblProduct_CategoryMouseClicked
 
@@ -2927,7 +3108,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minProduct_Category = maxProduct_Category + 1;
         maxProduct_Category += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(minProduct_Category, maxProduct_Category));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
         if (checkList) {
             this.loadCatory_Pr();
         } else {
@@ -2941,13 +3122,13 @@ public class Product extends javax.swing.JPanel {
     private void btnXoa_prDMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa_prDMActionPerformed
         // TODO add your handling code here:
         int row = tblProduct_Category.getSelectedRow();
-        if(row < 0){
+        if (row < 0) {
             System.out.println("dell");
             return;
-            
+
         }
         ProductCategory p = this.getProduct_Category_Form_Remove();
-        if(p == null){
+        if (p == null) {
             return;
         }
         System.out.println("id sp" + p.getCategoryId().getId());
@@ -2966,7 +3147,7 @@ public class Product extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Đã hủy.");
             return;
         }
-        System.out.println("ma san pham: "+id_Pr_Not_Ctegory);
+        System.out.println("ma san pham: " + id_Pr_Not_Ctegory);
         System.out.println("id danh muc" + id_cbbDanhMuc);
     }//GEN-LAST:event_btnXoa_prDMActionPerformed
 
@@ -3095,7 +3276,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minCategory = maxCategory + 1;
         maxCategory += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(minCategory, maxCategory));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
         if (checkList) {
             this.loadCatory_not_Pr();
         } else {
@@ -3122,7 +3303,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minCategory_Delete = maxCategory_Delete + 1;
         maxCategory_Delete += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(minCategory_Delete, maxCategory_Delete));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
         if (checkList) {
             this.loadCatory_Delete();
         } else {
@@ -3170,13 +3351,13 @@ public class Product extends javax.swing.JPanel {
     private void btnThem_pr_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem_pr_DMActionPerformed
         // TODO add your handling code here:
         int row = tblProduct_Not_Category.getSelectedRow();
-        if(row < 0){
+        if (row < 0) {
             System.out.println("dell");
             return;
-            
+
         }
         ProductCategory p = this.getProduct_Category_Form_Add();
-        if(p == null){
+        if (p == null) {
             return;
         }
         System.out.println("id sp" + p.getCategoryId().getId());
@@ -3195,9 +3376,14 @@ public class Product extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Đã hủy.");
             return;
         }
-        System.out.println("ma san pham: "+id_Pr_Not_Ctegory);
+        System.out.println("ma san pham: " + id_Pr_Not_Ctegory);
         System.out.println("id danh muc" + id_cbbDanhMuc);
     }//GEN-LAST:event_btnThem_pr_DMActionPerformed
+
+    private void btnTimSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimSPActionPerformed
+        // TODO add your handling code here:
+        this.load_Product();
+    }//GEN-LAST:event_btnTimSPActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3241,6 +3427,7 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JButton btnStop_Working_Attribute;
     private javax.swing.JButton btnSua_DM;
     private javax.swing.JButton btnThem_pr_DM;
+    private javax.swing.JButton btnTimSP;
     private javax.swing.JButton btnXoa_DM;
     private javax.swing.JButton btnXoa_prDM;
     private com.swing.Combobox cbbCategory;
@@ -3265,6 +3452,7 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -3322,5 +3510,6 @@ public class Product extends javax.swing.JPanel {
     private javax.swing.JTextField txtPr_Not_Category;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtQuantity1;
+    private javax.swing.JTextField txtTenTim;
     // End of variables declaration//GEN-END:variables
 }

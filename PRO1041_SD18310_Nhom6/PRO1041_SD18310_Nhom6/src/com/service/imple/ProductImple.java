@@ -39,8 +39,8 @@ public class ProductImple implements ProductService {
 //thewm phan nay
 
     @Override
-    public ArrayList<Product> getNext(int min, int max) {
-        return pr.getNext(min, max);
+    public ArrayList<Product> getNext(String tensp, int min, int max) {
+        return pr.getNext(tensp,min, max);
     }
 
     @Override

@@ -34,8 +34,8 @@ public class Main extends javax.swing.JFrame {
     
     public Main() {
         initComponents();
-        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
-        login.setVisible(true);
+//        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
+//        login.setVisible(true);
         
         setBackground(new Color(0, 0, 0, 0));
         sanPham = new Product();
