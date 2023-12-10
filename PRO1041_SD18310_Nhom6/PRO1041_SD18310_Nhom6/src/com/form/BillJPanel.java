@@ -1477,13 +1477,11 @@ public class BillJPanel extends javax.swing.JPanel {
                         //tạo hóa đơn mới
                         JOptionPane.showMessageDialog(this, billService.add_bill(new Bill(nowDate, nowDate, nowDate, u)));
                         resetShoppingCart();
-                        System.out.println("0");
                         return;
                     }
                     if (u.getStatus().equals("0")) {
                         JOptionPane.showMessageDialog(this, "Đối tượng này đã cấm!");
                         resetShoppingCart();
-                        System.out.println("1");
                         return;
                     }
                 }
@@ -1494,10 +1492,8 @@ public class BillJPanel extends javax.swing.JPanel {
                     txtUser.setEditable(true); // Kích hoạt khả năng chỉnh sửa cho ô văn bản với thông tin tên khách hàng
                     // Lấy ngày và giờ hiện tại
                     nowDate = getCurrentDateTime(); // Gán giá trị ngày và giờ hiện tại vào biến nowDate
-                    System.out.println("2");
                 }
                 if (checkKH == true) {
-                    System.out.println("3");
 
                     if (checkKH() == true) {
                         u = new User(nowDate, nowDate, txtUser.getText(), txtPhoneNumber.getText());
@@ -1509,7 +1505,6 @@ public class BillJPanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, billService.add_bill(new Bill(nowDate, nowDate, nowDate, new User(txtUser.getText(), txtPhoneNumber.getText()))));
                         checkKH = false;
                         resetShoppingCart();
-                        System.out.println("4");
                         return;
                     } else {
                         JOptionPane.showMessageDialog(this, "Thêm thất bại;");
@@ -1518,14 +1513,12 @@ public class BillJPanel extends javax.swing.JPanel {
                     }
 
                 }
-                System.out.println("5");
                 checkKH = true;
             }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Lỗi dữ liệu!");
         }
-        System.out.println("6");
     }//GEN-LAST:event_bthaddbillActionPerformed
 
     private void bthpaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthpaymentActionPerformed
@@ -1539,8 +1532,8 @@ public class BillJPanel extends javax.swing.JPanel {
                         Bill bill = billService.getListBill_0().get(indexBill);
                         if (bill != null) {
                             String idBill = bill.getId();
-                            BigDecimal into_money = BigDecimal.valueOf(Double.valueOf(jLinto_money.getText()));
-                            BigDecimal total_cost = BigDecimal.valueOf(Double.valueOf(jLtotal_cost.getText()));
+                            BigDecimal into_money = BigDecimal.valueOf(Double.parseDouble(jLinto_money.getText()));
+                            BigDecimal total_cost = BigDecimal.valueOf(Double.parseDouble(jLtotal_cost.getText()));
                             if (checkVoucherUsedFlag() != null) {
                                 String idVoucher = checkVoucherUsedFlag();
                                 boolean checkbillServiceVoucher = billService.updateVoucherByIdBill(idVoucher, idBill);
@@ -1548,12 +1541,18 @@ public class BillJPanel extends javax.swing.JPanel {
                                 for (BillDetail billDetail : billDetailService.getBill_idBill(idBill)) {
                                     String idBillDetail = billDetail.getId();
                                     String idProductDetail = billDetail.getProductDetailId().getId();
-                                    String idProduct = billDetail.getProductDetailId().getProductId().getId();
                                     int quantityPurchased = Integer.parseInt(billDetail.getQuantityPurchased());
-                                    ProductDetail productDetail = productDetailService.getById(idProductDetail);
-                                    com.model.Product product = productService.getProcuct(idProduct);
-                                    BigDecimal price_now = product.getProduct_price();
-                                    billDetailService.updateprice_nowByIdBillDetail(price_now, idBillDetail);
+                                    // Lấy giá sản phẩm từ đối tượng billDetail
+                                    BigDecimal Product_price = billDetail.getProductDetailId().getProductId().getProduct_price();
+                                    // Thiết lập giá trị khuyến mãi ban đầu là 0
+                                    BigDecimal Sale_Product_price = BigDecimal.ZERO;
+                                    // Kiểm tra xem có sự giảm giá được định nghĩa trong đối tượng sản phẩm và có giá trị lớn hơn hoặc bằng 0 không
+                                    if (billDetail.getProductDetailId().getProductId().getSale_id() != null && billDetail.getProductDetailId().getProductId().getSale_id().getSale() >= 0.0) {
+                                        // Nếu có khuyến mãi, gán giá trị giảm giá cho biến Sale_Product_price
+                                        Sale_Product_price = BigDecimal.valueOf(billDetail.getProductDetailId().getProductId().getSale_id().getSale());
+                                    }
+                                    BigDecimal unitPrice = Product_price.subtract(Product_price.multiply(Sale_Product_price.divide(BigDecimal.valueOf((long) 100.0))));
+                                    billDetailService.updateprice_nowByIdBillDetail(unitPrice, idBillDetail);
                                     productDetailService.getQuantity(idProductDetail, quantityPurchased);
 
                                 }
@@ -1567,12 +1566,18 @@ public class BillJPanel extends javax.swing.JPanel {
                                 for (BillDetail billDetail : billDetailService.getBill_idBill(idBill)) {
                                     String idBillDetail = billDetail.getId();
                                     String idProductDetail = billDetail.getProductDetailId().getId();
-                                    String idProduct = billDetail.getProductDetailId().getProductId().getId();
                                     int quantityPurchased = Integer.parseInt(billDetail.getQuantityPurchased());
-                                    ProductDetail productDetail = productDetailService.getById(idProductDetail);
-                                    com.model.Product product = productService.getProcuct(idProduct);
-                                    BigDecimal price_now = product.getProduct_price();
-                                    billDetailService.updateprice_nowByIdBillDetail(price_now, idBillDetail);
+                                    // Lấy giá sản phẩm từ đối tượng billDetail
+                                    BigDecimal Product_price = billDetail.getProductDetailId().getProductId().getProduct_price();
+                                    // Thiết lập giá trị khuyến mãi ban đầu là 0
+                                    BigDecimal Sale_Product_price = BigDecimal.ZERO;
+                                    // Kiểm tra xem có sự giảm giá được định nghĩa trong đối tượng sản phẩm và có giá trị lớn hơn hoặc bằng 0 không
+                                    if (billDetail.getProductDetailId().getProductId().getSale_id() != null && billDetail.getProductDetailId().getProductId().getSale_id().getSale() >= 0.0) {
+                                        // Nếu có khuyến mãi, gán giá trị giảm giá cho biến Sale_Product_price
+                                        Sale_Product_price = BigDecimal.valueOf(billDetail.getProductDetailId().getProductId().getSale_id().getSale());
+                                    }
+                                    BigDecimal unitPrice = Product_price.subtract(Product_price.multiply(Sale_Product_price.divide(BigDecimal.valueOf((long) 100.0))));
+                                    billDetailService.updateprice_nowByIdBillDetail(unitPrice, idBillDetail);
                                     productDetailService.getQuantity(idProductDetail, quantityPurchased);
 
                                 }
