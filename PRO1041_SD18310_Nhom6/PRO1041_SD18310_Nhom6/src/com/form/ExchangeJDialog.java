@@ -251,31 +251,26 @@ public class ExchangeJDialog extends javax.swing.JDialog {
         });
         jPanel2.add(btnxoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, 100, -1));
 
-        cbbReson.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "loi hang", "khong muon dung sp nay", " " }));
+        cbbReson.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kích cỡ không phù hợp", "Màu sắc không đúng", "Chất liệu không tốt", "Sản phẩm bị hỏng", "Sự không hài lòng với chất lượng", "Thay đổi ý kiến", "Sai sót trong đặt hàng", "Phong cách không phù hợp", "Vấn đề về bảo hành" }));
         jPanel2.add(cbbReson, new org.netbeans.lib.awtextra.AbsoluteConstraints(779, 292, 190, -1));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Tổng tiền trả");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 253, -1, -1));
 
         lblMoney_Sum.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        lblMoney_Sum.setForeground(new java.awt.Color(0, 0, 0));
         lblMoney_Sum.setText("0.0 đ");
         jPanel2.add(lblMoney_Sum, new org.netbeans.lib.awtextra.AbsoluteConstraints(844, 256, 75, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Danh sách sản phẩm đổi");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 253, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Danh sách sản phẩm ");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("lí do:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(721, 296, -1, -1));
 
@@ -287,7 +282,7 @@ public class ExchangeJDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
         );
 
         pack();

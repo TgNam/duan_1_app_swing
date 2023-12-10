@@ -59,7 +59,7 @@ public class ReturnsForm extends javax.swing.JDialog {
         txt.edit(txtHoanTra);
         txt.edit(txtDaTT);
         
-//        TableCustom.apply(slpProductReturnBill, TableCustom.TableType.MULTI_LINE);
+        TableCustom.apply(slpProductReturnBill, TableCustom.TableType.MULTI_LINE);
     }
 
     public void loadTableProductReturn() {

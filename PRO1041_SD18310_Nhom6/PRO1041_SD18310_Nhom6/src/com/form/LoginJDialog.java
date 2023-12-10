@@ -34,7 +34,6 @@ public class LoginJDialog extends javax.swing.JDialog {
         txtPass.setEchoChar((char) 8226);
         txtUser.setBackground(new java.awt.Color(0, 0, 0, 1));
         txtPass.setBackground(new java.awt.Color(0, 0, 0, 1)); 
-        
     }
     
     public boolean checkAccount(String user, String pass){
