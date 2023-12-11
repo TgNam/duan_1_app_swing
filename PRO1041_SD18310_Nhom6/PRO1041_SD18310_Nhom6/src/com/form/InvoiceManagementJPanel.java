@@ -897,7 +897,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 Bill bill = billService.getBill_status("1", "1").get(row);
                 String addressDetail = bill.getAddressId().getAddressDetail();
                 String idBill = bill.getId();
-                String address = "36 Miếu Đầm, Mễ Trì, Nam Từ Niêm Hà Nội";
+                String address = "Tại quầy bán hàng";
                 nowDate = getCurrentDateTime();
                 addressService.add_address(nowDate, address);
                 Address addressObject = us.getAddress(nowDate, address);
