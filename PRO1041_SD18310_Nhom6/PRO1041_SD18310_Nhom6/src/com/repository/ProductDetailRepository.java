@@ -229,7 +229,7 @@ public class ProductDetailRepository {
                     + "FROM db_levents.product_detail \n"
                     + "inner join db_levents.color on db_levents.product_detail.color_id =db_levents.color.id \n"
                     + "inner join db_levents.size  on db_levents.product_detail.size_id = db_levents.size.id\n"
-                    + "inner join db_levents.product on db_levents.product_detail.product_id = db_levents.product.id where db_levents.product_detail.status = '2';";
+                    + "inner join db_levents.product on db_levents.product_detail.product_id = db_levents.product.id where db_levents.product_detail.status = '0';";
 
             ResultSet rs = JDBCHelped.executeQuery(sql);
             while (rs.next()) {
@@ -259,11 +259,32 @@ public class ProductDetailRepository {
 
     public boolean Insert(ProductDetail prd) {
         try {
-            String sql = "INSERT INTO `db_levents`.`product_detail` (`quantity`, `color_id`, `product_id`, `size_id`, `status`, `created_at`, `updated_at`, image_data) VALUES \n"
-                    + "(?, \n"
-                    + "(select id from db_levents.color where db_levents.color.name_color = ?), \n"
-                    + "(select id from db_levents.product  where db_levents.product.name_product = ?),\n"
-                    + "(select id from db_levents.size where db_levents.size.name_size = ?), '1', curdate(), curdate(), ?);";
+//            String sql = "INSERT INTO `db_levents`.`product_detail` (`quantity`, `color_id`, `product_id`, `size_id`, `status`, `created_at`, `updated_at`, image_data) VALUES \n"
+//                    + "(?, \n"
+//                    + "(select id from db_levents.color where db_levents.color.name_color = ?), \n"
+//                    + "(select id from db_levents.product  where db_levents.product.name_product = ?),\n"
+//                    + "(select id from db_levents.size where db_levents.size.name_size = ?), '1', curdate(), curdate(), ?);";
+            String sql = """
+                         INSERT INTO db_levents.product_detail (
+                             quantity, 
+                             color_id, 
+                             product_id, 
+                             size_id, 
+                             status, 
+                             created_at, 
+                             updated_at, 
+                             image_data
+                         ) VALUES (
+                             ?,
+                             (SELECT id FROM db_levents.color WHERE db_levents.color.name_color = ? LIMIT 1),
+                             (SELECT id FROM db_levents.product WHERE db_levents.product.name_product = ? LIMIT 1),
+                             (SELECT id FROM db_levents.size WHERE db_levents.size.name_size = ? LIMIT 1),
+                             '1', 
+                             curdate(), 
+                             curdate(), 
+                             ?
+                         );
+                         """;
             JDBCHelped.excuteUpdate(sql, prd.getQuantity(), prd.getColorId().getNameColor(), prd.getProductId().getName_product(), prd.getSizeId().getNameSize(), prd.getImage());
             return true;
         } catch (Exception e) {
@@ -274,15 +295,25 @@ public class ProductDetailRepository {
 
     public boolean Update(String id, ProductDetail prd) {
         try {
-            String sql = "UPDATE `db_levents`.`product_detail` SET \n"
-                    + "`quantity` = ?, \n"
-                    + "`color_id` = (select id from db_levents.color where db_levents.color.name_color = ?), \n"
-                    + "`product_id` = (select id from db_levents.product  where db_levents.product.name_product = ?), \n"
-                    + "`size_id` = (select id from db_levents.size where db_levents.size.name_size = ?), \n"
-                    + "`updated_at` = curdate() ,"
-                    + "image_data = ?\n"
-                    + "WHERE (`id` = ?);";
-            JDBCHelped.excuteUpdate(sql, prd.getQuantity(), prd.getColorId().getNameColor(), prd.getProductId().getName_product(), prd.getSizeId().getNameSize(),prd.getImage(), id);
+//            String sql = "UPDATE `db_levents`.`product_detail` SET \n"
+//                    + "`quantity` = ?, \n"
+//                    + "`color_id` = (select id from db_levents.color where db_levents.color.name_color = ?), \n"
+//                    + "`product_id` = (select id from db_levents.product  where db_levents.product.name_product = ?), \n"
+//                    + "`size_id` = (select id from db_levents.size where db_levents.size.name_size = ?), \n"
+//                    + "`updated_at` = curdate() ,"
+//                    + "image_data = ?\n"
+//                    + "WHERE (`id` = ?);";
+            String sql = """
+                              UPDATE db_levents.product_detail SET
+                                                              quantity = ?,
+                                                              color_id = (SELECT id FROM db_levents.color WHERE db_levents.color.name_color = ?),
+                                                              product_id = (SELECT id FROM db_levents.product WHERE db_levents.product.name_product = ? limit 1),
+                                                              size_id = (SELECT id FROM db_levents.size WHERE db_levents.size.name_size = ?),
+                                                              updated_at = CURDATE(),
+                                                              image_data = ?
+                                                          WHERE id = ?;
+                             """;
+            JDBCHelped.excuteUpdate(sql, prd.getQuantity(), prd.getColorId().getNameColor(), prd.getProductId().getName_product(), prd.getSizeId().getNameSize(), prd.getImage(), id);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -317,7 +348,7 @@ public class ProductDetailRepository {
                     + "FROM db_levents.product_detail\n"
                     + "join db_levents.product on product.id = product_detail.product_id\n"
                     + "join db_levents.color on color.id = product_detail.color_id\n"
-                    + "join db_levents.size on size.id = product_detail.size_id\n" 
+                    + "join db_levents.size on size.id = product_detail.size_id\n"
                     + "where db_levents.product.id = ? and product_detail.status = ? and db_levents.product_detail.quantity  > 0;";
 
             ResultSet rs = JDBCHelped.executeQuery(sql, id, status);
@@ -411,28 +442,28 @@ public class ProductDetailRepository {
         try {
             String sql = """
                          select * from 
-                         (SELECT 
-                             pd.id,
-                             p.name_product,
-                             c.name_color,
-                             s.name_size,
-                             pd.created_at,
-                             pd.updated_at,
-                             pd.quantity,
-                             pd.status,
-                             pd.image_data,
-                             ROW_NUMBER() OVER (ORDER BY pd.id) AS rownum 
-                         FROM 
-                             db_levents.product_detail pd
-                         INNER JOIN 
-                             db_levents.color c ON pd.color_id = c.id
-                         INNER JOIN 
-                             db_levents.size s ON pd.size_id = s.id
-                         INNER JOIN 
-                             db_levents.product p ON pd.product_id = p.id
-                         WHERE 
-                            pd.status NOT IN ('2') and p.id = ?) 
-                         AS temp WHERE rownum BETWEEN ? AND ?;   
+                                                  (SELECT 
+                                                      pd.id,
+                                                      p.name_product,
+                                                      c.name_color,
+                                                      s.name_size,
+                                                      pd.created_at,
+                                                      pd.updated_at,
+                                                      pd.quantity,
+                                                      pd.status,
+                                                      pd.image_data,
+                                                      ROW_NUMBER() OVER (ORDER BY pd.id) AS rownum 
+                                                  FROM 
+                                                      db_levents.product_detail pd
+                                                  INNER JOIN 
+                                                      db_levents.color c ON pd.color_id = c.id
+                                                  INNER JOIN 
+                                                      db_levents.size s ON pd.size_id = s.id
+                                                  INNER JOIN 
+                                                      db_levents.product p ON pd.product_id = p.id
+                                                  WHERE 
+                                                     pd.status = '1' and p.id = ?) 
+                                                  AS temp WHERE rownum BETWEEN ? AND ?;   
                          """;
             ResultSet rs = JDBCHelped.executeQuery(sql, idSP, min, max);
             while (rs.next()) {
@@ -449,7 +480,7 @@ public class ProductDetailRepository {
                 Size size = new Size(name_Size);
 
                 Product product = new Product(name_Product);
-                ProductDetail pdt = new ProductDetail(quantity, color, created_at, id, product, size, updated_at, status,img);
+                ProductDetail pdt = new ProductDetail(quantity, color, created_at, id, product, size, updated_at, status, img);
 
                 list.add(pdt);
             }
@@ -510,7 +541,7 @@ public class ProductDetailRepository {
         }
         return null;
     }
-    
+
     public boolean Update_procuct_detail_billdetail(String id) {
         try {
             String sql = "update db_levents.product_detail set status = 0 where id =?;";

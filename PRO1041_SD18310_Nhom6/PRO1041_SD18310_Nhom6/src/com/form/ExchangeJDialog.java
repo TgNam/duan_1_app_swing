@@ -38,8 +38,6 @@ import table.TableCustom;
  *
  * @author thiet
  */
-
-
 public class ExchangeJDialog extends javax.swing.JDialog {
 
     /**
@@ -59,9 +57,8 @@ public class ExchangeJDialog extends javax.swing.JDialog {
     String idBill;
     Timestamp created_at;
     double sum;
-    
-    
-     //them cai nay 2/12
+
+    //them cai nay 2/12
     EditButtons bt = new EditButtons();
     EditTextField txt = new EditTextField();
 
@@ -75,14 +72,14 @@ public class ExchangeJDialog extends javax.swing.JDialog {
         System.out.println(idBill);
         System.out.println(lblMoney_Sum.toString());
         this.loadProduct_Detail();
-        
+
         //them 4/12
         TableCustom.apply(slpPr_Detail, TableCustom.TableType.MULTI_LINE);
         TableCustom.apply(slpPr_Ex, TableCustom.TableType.MULTI_LINE);
 
         bt.Edit(btnxoa);
         bt.Edit(btnHoanThanh);
-        
+
     }
 
     public void setMoney(double money) {
@@ -356,25 +353,53 @@ public class ExchangeJDialog extends javax.swing.JDialog {
         System.out.println("id bill: " + ex.getBillId().getId());
         System.out.println("ngay tao: " + ex.getCreatedAt());
         System.out.println("mo ta: " + ex.getDescribeReason());
-        boolean successMessageShown = false; 
-        if (exs.Insert(ex)) {
+        boolean successMessageShown = false;
+        if (Double.parseDouble(lblMoney_Sum.getText().trim()) == 0) {
+            if (exs.Insert(ex)) {
 //            JOptionPane.showMessageDialog(this, "Them 1");
-            for (int i = 0; i < row; i++) {
-                int sl = Integer.parseInt(tblProduct_Ex.getValueAt(i, 8).toString());
-                String idSP = tblProduct_Ex.getValueAt(i, 0).toString();
-                ExchangeBillDetail exd = new ExchangeBillDetail(sl, new ExchangeBill(created_at), new ProductDetail(idSP));
-                if (this.exds.insert(exd) == true && this.pdds.getQuantity(idSP, sl) && this.exs.getUpdate_Bill(idBill)) {
-                    if(!successMessageShown){
-                        JOptionPane.showMessageDialog(this, "Đổi hàng thành công");
-                        successMessageShown = true;
+                for (int i = 0; i < row; i++) {
+                    int sl = Integer.parseInt(tblProduct_Ex.getValueAt(i, 8).toString());
+                    String idSP = tblProduct_Ex.getValueAt(i, 0).toString();
+                    ExchangeBillDetail exd = new ExchangeBillDetail(sl, new ExchangeBill(created_at), new ProductDetail(idSP));
+                    if (this.exds.insert(exd) == true && this.pdds.getQuantity(idSP, sl) && this.exs.getUpdate_Bill(idBill)) {
+                        if (!successMessageShown) {
+                            JOptionPane.showMessageDialog(this, "Đổi hàng thành công");
+                            successMessageShown = true;
+                        }
+                        this.loadProduct_Detail();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "them 2 that bai");
                     }
-                    this.loadProduct_Detail();
-                } else {
-                    JOptionPane.showMessageDialog(this, "them 2 that bai");
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "that bai");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "that bai");
+        }else{
+           int check =  JOptionPane.showConfirmDialog(this, "Số tiền cảu bạn vẫn còn thừa. Bạn có chắc chứ?", "Đổi hàng",  JOptionPane.YES_NO_OPTION);
+           if(check == JOptionPane.YES_OPTION){
+               if (exs.Insert(ex)) {
+//            JOptionPane.showMessageDialog(this, "Them 1");
+                for (int i = 0; i < row; i++) {
+                    int sl = Integer.parseInt(tblProduct_Ex.getValueAt(i, 8).toString());
+                    String idSP = tblProduct_Ex.getValueAt(i, 0).toString();
+                    ExchangeBillDetail exd = new ExchangeBillDetail(sl, new ExchangeBill(created_at), new ProductDetail(idSP));
+                    if (this.exds.insert(exd) == true && this.pdds.getQuantity(idSP, sl) && this.exs.getUpdate_Bill(idBill)) {
+                        if (!successMessageShown) {
+                            JOptionPane.showMessageDialog(this, "Đổi hàng thành công");
+                            successMessageShown = true;
+                        }
+                        this.loadProduct_Detail();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "them 2 that bai");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "that bai");
+            }
+           }else{
+               JOptionPane.showMessageDialog(this, "Mời bạn chọn tiếp.");
+               return;
+           } 
         }
 
 
@@ -392,7 +417,7 @@ public class ExchangeJDialog extends javax.swing.JDialog {
         } else {
             int quantity_product = Integer.parseInt(tblProduct_Detail.getValueAt(row, 8).toString());
             int quantity = Integer.parseInt(JOptionPane.showInputDialog(this, "Moi ban nhap so luong: "));
-            if(quantity > Integer.parseInt(tblProduct_Detail.getValueAt(row, 8).toString())){
+            if (quantity > Integer.parseInt(tblProduct_Detail.getValueAt(row, 8).toString())) {
                 JOptionPane.showMessageDialog(this, "Khong duoc nhap qua so luong sp trong kho");
                 return;
             }
@@ -426,9 +451,19 @@ public class ExchangeJDialog extends javax.swing.JDialog {
                     Size size = new Size(name_Size);
 
                     com.model.Product product = new com.model.Product(price, custom, material, thickness, name_Product);
-                    ProductDetail pdt = new ProductDetail(currentQuantity_Ex + quantity , color, id, product, size);
+                    ProductDetail pdt = new ProductDetail(currentQuantity_Ex + quantity, color, id, product, size);
                     this.List.set(checkEx, pdt);
                     this.loadProduct_Ex();
+                    sum = calculateTotalSum(dtmPR);
+                    lblMoney_Sum.setText(String.valueOf(sum_Money - sum));
+                    if ((sum_Money - sum) < 0) {
+                        JOptionPane.showMessageDialog(this, "Vì số sản phẩm bạn chọn lớn hơn số tiền gốc nên sẽ bị xóa hết sản phẩm.");
+                        this.List.removeAll(List);
+                        this.loadProduct_Ex();
+                        sum = calculateTotalSum(dtmPR);
+                        lblMoney_Sum.setText(String.valueOf(sum_Money - sum));
+                        return;
+                    }
                 } else {
                     String id = tblProduct_Detail.getValueAt(row, 0).toString().trim();
                     String name_Product = tblProduct_Detail.getValueAt(row, 1).toString().trim();
@@ -449,10 +484,18 @@ public class ExchangeJDialog extends javax.swing.JDialog {
                     ProductDetail pdt = new ProductDetail(quantity, color, id, product, size);
                     this.List.add(pdt);
                     this.loadProduct_Ex();
+                    sum = calculateTotalSum(dtmPR);
+                    lblMoney_Sum.setText(String.valueOf(sum_Money - sum));
+                    if ((sum_Money - sum) < 0) {
+                        JOptionPane.showMessageDialog(this, "Vì số sản phẩm bạn chọn lớn hơn số tiền gốc nên sẽ bị xóa hết sản phẩm.");
+                        this.List.removeAll(List);
+                        this.loadProduct_Ex();
+                        sum = calculateTotalSum(dtmPR);
+                        lblMoney_Sum.setText(String.valueOf(sum_Money - sum));
+                        return;
+                    }
                 }
 
-                sum = calculateTotalSum(dtmPR);
-                lblMoney_Sum.setText(String.valueOf(sum_Money - sum));
             }
         }
     }//GEN-LAST:event_tblProduct_DetailMouseClicked
