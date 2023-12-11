@@ -25,10 +25,10 @@ public class Main extends javax.swing.JFrame {
     private BillJPanel hoaDon;
     private SaleProductJpanel dotGiamGia;
     private VoucherJpanel phieuGiamGia;
-    private Delivery_notesJpanel phieuGiaoHang;
+    private AddCreart themNguoiDung;
     private InvoiceManagementJPanel quanLyHoaDon;
     private StatisticsJPanel thongKe;
-    private AddCreart themUser;
+    
     
     public Main() {
         initComponents();
@@ -39,10 +39,9 @@ public class Main extends javax.swing.JFrame {
         hoaDon = new BillJPanel();
         dotGiamGia = new SaleProductJpanel();
         phieuGiamGia = new VoucherJpanel();
-        phieuGiaoHang = new Delivery_notesJpanel();
         thongKe = new StatisticsJPanel();
         quanLyHoaDon = new InvoiceManagementJPanel();
-        themUser = new AddCreart();
+        themNguoiDung = new AddCreart();
         
         menu.initMoving(Main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
@@ -63,7 +62,7 @@ public class Main extends javax.swing.JFrame {
                 } else if (index == 6) {
                     setForm(quanLyHoaDon);
                 } else if (index == 7) {
-                    setForm(phieuGiaoHang);
+                    setForm(themNguoiDung);
                 }else if (index == 8) {
                     setForm(new ThongKeCuaLinh());
                 } else if (index == 9) {

@@ -197,7 +197,7 @@ public class ReturnsForm extends javax.swing.JDialog {
             }
         });
 
-        cboLyDo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboLyDo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sản phẩm lỗi", "Giao không đúng sản phẩm", "Không còn nhu cầu sử dụng", "Kích thước không phù hợp", "Khác" }));
 
         javax.swing.GroupLayout panelTraHangLayout = new javax.swing.GroupLayout(panelTraHang);
         panelTraHang.setLayout(panelTraHangLayout);
