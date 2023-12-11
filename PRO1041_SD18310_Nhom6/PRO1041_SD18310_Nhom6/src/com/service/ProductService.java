@@ -17,7 +17,7 @@ public interface ProductService {
     String updateSale_ID_created_at(Date created_at, String id);
     void updateSale_ID(String id);
     //them ngay 23/11
-    ArrayList<Product> getNext(int min, int max);
+    ArrayList<Product> getNext(String tensp,int min, int max);
     ArrayList<Product> getProduct_sell();
     ArrayList<Product> getProduct_Stop_selling();
     public boolean them(Product prd);
