@@ -476,7 +476,7 @@ public class ReturnsForm extends javax.swing.JDialog {
                 returnBillDetail = new ReturnBillDetail(billDetails.get(i).getPriceNow(), soLuongTra, billDetails.get(i).getProductDetailId(), new ReturnBillImple().getByIdBill(String.valueOf(bill.getId())), "4");
                 new ReturnBillDetailImple().insert(returnBillDetail);
                 // thay đổi trạng thái hóa đơn
-                billImple.updateStatusById(bill.getId(), 1);
+                billImple.updateStatusById(bill.getId(), 4);
             }
             JOptionPane.showMessageDialog(this, "Gửi yêu cầu trả hàng thành công", "Trả hàng", 1);
             this.setVisible(false);
