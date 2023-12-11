@@ -39,6 +39,7 @@ public class LoginJDialog extends javax.swing.JDialog {
     public boolean checkAccount(String user, String pass){
         for (UserRole userRole : urs.getAll_Employee(String.valueOf("1"))) {
             if(user.equals(userRole.getUserId().getAccount().trim()) && pass.equals(userRole.getUserId().getPassword().trim())){
+                
                 return true;
             }
         }
