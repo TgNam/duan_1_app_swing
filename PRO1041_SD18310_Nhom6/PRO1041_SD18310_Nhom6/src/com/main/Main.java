@@ -17,6 +17,7 @@ import com.form.StatisticsJPanel;
 import com.form.ThongKeCuaLinh;
 import com.form.UserJPanel;
 import com.form.VoucherJpanel;
+import util.UserLogin;
 
 public class Main extends javax.swing.JFrame {
 
@@ -31,12 +32,14 @@ public class Main extends javax.swing.JFrame {
     private StatisticsJPanel thongKe;
     private AddCreart themUser;
     private LoginJDialog login;
-    
+    //them vao 11/12
+//    String cv;
+
     public Main() {
         initComponents();
-//        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
-//        login.setVisible(true);
-        
+        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
+        login.setVisible(true);
+
         setBackground(new Color(0, 0, 0, 0));
         sanPham = new Product();
         khachHang = new UserJPanel();
@@ -49,36 +52,71 @@ public class Main extends javax.swing.JFrame {
         quanLyHoaDon = new InvoiceManagementJPanel();
         themUser = new AddCreart();
         
-        menu.initMoving(Main.this);
-        menu.addEventMenuSelected(new EventMenuSelected() {
-            @Override
-            public void selected(int index) {
-                if (index == 0) {
-                    setForm(sanPham);
-                } else if (index == 1) {
-                    setForm(khachHang);
-                } else if (index == 2) {
-                    setForm(nhanVien);
-                } else if (index == 3) {
-                    setForm(hoaDon);
-                } else if (index == 4) {
-                    setForm(dotGiamGia);
-                } else if (index == 5) {
-                    setForm(phieuGiamGia);
-                } else if (index == 6) {
-                    setForm(quanLyHoaDon);
-                } else if (index == 7) {
-                    setForm(phieuGiaoHang);
-                }else if (index == 8) {
-                    setForm(new ThongKeCuaLinh());
-                } else if (index == 9) {
-                    int shutDown = JOptionPane.showConfirmDialog(new JFrame(), "Bạn có muốn thoát không", "Thoát", JOptionPane.YES_NO_OPTION);
-                    if(shutDown == JOptionPane.YES_OPTION){
-                        System.exit(0);
+        if(UserLogin.getUserLogin().getChucVu().equalsIgnoreCase("Admin")){
+            menu.initMoving(Main.this);
+            menu.addEventMenuSelected(new EventMenuSelected() {
+                @Override
+                public void selected(int index) {
+                    if (index == 0) {
+                        System.out.println("cv: " + UserLogin.getUserLogin().getChucVu());
+                        setForm(sanPham);
+                    } else if (index == 1) {
+                        setForm(khachHang);
+                    } else if (index == 2) {
+                        setForm(nhanVien);
+                    } else if (index == 3) {
+                        setForm(hoaDon);
+                    } else if (index == 4) {
+                        setForm(dotGiamGia);
+                    } else if (index == 5) {
+                        setForm(phieuGiamGia);
+                    } else if (index == 6) {
+                        setForm(quanLyHoaDon);
+                    } else if (index == 7) {
+                        setForm(phieuGiaoHang);
+                    } else if (index == 8) {
+                        setForm(new ThongKeCuaLinh());
+                    } else if (index == 9) {
+                        int shutDown = JOptionPane.showConfirmDialog(new JFrame(), "Bạn có muốn thoát không", "Thoát", JOptionPane.YES_NO_OPTION);
+                        if (shutDown == JOptionPane.YES_OPTION) {
+                            System.exit(0);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }else{
+             menu.initMoving(Main.this);
+            menu.addEventMenuSelected(new EventMenuSelected() {
+                @Override
+                public void selected(int index) {
+                    if (index == 0) {
+                        JOptionPane.showMessageDialog(rootPane, "Khong the vao duoc!");
+                    } else if (index == 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Khong the vao duoc!");
+                    } else if (index == 2) {
+                        JOptionPane.showMessageDialog(rootPane, "Khong the vao duoc!");
+                    } else if (index == 3) {
+                        setForm(hoaDon);
+                    } else if (index == 4) {
+                        JOptionPane.showMessageDialog(rootPane, "Khong the vao duoc!");
+                    } else if (index == 5) {
+                        JOptionPane.showMessageDialog(rootPane, "Khong the vao duoc!");
+                    } else if (index == 6) {
+                        setForm(quanLyHoaDon);
+                    } else if (index == 7) {
+                        JOptionPane.showMessageDialog(rootPane, "Khong the vao duoc!");
+                    } else if (index == 8) {
+                        setForm(new ThongKeCuaLinh());
+                    } else if (index == 9) {
+                        int shutDown = JOptionPane.showConfirmDialog(new JFrame(), "Bạn có muốn thoát không", "Thoát", JOptionPane.YES_NO_OPTION);
+                        if (shutDown == JOptionPane.YES_OPTION) {
+                            System.exit(0);
+                        }
+                    }
+                }
+            });
+        }
+        
         //  set when system open start with home form
         System.out.println("rong: " + mainPanel.getWidth());
         System.out.println("cao:" + mainPanel.getHeight());
@@ -91,6 +129,11 @@ public class Main extends javax.swing.JFrame {
         mainPanel.repaint();
         mainPanel.revalidate();
     }
+
+    //them vao 11/12
+//    public void status(String st) {
+//        cv = st;
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

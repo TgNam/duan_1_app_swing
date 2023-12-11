@@ -47,6 +47,7 @@ import com.service.imple.ThicknessImple;
 import com.swing.EditButtons;
 import com.swing.EditTextField;
 import java.awt.Font;
+import java.io.ByteArrayOutputStream;
 import javax.swing.JTable;
 import table.TableCustom;
 
@@ -125,6 +126,7 @@ public class Product extends javax.swing.JPanel {
     //them cai nay 2/12
     EditButtons bt = new EditButtons();
     EditTextField txt = new EditTextField();
+    BufferedImage editedImage;
 
     /**
      * Creates new form Product
@@ -263,6 +265,7 @@ public class Product extends javax.swing.JPanel {
                 sp.getMaterial_id().getNameMaterial(),
                 sp.getThickness_id().getGsm() + "gsm",};
             dtm.addRow(ob);
+            System.out.println("anh " + i + ": " + sp.getImage_Type());
             i++;
         }
     }
@@ -535,11 +538,9 @@ public class Product extends javax.swing.JPanel {
                     return sp;
                 } else {
                     com.model.Product sp = new com.model.Product(tien, new Custom(kieuDang), new Material(vatLieu), new Thickness(doDaySo), moTa, ten, img);
-                return sp;
+                    return sp;
                 }
-                
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Loi anh");
                 e.printStackTrace();
             }
 
@@ -787,6 +788,64 @@ public class Product extends javax.swing.JPanel {
         Category c = new Category(true, id_cbbDanhMuc);
         ProductCategory p = new ProductCategory(c, pr);
         return p;
+    }
+
+    //them vao 11/12
+    private byte[] getByteArrayFromImage(BufferedImage image) {
+        try {
+            // Tạo đối tượng ByteArrayOutputStream để lưu trữ dữ liệu
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            // Chuyển đối tượng BufferedImage thành dữ liệu định dạng ảnh và ghi vào baos
+            ImageIO.write(image, "png", baos);
+
+            // Trả về mảng byte của dữ liệu ảnh
+            return baos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public com.model.Product formUpdate() {
+        String ten = txtName_Product.getText().trim();
+        String vatLieu = cbbMaterial.getSelectedItem().toString();
+        String gia = txtPrice.getText().trim();
+        String doDay = cbbThickness.getSelectedItem().toString();
+        String kieuDang = cbbCustom.getSelectedItem().toString();
+        String moTa = txtDescribe.getText().trim();
+        if (ten.equals("") || gia.equals("")) {
+            JOptionPane.showMessageDialog(this, "chua nhap du tt");
+            return null;
+        }
+        if (ten.length() > 50) {
+            JOptionPane.showMessageDialog(this, "teen ko ddc qua 50 ky tu.");
+            return null;
+        }
+        try {
+            double giaTien = Double.parseDouble(gia);
+            BigDecimal tien = new BigDecimal(gia);
+            if (giaTien < 0) {
+                JOptionPane.showMessageDialog(this, "gia tien phai lon hon 0");
+                return null;
+            }
+            int doDaySo = Integer.parseInt(doDay);
+            try {
+
+                byte[] img = getByteArrayFromImage(editedImage);
+                com.model.Product sp = new com.model.Product(tien, new Custom(kieuDang), new Material(vatLieu), new Thickness(doDaySo), moTa, ten, img);
+                return sp;
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Hãy chọn ảnh khác");
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "day ko phai gia tien.");
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //
@@ -2111,9 +2170,9 @@ public class Product extends javax.swing.JPanel {
         idProduct_Extra = tblProduct.getValueAt(row_pr, 0).toString();
         //xuat anh
         byte[] retrievedImageData = pr.getImage_Type();
-        System.out.println("ten anh: " + retrievedImageData);
-        name_img_mount = retrievedImageData;
+
         BufferedImage image = getImageFromByteArray(retrievedImageData);
+        editedImage = image;
         if (image != null) {
             lblImage.setText("");
             int width = lblImage.getWidth();
@@ -2132,26 +2191,46 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         com.model.Product sp = form();
         if (sp == null) {
-            return;
-        }
-        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
-        if (check == JOptionPane.YES_OPTION) {
-            if (this.pds.sua(idProduct, sp) == true) {
-                JOptionPane.showMessageDialog(this, "Sửa thành công");
-                this.load_Product_Detail();
-                this.load_Product();
+            sp = formUpdate();
+            int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+            if (check == JOptionPane.YES_OPTION) {
+                if (this.pds.sua(idProduct, sp) == true) {
+                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+                    this.load_Product_Detail();
+                    this.load_Product();
 //            this.loadCatory_Pr();
 //            this.loadCatory_not_Pr();
 //            this.load_Product_Extra();
 //            this.loadcbbProduct();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    return;
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                JOptionPane.showMessageDialog(this, "Đã hủy.");
                 return;
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Đã hủy.");
-            return;
+            int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+            if (check == JOptionPane.YES_OPTION) {
+                if (this.pds.sua(idProduct, sp) == true) {
+                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+                    this.load_Product_Detail();
+                    this.load_Product();
+//            this.loadCatory_Pr();
+//            this.loadCatory_not_Pr();
+//            this.load_Product_Extra();
+//            this.loadcbbProduct();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Đã hủy.");
+                return;
+            }
         }
+
 
     }//GEN-LAST:event_btnFix_ProducActionPerformed
 

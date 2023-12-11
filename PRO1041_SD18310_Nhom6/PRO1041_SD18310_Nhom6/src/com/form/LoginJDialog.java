@@ -4,6 +4,7 @@
  */
 package com.form;
 
+import com.main.Main;
 import com.untils.XImage;
 import javax.swing.JOptionPane;
 import com.model.UserRole;
@@ -11,6 +12,7 @@ import com.service.UserRoleService;
 import com.service.UserService;
 import com.service.imple.UserImple;
 import com.service.imple.UserRoleImple;
+import util.UserLogin;
 
 /**
  *
@@ -39,6 +41,7 @@ public class LoginJDialog extends javax.swing.JDialog {
     public boolean checkAccount(String user, String pass){
         for (UserRole userRole : urs.getAll_Employee(String.valueOf("1"))) {
             if(user.equals(userRole.getUserId().getAccount().trim()) && pass.equals(userRole.getUserId().getPassword().trim())){
+                UserLogin.getUserLogin().setChucVu(userRole.getRoleId().getRoleName());
                 return true;
             }
         }
@@ -127,6 +130,9 @@ public class LoginJDialog extends javax.swing.JDialog {
         lblDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblDangNhapMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblDangNhapMouseEntered(evt);
             }
         });
 
@@ -221,12 +227,12 @@ public class LoginJDialog extends javax.swing.JDialog {
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         // TODO add your handling code here:
-        int ask = JOptionPane.showConfirmDialog(this, "Do you want to escape?", "Exit", JOptionPane.YES_NO_OPTION);
+        int ask = JOptionPane.showConfirmDialog(this, "Bạn muốn thoát sao?", "Exit", JOptionPane.YES_NO_OPTION);
         if(ask == JOptionPane.YES_OPTION){
-            JOptionPane.showMessageDialog(this, "Program exited!");
+            JOptionPane.showMessageDialog(this, "Đã thoát!");
             System.exit(0);
         }else{
-            JOptionPane.showMessageDialog(this, "Cancelled!");
+            JOptionPane.showMessageDialog(this, "Đã hủy!");
             return;
         }
     }//GEN-LAST:event_lblThoatMouseClicked
@@ -248,6 +254,10 @@ public class LoginJDialog extends javax.swing.JDialog {
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserActionPerformed
+
+    private void lblDangNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangNhapMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblDangNhapMouseEntered
     
     public void dangNhap(){
         String user = txtUser.getText().trim();
