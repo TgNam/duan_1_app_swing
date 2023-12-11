@@ -119,6 +119,8 @@ public class Product extends javax.swing.JPanel {
     String id_Pr_Category;
     //them vao 4/12
     String id_cbbDanhMuc;
+    //them vao 11/12
+    byte[] name_img_mount;
     //het
     //them cai nay 2/12
     EditButtons bt = new EditButtons();
@@ -211,7 +213,7 @@ public class Product extends javax.swing.JPanel {
 
         bt.Edit(btnNext_Product_Detail_Stop_Sell);
         bt.Edit(btnPre_Product_Detail_Stop_Sell);
-        
+
         //them 3/12
         bt.Edit(btnScan_PR_Category);
         bt.Edit(btnScan_PR_Not_Category);
@@ -231,17 +233,14 @@ public class Product extends javax.swing.JPanel {
         bt.Edit(btnClear_DM);
         bt.Edit(btnPre_DM);
         bt.Edit(btnNext_DM);
-        
+
         //them vao 10/12
         bt.Edit(btnTimSP);
-        
+
         txt.edit(txtName_Product);
         txt.edit(txtPrice);
         txt.edit(txtQuantity1);
         txt.edit(txtName_Attribute);
-        
-        
-        
 
         //ngay 3/12
         txt.edit(txtPr_Category);
@@ -253,8 +252,8 @@ public class Product extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct.getModel();
         dtm.setRowCount(0);
         int i = 1;
-        
-        for (com.model.Product sp : this.pds.getNext(txtTenTim.getText().trim(),minProduct_tab1, maxProduct_tab1)) {
+
+        for (com.model.Product sp : this.pds.getNext(txtTenTim.getText().trim(), minProduct_tab1, maxProduct_tab1)) {
             Object[] ob = {
                 i,
                 sp.getId(),
@@ -306,7 +305,7 @@ public class Product extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Detail1.getModel();
         dtm.setRowCount(0);
         int i = 1;
-        for (ProductDetail spct : this.pdds.getProductDetail_Selling_Next(idProduct_Extra, minProduct_detail, maxProduct_detail)) {
+        for (ProductDetail spct : this.pdds.getProductDetail_Selling_Next(idProduct, minProduct_detail, maxProduct_detail)) {
             Object[] ob = {
                 i,
                 spct.getId(),
@@ -530,8 +529,15 @@ public class Product extends javax.swing.JPanel {
             int doDaySo = Integer.parseInt(doDay);
             try {
                 byte[] img = readImageFile(nameImage_Product);
-                com.model.Product sp = new com.model.Product(tien, new Custom(kieuDang), new Material(vatLieu), new Thickness(doDaySo), moTa, ten, img);
+                if (img == null) {
+                    img = name_img_mount;
+                    com.model.Product sp = new com.model.Product(tien, new Custom(kieuDang), new Material(vatLieu), new Thickness(doDaySo), moTa, ten, img);
+                    return sp;
+                } else {
+                    com.model.Product sp = new com.model.Product(tien, new Custom(kieuDang), new Material(vatLieu), new Thickness(doDaySo), moTa, ten, img);
                 return sp;
+                }
+                
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Loi anh");
                 e.printStackTrace();
@@ -2090,8 +2096,9 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.pnlProduct_Detail.setVisible(true);
         int row_pr = tblProduct.getSelectedRow();
-        com.model.Product pr = this.pds.getNext(txtTenTim.getText().trim(),minProduct_tab1, maxProduct_tab1).get(row_pr);
-        idProduct = tblProduct.getValueAt(row_pr, 0).toString();
+        com.model.Product pr = this.pds.getNext(txtTenTim.getText().trim(), minProduct_tab1, maxProduct_tab1).get(row_pr);
+        idProduct = tblProduct.getValueAt(row_pr, 1).toString();
+        System.out.println("id sp " + idProduct);
         txtName_Product.setText(pr.getName_product());
         cbbMaterial.setSelectedItem(pr.getMaterial_id().getNameMaterial());
         txtPrice.setText(pr.getProduct_price().toString());
@@ -2104,6 +2111,8 @@ public class Product extends javax.swing.JPanel {
         idProduct_Extra = tblProduct.getValueAt(row_pr, 0).toString();
         //xuat anh
         byte[] retrievedImageData = pr.getImage_Type();
+        System.out.println("ten anh: " + retrievedImageData);
+        name_img_mount = retrievedImageData;
         BufferedImage image = getImageFromByteArray(retrievedImageData);
         if (image != null) {
             lblImage.setText("");
@@ -2474,7 +2483,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minProduct_tab1 = maxProduct_tab1 + 1;
         maxProduct_tab1 += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minProduct_tab1, maxProduct_tab1));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minProduct_tab1, maxProduct_tab1));
         if (checkList) {
             this.load_Product();
         } else {
@@ -2730,7 +2739,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minProduct_not_Category = maxProduct_not_Category + 1;
         maxProduct_not_Category += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minProduct_not_Category, maxProduct_not_Category));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minProduct_not_Category, maxProduct_not_Category));
         if (checkList) {
             this.loadCatory_not_Pr();
         } else {
@@ -2827,11 +2836,12 @@ public class Product extends javax.swing.JPanel {
         if (row < 0) {
             return;
         }
-        ProductDetail prd = this.pdds.getProductDetail_Selling_Next(idProduct_Extra, minProduct_detail, maxProduct_detail).get(row);
-        idProduct_Detail = tblProduct_Detail1.getValueAt(row, 0).toString().trim();
-        cbbColor1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 2).toString().trim());
-        cbbSize1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 1).toString().trim());
-        txtQuantity1.setText(tblProduct_Detail1.getValueAt(row, 3).toString().trim());
+        ProductDetail prd = this.pdds.getProductDetail_Selling_Next(idProduct, minProduct_detail, maxProduct_detail).get(row);
+        idProduct_Detail = tblProduct_Detail1.getValueAt(row, 1).toString().trim();
+        System.out.println("id prdt: " + idProduct_Detail);
+        cbbColor1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 3).toString().trim());
+        cbbSize1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 2).toString().trim());
+        txtQuantity1.setText(tblProduct_Detail1.getValueAt(row, 4).toString().trim());
         //xuat anh
         byte[] retrievedImageData = prd.getImage();
         BufferedImage image = getImageFromByteArray(retrievedImageData);
@@ -2863,7 +2873,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minProduct_detail = maxProduct_detail + 1;
         maxProduct_detail += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minProduct_detail, maxProduct_detail));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minProduct_detail, maxProduct_detail));
         if (checkList) {
             this.load_Product_Detail();
         } else {
@@ -2929,7 +2939,7 @@ public class Product extends javax.swing.JPanel {
         if (rdoSize.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minAttribute, maxAttribute));
             if (checkList) {
                 this.loadSize();
             } else {
@@ -2941,7 +2951,7 @@ public class Product extends javax.swing.JPanel {
         } else if (rdoColor.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minAttribute, maxAttribute));
             if (checkList) {
                 this.loadColer();
             } else {
@@ -2953,7 +2963,7 @@ public class Product extends javax.swing.JPanel {
         } else if (rdoMaterial.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minAttribute, maxAttribute));
             if (checkList) {
                 this.loadMaterial();
             } else {
@@ -2965,7 +2975,7 @@ public class Product extends javax.swing.JPanel {
         } else if (rdoThickness.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minAttribute, maxAttribute));
             if (checkList) {
                 this.loadThickness();
             } else {
@@ -2977,7 +2987,7 @@ public class Product extends javax.swing.JPanel {
         } else if (rdoCustom.isSelected() == true) {
             minAttribute = maxAttribute + 1;
             maxAttribute += 10;
-            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
+            boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minAttribute, maxAttribute));
             if (checkList) {
                 this.loadCustom();
             } else {
@@ -3023,7 +3033,7 @@ public class Product extends javax.swing.JPanel {
                 int height = lblImage_Detail.getHeight();
                 lblImage_Detail.setIcon(new ImageIcon(img.getScaledInstance(width, height, 0)));
                 nameImage_Product_Detail = filePath.trim();
-                System.out.println("ten file;" + nameImage_Product_Detail);
+                System.out.println("ten file: " + nameImage_Product_Detail);
 
             }
         } catch (Exception e) {
@@ -3108,7 +3118,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minProduct_Category = maxProduct_Category + 1;
         maxProduct_Category += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minAttribute, maxAttribute));
         if (checkList) {
             this.loadCatory_Pr();
         } else {
@@ -3276,7 +3286,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minCategory = maxCategory + 1;
         maxCategory += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minAttribute, maxAttribute));
         if (checkList) {
             this.loadCatory_not_Pr();
         } else {
@@ -3303,7 +3313,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         minCategory_Delete = maxCategory_Delete + 1;
         maxCategory_Delete += 10;
-        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(),minAttribute, maxAttribute));
+        boolean checkList = checkNull_Table(this.pds.getNext(txtTenTim.getText().trim(), minAttribute, maxAttribute));
         if (checkList) {
             this.loadCatory_Delete();
         } else {
