@@ -3,16 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/admin/Desktop/DuAn1/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/main/Main.java</file>
-            <file>file:/C:/Users/admin/Desktop/DuAn1/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/BillJPanel.java</file>
-            <file>file:/C:/Users/admin/Desktop/DuAn1/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/ReturnsForm.java</file>
-=======
+            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/repository/ProductRepository.java</file>
+            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/Product.java</file>
             <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/main/Main.java</file>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/InvoiceManagementJPanel.java</file>
+            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/model/UserRole.java</file>
+            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/util/CheckRoler.java</file>
             <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/LoginJDialog.java</file>
-            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/form/AddCreart.java</file>
->>>>>>> 31a091f36d974214cf5e6687da82b2f347fa48ed
+            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/repository/ProductDetailRepository.java</file>
+            <file>file:/D:/DuAn1_Mark6/duan_1_app_swing/PRO1041_SD18310_Nhom6/PRO1041_SD18310_Nhom6/src/com/service/imple/ProductImple.java</file>
         </group>
     </open-files>
 </project-private>

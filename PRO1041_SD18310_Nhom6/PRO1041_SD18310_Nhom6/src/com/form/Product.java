@@ -127,6 +127,7 @@ public class Product extends javax.swing.JPanel {
     EditButtons bt = new EditButtons();
     EditTextField txt = new EditTextField();
     BufferedImage editedImage;
+
     /**
      * Creates new form Product
      */
@@ -264,7 +265,7 @@ public class Product extends javax.swing.JPanel {
                 sp.getMaterial_id().getNameMaterial(),
                 sp.getThickness_id().getGsm() + "gsm",};
             dtm.addRow(ob);
-            System.out.println("anh " + i + ": " + sp.getImage_Type() );
+            System.out.println("anh " + i + ": " + sp.getImage_Type());
             i++;
         }
     }
@@ -537,11 +538,9 @@ public class Product extends javax.swing.JPanel {
                     return sp;
                 } else {
                     com.model.Product sp = new com.model.Product(tien, new Custom(kieuDang), new Material(vatLieu), new Thickness(doDaySo), moTa, ten, img);
-                return sp;
+                    return sp;
                 }
-                
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Hãy chọn ảnh khác");
                 e.printStackTrace();
             }
 
@@ -790,23 +789,24 @@ public class Product extends javax.swing.JPanel {
         ProductCategory p = new ProductCategory(c, pr);
         return p;
     }
-    
+
     //them vao 11/12
     private byte[] getByteArrayFromImage(BufferedImage image) {
-    try {
-        // Tạo đối tượng ByteArrayOutputStream để lưu trữ dữ liệu
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            // Tạo đối tượng ByteArrayOutputStream để lưu trữ dữ liệu
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        // Chuyển đối tượng BufferedImage thành dữ liệu định dạng ảnh và ghi vào baos
-        ImageIO.write(image, "png", baos);
+            // Chuyển đối tượng BufferedImage thành dữ liệu định dạng ảnh và ghi vào baos
+            ImageIO.write(image, "png", baos);
 
-        // Trả về mảng byte của dữ liệu ảnh
-        return baos.toByteArray();
-    } catch (IOException e) {
-        e.printStackTrace();
+            // Trả về mảng byte của dữ liệu ảnh
+            return baos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    return null;
-}
+
     public com.model.Product formUpdate() {
         String ten = txtName_Product.getText().trim();
         String vatLieu = cbbMaterial.getSelectedItem().toString();
@@ -831,12 +831,11 @@ public class Product extends javax.swing.JPanel {
             }
             int doDaySo = Integer.parseInt(doDay);
             try {
-                
+
                 byte[] img = getByteArrayFromImage(editedImage);
                 com.model.Product sp = new com.model.Product(tien, new Custom(kieuDang), new Material(vatLieu), new Thickness(doDaySo), moTa, ten, img);
                 return sp;
-                
-                
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Hãy chọn ảnh khác");
                 e.printStackTrace();
@@ -2171,7 +2170,7 @@ public class Product extends javax.swing.JPanel {
         idProduct_Extra = tblProduct.getValueAt(row_pr, 0).toString();
         //xuat anh
         byte[] retrievedImageData = pr.getImage_Type();
-        
+
         BufferedImage image = getImageFromByteArray(retrievedImageData);
         editedImage = image;
         if (image != null) {
@@ -2190,28 +2189,48 @@ public class Product extends javax.swing.JPanel {
 
     private void btnFix_ProducActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFix_ProducActionPerformed
         // TODO add your handling code here:
-        com.model.Product sp = formUpdate();
+        com.model.Product sp = form();
         if (sp == null) {
-            return;
-        }
-        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
-        if (check == JOptionPane.YES_OPTION) {
-            if (this.pds.sua(idProduct, sp) == true) {
-                JOptionPane.showMessageDialog(this, "Sửa thành công");
-                this.load_Product_Detail();
-                this.load_Product();
+            sp = formUpdate();
+            int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+            if (check == JOptionPane.YES_OPTION) {
+                if (this.pds.sua(idProduct, sp) == true) {
+                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+                    this.load_Product_Detail();
+                    this.load_Product();
 //            this.loadCatory_Pr();
 //            this.loadCatory_not_Pr();
 //            this.load_Product_Extra();
 //            this.loadcbbProduct();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    return;
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                JOptionPane.showMessageDialog(this, "Đã hủy.");
                 return;
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Đã hủy.");
-            return;
+            int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+            if (check == JOptionPane.YES_OPTION) {
+                if (this.pds.sua(idProduct, sp) == true) {
+                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+                    this.load_Product_Detail();
+                    this.load_Product();
+//            this.loadCatory_Pr();
+//            this.loadCatory_not_Pr();
+//            this.load_Product_Extra();
+//            this.loadcbbProduct();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Đã hủy.");
+                return;
+            }
         }
+
 
     }//GEN-LAST:event_btnFix_ProducActionPerformed
 
