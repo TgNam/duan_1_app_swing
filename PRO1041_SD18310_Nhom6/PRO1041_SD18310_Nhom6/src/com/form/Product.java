@@ -1388,12 +1388,12 @@ public class Product extends javax.swing.JPanel {
         pnlSanPham.add(textAreaScroll2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 210, 90));
 
         txtTenTim.setBorder(null);
-        pnlSanPham.add(txtTenTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 370, 290, 20));
+        pnlSanPham.add(txtTenTim, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 370, 290, 20));
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel23.setText("_____________________________________________________________");
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        pnlSanPham.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 390, 320, 10));
+        pnlSanPham.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 390, 320, 10));
 
         btnTimSP.setText("Tìm");
         btnTimSP.addActionListener(new java.awt.event.ActionListener() {
@@ -1401,7 +1401,7 @@ public class Product extends javax.swing.JPanel {
                 btnTimSPActionPerformed(evt);
             }
         });
-        pnlSanPham.add(btnTimSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 370, 90, 30));
+        pnlSanPham.add(btnTimSP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 370, 90, 30));
 
         swingTab1.addTab("Sản phẩm", pnlSanPham);
 

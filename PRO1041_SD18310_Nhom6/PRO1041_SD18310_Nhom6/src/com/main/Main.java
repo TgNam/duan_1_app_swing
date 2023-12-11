@@ -51,7 +51,7 @@ public class Main extends javax.swing.JFrame {
         thongKe = new StatisticsJPanel();
         quanLyHoaDon = new InvoiceManagementJPanel();
         themUser = new AddCreart();
-        
+//        UserLogin.getUserLogin().setChucVu("Admin");
         if(UserLogin.getUserLogin().getChucVu().equalsIgnoreCase("Admin")){
             menu.initMoving(Main.this);
             menu.addEventMenuSelected(new EventMenuSelected() {
@@ -120,7 +120,7 @@ public class Main extends javax.swing.JFrame {
         //  set when system open start with home form
         System.out.println("rong: " + mainPanel.getWidth());
         System.out.println("cao:" + mainPanel.getHeight());
-        setForm(sanPham);
+//        setForm(sanPham);
     }
 
     private void setForm(JComponent com) {
