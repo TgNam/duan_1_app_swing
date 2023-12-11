@@ -16,21 +16,26 @@ import javax.swing.table.TableColumnModel;
 import com.model.Bill;
 import com.model.BillDetail;
 import com.model.ExchangeBill;
+import com.model.ExchangeBillDetail;
 import com.model.ReturnBill;
 import com.model.ReturnBillDetail;
+import com.repository.Return_Bill_Repository;
 import com.repository.VoucherResponsitory;
 import com.service.AddressService;
 import com.service.BillDetailService;
 import com.service.BillService;
 import com.service.ExchangeService;
+import com.service.Exchange_detailServict;
 import com.service.ProductDetailService;
 import com.service.ProductService;
+import com.service.ReturnBillDetailService;
 import com.service.ReturnBillService;
 import com.service.UserRoleService;
 import com.service.UserService;
 import com.service.imple.AddressImple;
 import com.service.imple.BillDetailImple;
 import com.service.imple.BillImple;
+import com.service.imple.Exchage_DetailImple;
 import com.service.imple.ExchangeImple;
 import com.service.imple.ProductDetailImple;
 import com.service.imple.ProductImple;
@@ -38,10 +43,13 @@ import com.service.imple.ReturnBillDetailImple;
 import com.service.imple.ReturnBillImple;
 import com.service.imple.UserImple;
 import com.service.imple.UserRoleImple;
+import com.swing.EditButtons;
+import com.swing.EditTextField;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import table.TableCustom;
 
 /**
  *
@@ -61,16 +69,22 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     private Validate vl = new Validate();
     private String checkStatus = "1";
     private JFrame jFrame = new JFrame();
+    private Exchange_detailServict exchange_detailServict = new Exchage_DetailImple();
     private ReturnsForm returnsForm = new ReturnsForm(jFrame, true);
     private List<BillDetail> listProductReturn = null;
     private ExchangeService exchangeService = new ExchangeImple();
     private ReturnBillService returnBillService = new ReturnBillImple();
+    private ReturnBillDetailService returnBillDetailService = new ReturnBillDetailImple();
+    private Exchange_detailServict exchangeDetailServict = new Exchage_DetailImple();
     //them cai nay 30/11
     private List<BillDetail> listProductExchang = null;
     private Exchang_Bill ex = new Exchang_Bill(jFrame, true);
     private String checkclick = "0";
     private Date nowDate = null;
     private UserService us = new UserImple();
+    //them vao 9/12
+    private  EditButtons bt = new EditButtons();
+    private EditTextField txt = new EditTextField();
     
     /**
      * Creates new form InvoiceManagementJPanel
@@ -79,14 +93,27 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         initComponents();
         columns_no_checkbox();
         columns_tblBill();
-        datarowBill(String.valueOf("1"), String.valueOf("1"));
-//        btnDoiHang.setVisible(false);
-//        btnTraHang.setVisible(false);
-//        btnInPhieuGH.setVisible(true);
-//        bthXacNhan.setVisible(false);
-//        bthHuy.setVisible(false);
-        ActionEvent evt = null;
-        bthBill1ActionPerformed(evt);
+        btnDoiHang.setVisible(false);
+        btnTraHang.setVisible(false);
+        btnInPhieuGH.setVisible(false);
+        bthXacNhan.setVisible(false);
+        bthHuy.setVisible(false);
+        
+        //them vao 9/12
+        bt.Edit(bthBill1);
+        bt.Edit(bthBill2);
+        bt.Edit(bthBill3);
+        bt.Edit(bthBill46);
+        bt.Edit(bthBill57);
+        bt.Edit(bthHuy);
+        bt.Edit(bthXacNhan);
+        bt.Edit(btnDoiHang);
+        bt.Edit(btnTraHang);
+        bt.Edit(btnInPhieuGH);
+        
+        TableCustom.apply(slpBill, TableCustom.TableType.MULTI_LINE);
+        TableCustom.apply(slpBill_Details, TableCustom.TableType.MULTI_LINE);
+        
     }
     //lấy thời gian hiện tại
     public static Date getCurrentDateTime() {
@@ -125,7 +152,13 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         TableColumnModel columnModel = tblBillDetails.getColumnModel();
         tblBill.setModel(tableModel);
     }
-
+    public void columns_no_price_checkbox() {
+        tableModel = new DefaultTableModel();
+        String[] column = {"STT", "Tên Sản Phẩm", "Màu", "Size", "Số Lượng"};
+        tableModel.setColumnIdentifiers(column);
+        TableColumnModel columnModel = tblBillDetails.getColumnModel();
+        tblBillDetails.setModel(tableModel);
+    }
     public void columns_no_checkbox() {
         tableModel = new DefaultTableModel();
         String[] column = {"STT", "Tên Sản Phẩm", "Màu", "Size", "Số Lượng", "Đơn Giá"};
@@ -222,6 +255,21 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             tableModel.addRow(ob);
         }
     }
+    public void loadBillExchangeBill(List<ExchangeBillDetail> list) {
+        tableModel = (DefaultTableModel) this.tblBillDetails.getModel();
+        tableModel.setRowCount(0);
+        int index = 1;
+        for (ExchangeBillDetail ex : list) {
+            Object[] ob = {
+                index++,              
+                ex.getProductDetailId().getProductId().getName_product(),
+                ex.getProductDetailId().getColorId().getNameColor(),
+                ex.getProductDetailId().getSizeId().getNameSize(),
+                ex.getQuantityOfProductsReturned(),
+            };
+            tableModel.addRow(ob);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -231,35 +279,31 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        slpBill = new javax.swing.JScrollPane();
         tblBill = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
         bthBill1 = new javax.swing.JButton();
         bthBill57 = new javax.swing.JButton();
         bthBill46 = new javax.swing.JButton();
         bthBill3 = new javax.swing.JButton();
         bthBill2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        slpBill_Details = new javax.swing.JScrollPane();
         tblBillDetails = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnDoiHang = new javax.swing.JButton();
         btnTraHang = new javax.swing.JButton();
-        btnInPhieuGH = new javax.swing.JButton();
         bthXacNhan = new javax.swing.JButton();
         bthHuy = new javax.swing.JButton();
+        btnInPhieuGH = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         panelFormTraHang.setBackground(new java.awt.Color(255, 255, 255));
-        panelFormTraHang.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LỊCH SỬ HÓA ĐƠN");
-        panelFormTraHang.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(353, 6, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -288,7 +332,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 tblBillMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblBill);
+        slpBill.setViewportView(tblBill);
         if (tblBill.getColumnModel().getColumnCount() > 0) {
             tblBill.getColumnModel().getColumn(0).setMinWidth(50);
             tblBill.getColumnModel().getColumn(0).setMaxWidth(50);
@@ -306,7 +350,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1128, Short.MAX_VALUE)
+                .addComponent(slpBill, javax.swing.GroupLayout.DEFAULT_SIZE, 1128, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -315,14 +359,9 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(slpBill, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        panelFormTraHang.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 116, 1140, -1));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bthBill1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         bthBill1.setText("Hóa đơn đã thanh toán");
@@ -331,9 +370,6 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 bthBill1ActionPerformed(evt);
             }
         });
-        jPanel4.add(bthBill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 179, 57));
-
-        panelFormTraHang.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 41, -1, -1));
 
         bthBill57.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         bthBill57.setText("Hóa đơn trả hàng/đổi hàng");
@@ -342,7 +378,6 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 bthBill57ActionPerformed(evt);
             }
         });
-        panelFormTraHang.add(bthBill57, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 50, 207, 57));
 
         bthBill46.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         bthBill46.setText("Hóa đơn chờ trả hàng/đổi hàng");
@@ -351,7 +386,6 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 bthBill46ActionPerformed(evt);
             }
         });
-        panelFormTraHang.add(bthBill46, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 229, 57));
 
         bthBill3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         bthBill3.setText("Hóa đơn hoàn thành");
@@ -360,7 +394,6 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 bthBill3ActionPerformed(evt);
             }
         });
-        panelFormTraHang.add(bthBill3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 161, 57));
 
         bthBill2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         bthBill2.setText("Hóa đơn đang giao");
@@ -369,7 +402,46 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 bthBill2ActionPerformed(evt);
             }
         });
-        panelFormTraHang.add(bthBill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 169, 57));
+
+        javax.swing.GroupLayout panelFormTraHangLayout = new javax.swing.GroupLayout(panelFormTraHang);
+        panelFormTraHang.setLayout(panelFormTraHangLayout);
+        panelFormTraHangLayout.setHorizontalGroup(
+            panelFormTraHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormTraHangLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(bthBill1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(bthBill2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bthBill3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(bthBill46, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(bthBill57, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(panelFormTraHangLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panelFormTraHangLayout.createSequentialGroup()
+                .addGap(424, 424, 424)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelFormTraHangLayout.setVerticalGroup(
+            panelFormTraHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormTraHangLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelFormTraHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bthBill2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bthBill1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bthBill3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bthBill46, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bthBill57, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -404,7 +476,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 tblBillDetailsMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblBillDetails);
+        slpBill_Details.setViewportView(tblBillDetails);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setText("Chi tiết hóa đơn");
@@ -416,7 +488,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                    .addComponent(slpBill_Details, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -428,11 +500,12 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addComponent(slpBill_Details, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnDoiHang.setText("ĐỔI HÀNG");
         btnDoiHang.addActionListener(new java.awt.event.ActionListener() {
@@ -440,6 +513,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 btnDoiHangActionPerformed(evt);
             }
         });
+        jPanel1.add(btnDoiHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 371, 30));
 
         btnTraHang.setText("TRẢ HÀNG");
         btnTraHang.addActionListener(new java.awt.event.ActionListener() {
@@ -447,13 +521,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 btnTraHangActionPerformed(evt);
             }
         });
-
-        btnInPhieuGH.setText("IN PHIẾU GIAO HÀNG");
-        btnInPhieuGH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInPhieuGHActionPerformed(evt);
-            }
-        });
+        jPanel1.add(btnTraHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 371, 30));
 
         bthXacNhan.setText("XÁC NHẬN");
         bthXacNhan.addActionListener(new java.awt.event.ActionListener() {
@@ -461,6 +529,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 bthXacNhanActionPerformed(evt);
             }
         });
+        jPanel1.add(bthXacNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 371, 30));
 
         bthHuy.setText("HUỶ");
         bthHuy.addActionListener(new java.awt.event.ActionListener() {
@@ -468,49 +537,29 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 bthHuyActionPerformed(evt);
             }
         });
+        jPanel1.add(bthHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 371, 30));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDoiHang, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnInPhieuGH, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bthXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bthHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(btnDoiHang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnInPhieuGH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bthXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bthHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        btnInPhieuGH.setText("IN PHIẾU GIAO HÀNG");
+        btnInPhieuGH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInPhieuGHActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnInPhieuGH, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 371, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelFormTraHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelFormTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -520,9 +569,13 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 .addComponent(panelFormTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -610,13 +663,32 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 } else if (checkStatus.equals("46")) {
                     Bill bill = billService.getBill_status("4", "6").get(row);
                     String id = bill.getId();
-                    List<ReturnBillDetail> listRbd = new ReturnBillDetailImple().getByIdBill(id);
-                    loadBillReturn(listRbd);
-                    ReturnBill returnBill = new ReturnBillImple().getById(listRbd.get(0).getReturnBillId().getId());
+                    String status = bill.getStatus();
+                    if (status.equals("6")) {
+                        columns_no_price_checkbox();
+                        List<ExchangeBillDetail> listEx = exchange_detailServict.getExBill_idBill(id);
+                        loadBillExchangeBill(listEx);
+                    }
+                    if (status.equals("4")) {
+                        columns_no_checkbox();
+                        List<ReturnBillDetail> listRbd = new ReturnBillDetailImple().getByIdBill(id);
+                        loadBillReturn(listRbd); 
+                    }
+                    
                 } else if (checkStatus.equals("57")) {
                     Bill bill = billService.getBill_status("5", "7").get(row);
                     String id = bill.getId();
-                    loadBillDetail(id);
+                    String status = bill.getStatus();
+                    if (status.equals("5")) {
+                        columns_no_checkbox();
+                        List<ReturnBillDetail> listRbd = new ReturnBillDetailImple().getByIdBill(id);
+                        loadBillReturn(listRbd); 
+                    }
+                    if (status.equals("7")) {
+                        columns_no_price_checkbox();
+                        List<ExchangeBillDetail> listEx = exchange_detailServict.getExBill_idBill(id);
+                        loadBillExchangeBill(listEx);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -744,15 +816,16 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             if (checkclick.equals("2")) {
                 Bill bill = billService.getBill_status("4", "6").get(row);
                 String idBill = bill.getId();
+                String statusBill = bill.getStatus();
                 ReturnBill returnBill = returnBillService.getBy_IdBill(idBill);
-                String statusReturnBill = returnBill.getStatus();
-                ExchangeBill exchangeBill = exchangeService.getExchangeBill_id(idBill);
-                String statusExchangeBill = exchangeBill.getStatus();
-                if (statusReturnBill.equals("4")) {
-                    billService.updateStatusById(idBill, Integer.parseInt("5"));
+                ExchangeBill exchangeBill = exchangeService.getExchangeBill_id(idBill);                           
+                if (statusBill.equals("6")) {
+                    exchangeService.update_status(exchangeBill);
+                    billService.updateStatusById(idBill, Integer.parseInt("7"));
                 }
-                if (statusReturnBill.equals("6")) {
-                    billService.updateStatusById(idBill, Integer.parseInt("6"));
+                if (statusBill.equals("4")) {
+                    returnBillService.update_status(returnBill);
+                    billService.updateStatusById(idBill, Integer.parseInt("5"));
                 }
                 datarowBill(String.valueOf("4"), String.valueOf("6"));
             }
@@ -765,7 +838,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
                 addressService.add_address(nowDate, address);
                 Address addressObject = us.getAddress(nowDate, address);
                 String idaddressObject = addressObject.getId();
-                billService.update_address(idaddressObject, idBill);           
+                billService.update_address(idaddressObject, idBill);        
                 billService.updateStatusById(idBill, Integer.parseInt("3"));
                 datarowBill(String.valueOf("1"), String.valueOf("1"));
             }
@@ -787,6 +860,17 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             if (checkclick.equals("2")) {
                 Bill bill = billService.getBill_status("4", "6").get(row);
                 String idBill = bill.getId();
+                String statusBill = bill.getStatus();
+                ReturnBill returnBill = returnBillService.getBy_IdBill(idBill);
+                ExchangeBill exchangeBill = exchangeService.getExchangeBill_id(idBill);
+                if (statusBill.equals("4")) {                  
+                   returnBillDetailService.delete_returnBillDetal(returnBill);
+                   returnBillService.delete_returnBill(idBill);
+                }
+                if (statusBill.equals("6")) {
+                   exchangeDetailServict.delete_exchangeBillDetal(exchangeBill);
+                   exchangeService.delete_exchangeBill(idBill);
+                }
                 billService.updateStatusById(idBill, Integer.parseInt("3"));
                 datarowBill(String.valueOf("4"), String.valueOf("6"));
             }
@@ -813,10 +897,9 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelFormTraHang;
+    private javax.swing.JScrollPane slpBill;
+    private javax.swing.JScrollPane slpBill_Details;
     private javax.swing.JTable tblBill;
     private javax.swing.JTable tblBillDetails;
     // End of variables declaration//GEN-END:variables

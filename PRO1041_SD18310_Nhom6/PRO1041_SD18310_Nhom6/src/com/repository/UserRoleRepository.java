@@ -155,7 +155,7 @@ public class UserRoleRepository {
             String sql = "SELECT COUNT(bill.id) as total_bills_with_status_1\n"
                     + "FROM user\n"
                     + "LEFT JOIN bill ON user.id = bill.user_id\n"
-                    + "WHERE bill.status = '1' and user_id = ?\n"
+                    + "WHERE bill.status = '3' and user_id = ?\n"
                     + "GROUP BY user.id, user.full_name;";
             ResultSet rs = JDBCHelped.executeQuery(sql, user.getId());
             while (rs.next()) {

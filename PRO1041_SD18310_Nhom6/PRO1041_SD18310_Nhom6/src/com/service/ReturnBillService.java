@@ -11,4 +11,6 @@ public interface ReturnBillService {
     ReturnBill getByIdBill(String idBill);
     ReturnBill getById(String id);
     ReturnBill getBy_IdBill(String idBill);
+    boolean update_status(ReturnBill returnBill);
+    boolean delete_returnBill(String id);
 }

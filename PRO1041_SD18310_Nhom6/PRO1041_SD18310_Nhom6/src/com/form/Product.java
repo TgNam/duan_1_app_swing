@@ -245,8 +245,10 @@ public class Product extends javax.swing.JPanel {
     public void load_Product() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct.getModel();
         dtm.setRowCount(0);
+        int i = 1;
         for (com.model.Product sp : this.pds.getNext(minProduct_tab1, maxProduct_tab1)) {
             Object[] ob = {
+                i,
                 sp.getId(),
                 sp.getName_product(),
                 sp.getCustome_id().getNameCustom(),
@@ -254,6 +256,7 @@ public class Product extends javax.swing.JPanel {
                 sp.getMaterial_id().getNameMaterial(),
                 sp.getThickness_id().getGsm() + "gsm",};
             dtm.addRow(ob);
+            i++;
         }
     }
 //xoa cai nay
@@ -294,84 +297,102 @@ public class Product extends javax.swing.JPanel {
     public void load_Product_Detail() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Detail1.getModel();
         dtm.setRowCount(0);
+        int i = 1;
         for (ProductDetail spct : this.pdds.getProductDetail_Selling_Next(idProduct_Extra, minProduct_detail, maxProduct_detail)) {
             Object[] ob = {
+                i,
                 spct.getId(),
                 spct.getSizeId().getNameSize(),
                 spct.getColorId().getNameColor(),
                 spct.getQuantity()
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
     public void loadSize() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
+        int i = 1;
         for (Size d : this.ss.getSize_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
+                i,
                 d.getId(),
                 d.getNameSize(),
                 d.getCreatedAt(),
                 d.getUpdatedAt()
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
     public void loadColer() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
+        int i = 1;
         for (Color d : this.cls.getColor_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
+                i,
                 d.getId(),
                 d.getNameColor(),
                 d.getCreatedAt(),
                 d.getUpdatedAt()
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
     public void loadMaterial() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
+        int i =1;
         for (Material d : this.mts.getMaterial_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
+                i,
                 d.getId(),
                 d.getNameMaterial(),
                 d.getCreatedAt(),
                 d.getUpdatedAt()
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
     public void loadThickness() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
+        int i = 1;
         for (Thickness d : this.tns.getThickness_sell(minAttribute, maxAttribute)) {
             Object[] ob = {
+                i,
                 d.getId(),
                 d.getGsm(),
                 d.getCreatedAt(),
                 d.getUpdatedAt()
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
     public void loadCustom() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute.getModel();
         dtm.setRowCount(0);
+        int  i = 1;
         for (Custom d : this.cts.getCustom_Sell(minAttribute, maxAttribute)) {
             Object[] ob = {
+                i,
                 d.getId(),
                 d.getNameCustom(),
                 d.getCreatedAt(),
                 d.getUpdatedAt()
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
@@ -626,8 +647,10 @@ public class Product extends javax.swing.JPanel {
     public void loadCatory_not_Pr() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Not_Category.getModel();
         dtm.setRowCount(0);
+        int i =1;
         for (com.model.Product sp : this.ctg.getProduct_not_Category(namePr_not_category, nameCategory, minProduct_not_Category, maxProduct_not_Category)) {
             Object[] ob = {
+                i,
                 sp.getId(),
                 sp.getName_product(),
                 sp.getCustome_id().getNameCustom(),
@@ -636,14 +659,17 @@ public class Product extends javax.swing.JPanel {
                 sp.getThickness_id().getGsm() + "gsm"
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
     public void loadCatory_Pr() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblProduct_Category.getModel();
         dtm.setRowCount(0);
+        int i =1;
         for (com.model.Product sp : this.ctg.getProduct_Category(namePr_Category, nameCategory, minProduct_Category, maxProduct_Category)) {
             Object[] ob = {
+                i,
                 sp.getId(),
                 sp.getName_product(),
                 sp.getCustome_id().getNameCustom(),
@@ -652,6 +678,7 @@ public class Product extends javax.swing.JPanel {
                 sp.getThickness_id().getGsm() + "gsm"
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
@@ -668,24 +695,30 @@ public class Product extends javax.swing.JPanel {
     public void loadCatory() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblDM.getModel();
         dtm.setRowCount(0);
+        int i =1;
         for (Category category : this.ctg.getCategory_Action_Next(minCategory, maxCategory)) {
             Object[] ob = {
+                i,
                 category.getId(),
                 category.getNameCategory()
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
     public void loadCatory_Delete() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblCategory_Delete.getModel();
         dtm.setRowCount(0);
+        int i = 1;
         for (Category category : this.ctg.getCategory_not_Action_Next(minCategory_Delete, maxCategory_Delete)) {
             Object[] ob = {
+                i,
                 category.getId(),
                 category.getNameCategory()
             };
             dtm.addRow(ob);
+            i++;
         }
     }
 
@@ -913,19 +946,19 @@ public class Product extends javax.swing.JPanel {
         tblProduct.setForeground(new java.awt.Color(255, 255, 255));
         tblProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Tên sản phẩm", "Kiểu", "Gía", "Nguyên liệu", "Độ dày"
+                "stt", "id", "Tên sản phẩm", "Kiểu", "Gía", "Nguyên liệu", "Độ dày"
             }
         ));
         tblProduct.setRowHeight(25);
@@ -1063,13 +1096,13 @@ public class Product extends javax.swing.JPanel {
 
         tblProduct_Detail1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "id", "Kích cỡ", "màu sắc", "Số lượng"
+                "stt", "id", "Kích cỡ", "màu sắc", "Số lượng"
             }
         ));
         tblProduct_Detail1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1303,24 +1336,24 @@ public class Product extends javax.swing.JPanel {
 
         tblAttribute.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "id", "Tên", "Ngày tạo", "Ngày sửa"
+                "stt", "id", "Tên", "Ngày tạo", "Ngày sửa"
             }
         ));
         tblAttribute.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1428,13 +1461,13 @@ public class Product extends javax.swing.JPanel {
 
         tblProduct_Not_Category.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
+                "stt", "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
             }
         ));
         tblProduct_Not_Category.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1534,13 +1567,13 @@ public class Product extends javax.swing.JPanel {
 
         tblProduct_Category.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
+                "stt", "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
             }
         ));
         tblProduct_Category.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1727,24 +1760,24 @@ public class Product extends javax.swing.JPanel {
 
         tblDM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "id", "Tên"
+                "stt", "id", "Tên"
             }
         ));
         tblDM.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1778,13 +1811,13 @@ public class Product extends javax.swing.JPanel {
 
         tblCategory_Delete.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "id", "Name"
+                "stt", "id", "Name"
             }
         ));
         tblCategory_Delete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1846,7 +1879,7 @@ public class Product extends javax.swing.JPanel {
                 .addContainerGap(99, Short.MAX_VALUE))
         );
 
-        swingTabbedPane2.addTab("Danh mục ngừng sử", jPanel7);
+        swingTabbedPane2.addTab("Danh mục ngừng sử dụng", jPanel7);
 
         javax.swing.GroupLayout pnlDanhMucLayout = new javax.swing.GroupLayout(pnlDanhMuc);
         pnlDanhMuc.setLayout(pnlDanhMucLayout);
@@ -1889,13 +1922,13 @@ public class Product extends javax.swing.JPanel {
 
         tblProduc_Stop_sell.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
+                "stt", "id", "Tên sản phẩm", "Kiểu", "Giá tiền", "Nguyên liệu", "Độ dày"
             }
         ));
         tblProduc_Stop_sell.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1962,13 +1995,13 @@ public class Product extends javax.swing.JPanel {
 
         tblProduct_Detail_Stop_Sell.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "id", "Tên sản phẩm", "Kích cỡ", "Màu", "Số lượng"
+                "stt", "id", "Tên sản phẩm", "Kích cỡ", "Màu", "Số lượng"
             }
         ));
         tblProduct_Detail_Stop_Sell.addMouseListener(new java.awt.event.MouseAdapter() {

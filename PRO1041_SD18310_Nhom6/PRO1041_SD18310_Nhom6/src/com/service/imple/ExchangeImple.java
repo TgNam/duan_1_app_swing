@@ -47,5 +47,23 @@ public class ExchangeImple implements ExchangeService{
             return false;
         }
     }
+
+    @Override
+    public boolean update_status(ExchangeBill exchangeBill) {
+        if(exr.update_status(exchangeBill)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete_exchangeBill(String id) {
+        if(exr.delete_exchangeBill(id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
 }

@@ -1,5 +1,6 @@
 package com.service.imple;
 
+import com.model.ReturnBill;
 import java.util.List;
 import com.model.ReturnBillDetail;
 import com.repository.ReturnBill_Detail_Repository;
@@ -26,6 +27,15 @@ public class ReturnBillDetailImple implements ReturnBillDetailService {
     @Override
     public List<ReturnBillDetail> getByIdBill(String idBill) {
         return returnBillDetailRepository.getByIdBill(idBill);
+    }
+
+    @Override
+    public boolean delete_returnBillDetal(ReturnBill returnBill) {
+        if(returnBillDetailRepository.delete_returnBillDetal(returnBill)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

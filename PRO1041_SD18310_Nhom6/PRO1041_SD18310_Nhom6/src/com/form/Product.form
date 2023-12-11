@@ -181,7 +181,8 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="10">
+                      <Table columnCount="7" rowCount="10">
+                        <Column editable="true" title="stt" type="java.lang.Object"/>
                         <Column editable="true" title="id" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
                         <Column editable="true" title="Ki&#x1ec3;u" type="java.lang.Object"/>
@@ -540,7 +541,8 @@
                     <Component class="javax.swing.JTable" name="tblProduct_Detail1">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="4">
+                          <Table columnCount="5" rowCount="4">
+                            <Column editable="true" title="stt" type="java.lang.Object"/>
                             <Column editable="true" title="id" type="java.lang.Object"/>
                             <Column editable="true" title="K&#xed;ch c&#x1ee1;" type="java.lang.Object"/>
                             <Column editable="true" title="m&#xe0;u s&#x1eaf;c" type="java.lang.Object"/>
@@ -861,7 +863,8 @@
                 <Component class="javax.swing.JTable" name="tblAttribute">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="15">
+                      <Table columnCount="5" rowCount="15">
+                        <Column editable="true" title="stt" type="java.lang.Object"/>
                         <Column editable="true" title="id" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n" type="java.lang.Object"/>
                         <Column editable="true" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
@@ -1205,7 +1208,8 @@
                                 <Component class="javax.swing.JTable" name="tblProduct_Not_Category">
                                   <Properties>
                                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                      <Table columnCount="6" rowCount="4">
+                                      <Table columnCount="7" rowCount="4">
+                                        <Column editable="true" title="stt" type="java.lang.Object"/>
                                         <Column editable="true" title="id" type="java.lang.Object"/>
                                         <Column editable="true" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
                                         <Column editable="true" title="Ki&#x1ec3;u" type="java.lang.Object"/>
@@ -1361,7 +1365,8 @@
                                 <Component class="javax.swing.JTable" name="tblProduct_Category">
                                   <Properties>
                                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                      <Table columnCount="6" rowCount="4">
+                                      <Table columnCount="7" rowCount="4">
+                                        <Column editable="true" title="stt" type="java.lang.Object"/>
                                         <Column editable="true" title="id" type="java.lang.Object"/>
                                         <Column editable="true" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
                                         <Column editable="true" title="Ki&#x1ec3;u" type="java.lang.Object"/>
@@ -1574,7 +1579,8 @@
                         <Component class="javax.swing.JTable" name="tblDM">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="15">
+                              <Table columnCount="3" rowCount="15">
+                                <Column editable="true" title="stt" type="java.lang.Object"/>
                                 <Column editable="true" title="id" type="java.lang.Object"/>
                                 <Column editable="true" title="T&#xea;n" type="java.lang.Object"/>
                               </Table>
@@ -1622,8 +1628,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Danh m&#x1ee5;c ng&#x1eeb;ng s&#x1eed;">
-                        <Property name="tabTitle" type="java.lang.String" value="Danh m&#x1ee5;c ng&#x1eeb;ng s&#x1eed;"/>
+                      <JTabbedPaneConstraints tabName="Danh m&#x1ee5;c ng&#x1eeb;ng s&#x1eed; d&#x1ee5;ng">
+                        <Property name="tabTitle" type="java.lang.String" value="Danh m&#x1ee5;c ng&#x1eeb;ng s&#x1eed; d&#x1ee5;ng"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -1677,7 +1683,8 @@
                         <Component class="javax.swing.JTable" name="tblCategory_Delete">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="4">
+                              <Table columnCount="3" rowCount="4">
+                                <Column editable="true" title="stt" type="java.lang.Object"/>
                                 <Column editable="true" title="id" type="java.lang.Object"/>
                                 <Column editable="true" title="Name" type="java.lang.Object"/>
                               </Table>
@@ -1804,7 +1811,8 @@
                 <Component class="javax.swing.JTable" name="tblProduc_Stop_sell">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="4">
+                      <Table columnCount="7" rowCount="4">
+                        <Column editable="true" title="stt" type="java.lang.Object"/>
                         <Column editable="true" title="id" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
                         <Column editable="true" title="Ki&#x1ec3;u" type="java.lang.Object"/>
@@ -1907,7 +1915,8 @@
                 <Component class="javax.swing.JTable" name="tblProduct_Detail_Stop_Sell">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="4">
+                      <Table columnCount="6" rowCount="4">
+                        <Column editable="true" title="stt" type="java.lang.Object"/>
                         <Column editable="true" title="id" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
                         <Column editable="true" title="K&#xed;ch c&#x1ee1;" type="java.lang.Object"/>
