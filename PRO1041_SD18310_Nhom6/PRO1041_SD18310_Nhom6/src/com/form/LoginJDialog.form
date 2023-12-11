@@ -251,6 +251,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblDangNhapMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblDangNhapMouseEntered"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblThoat">
