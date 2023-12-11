@@ -12,7 +12,6 @@ import com.form.InvoiceManagementJPanel;
 import com.form.LoginJDialog;
 import com.form.Product;
 import com.form.SaleProductJpanel;
-import com.form.StatisticsJPanel;
 import com.form.ThongKeCuaLinh;
 import com.form.UserJPanel;
 import com.form.VoucherJpanel;
@@ -27,15 +26,14 @@ public class Main extends javax.swing.JFrame {
     private VoucherJpanel phieuGiamGia;
     private AddCreart themNguoiDung;
     private InvoiceManagementJPanel quanLyHoaDon;
-    private StatisticsJPanel thongKe;
 
     private AddCreart themUser;
     private LoginJDialog login;
     
     public Main() {
         initComponents();
-        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
-        login.setVisible(true);
+//        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
+//        login.setVisible(true);
         
         setBackground(new Color(0, 0, 0, 0));
         sanPham = new Product();
@@ -44,7 +42,6 @@ public class Main extends javax.swing.JFrame {
         hoaDon = new BillJPanel();
         dotGiamGia = new SaleProductJpanel();
         phieuGiamGia = new VoucherJpanel();
-        thongKe = new StatisticsJPanel();
         quanLyHoaDon = new InvoiceManagementJPanel();
         themNguoiDung = new AddCreart();
         

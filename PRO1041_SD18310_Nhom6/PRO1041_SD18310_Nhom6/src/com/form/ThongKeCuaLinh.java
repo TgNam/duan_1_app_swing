@@ -4,24 +4,20 @@
  */
 package com.form;
 
+import com.model.ChartModel;
 import com.repository.BillRepository;
 import com.repository.Return_Bill_Repository;
 import com.repository.StatisticsRepository;
-import com.swing.Chart;
-import java.awt.FlowLayout;
+import java.awt.Color;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
+import raven.chart.ModelChart;
 
 /**
  *
@@ -35,17 +31,26 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
 
     public ThongKeCuaLinh() {
         initComponents();
+        chart.addLegend("doanhThu", Color.decode("#7b4397"), Color.decode("#dc2430"));
         openForm();
     }
 
     public void openForm() {
-        JFreeChart lineChart = Chart.createLineChart();
+        chart.setTitle("Biểu đồ thống kê tổng doanh thu");
+        List<ChartModel> data = statisticsRepository.getAllDataChart();
 
-        ChartPanel chartPanel = new ChartPanel(lineChart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(850, 367));
-        chartPanel.setVisible(true);
-        pnChart.add(chartPanel);
-        pnChart.setLayout(new FlowLayout());
+        if (data.size() <= 1) {
+            ChartModel chartModel = new ChartModel();
+            for (int i = chartModel.getDataNull().length - 1; i >= 0; i--) {
+                chart.addData(new ModelChart(chartModel.getDataNull()[i], new double[]{0.0,0.0}));
+            }
+        } else {
+            for (int i = data.size() - 1; i >= 0; i--) {
+                ChartModel chartModel = statisticsRepository.getAllDataChart().get(i);
+                chart.addData(new ModelChart(chartModel.getMonth(), new double[]{chartModel.getTotalMoney()}));
+            }
+        }
+        chart.start();
 
         txtRevenue.setText(formatCurrency(revenue()) + "");
         loadFilterYear();
@@ -59,28 +64,19 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
         lbBillReturn.setText(statisticsRepository.getQuantityBillByStatus(5));
     }
 
-    private static JFreeChart createChart(PieDataset dataset) {
-        JFreeChart chart = ChartFactory.createPieChart(
-                "CƠ CẤU DÂN SỐ THEO NHÓM TUỔI NĂM 2010", dataset, true, true, true);
-        return chart;
-    }
-
-    private static PieDataset createDataset() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("Nhóm 0 - 14", Double.valueOf(25.0));
-        dataset.setValue("Nhóm 15 - 59", Double.valueOf(66.0));
-        dataset.setValue("Nhóm trên 60", Double.valueOf(9.0));
-        return dataset;
-    }
-
     public BigDecimal revenue() {
         BigDecimal totalMoney = BigDecimal.ZERO;
         BigDecimal totalBillSuccess = statisticsRepository.getSumIntoMoneyByStatus(3, 7, 0);
         BigDecimal totalReturnBill = returnBillRepository.getTotalMoney();
         BigDecimal totalBillReturn = statisticsRepository.getSumIntoMoneyByStatus(0, 5, 0);
-        if (totalBillSuccess != null && totalReturnBill != null && totalBillReturn != null) {
-            totalMoney = totalBillSuccess.add(totalBillReturn.subtract(totalReturnBill));
+        if (totalBillSuccess == null) {
+            return BigDecimal.ZERO;
         }
+        if (totalReturnBill == null) {
+            totalMoney = totalBillSuccess;
+            return totalMoney;
+        }
+        totalMoney = totalBillSuccess.add(totalBillReturn.subtract(totalReturnBill));
         return totalMoney;
     }
 
@@ -111,7 +107,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
     }
 
     public void filter() {
-          String year = cboFilterByYear.getSelectedItem().toString();
+        String year = cboFilterByYear.getSelectedItem().toString();
         String month = cboFilterByMonth.getSelectedItem().toString();
         BigDecimal totalMoney = BigDecimal.ZERO;
         BigDecimal totalBillSuccess = BigDecimal.ZERO;
@@ -184,12 +180,16 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
                     totalMoney = totalBillSuccess.add(totalBillReturn.subtract(totalReturnBill));
                     txtRevenue.setText(formatCurrency(totalMoney) + "");
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "Không thể xem 1 tháng của thất cả các năm", "Loi", 2);
+                cboFilterByMonth.setSelectedIndex(0);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
             totalMoney = BigDecimal.ZERO;
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -197,6 +197,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
         pnTitle = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pnChart = new javax.swing.JPanel();
+        chart = new raven.chart.CurveLineChart();
         pnStatisticalDetails = new javax.swing.JPanel();
         pnSuccess = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -243,17 +244,21 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        pnChart.setBackground(new java.awt.Color(75, 95, 115));
         pnChart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        chart.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        chart.setFillColor(true);
 
         javax.swing.GroupLayout pnChartLayout = new javax.swing.GroupLayout(pnChart);
         pnChart.setLayout(pnChartLayout);
         pnChartLayout.setHorizontalGroup(
             pnChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 833, Short.MAX_VALUE)
+            .addComponent(chart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnChartLayout.setVerticalGroup(
             pnChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 304, Short.MAX_VALUE)
+            .addComponent(chart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
         );
 
         pnSuccess.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -412,7 +417,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnStatisticalDetailsLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 17, Short.MAX_VALUE)
                 .addComponent(pnUnpaid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnSuccess, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -537,7 +542,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnFilterLayout = new javax.swing.GroupLayout(pnFilter);
@@ -575,7 +580,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(pnStatisticalDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -586,7 +591,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
     }//GEN-LAST:event_cboFilterByMonthMouseClicked
 
     private void cboFilterByMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFilterByMonthActionPerformed
-      filter();
+        filter();
     }//GEN-LAST:event_cboFilterByMonthActionPerformed
 
     private void cboFilterByYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboFilterByYearActionPerformed
@@ -597,6 +602,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboFilterByMonth;
     private javax.swing.JComboBox<String> cboFilterByYear;
+    private raven.chart.CurveLineChart chart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

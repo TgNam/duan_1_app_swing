@@ -4,164 +4,13 @@
  */
 package com.repository;
 
-import com.model.Address;
-import com.model.Bill;
-import com.model.User;
-import com.model.Voucher;
+import com.model.ChartModel;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StatisticsRepository {
-
-    public ArrayList<Bill> getBil_All() {
-        ArrayList<Bill> list = new ArrayList<>();
-        try {
-            String sql = """
-                         select db_levents.bill.id, 
-                                             db_levents.user.full_name,
-                                             db_levents.user.number_phone ,
-                                             db_levents.bill.into_money,
-                                             db_levents.bill.total_cost,
-                                             db_levents.address.address_detail,
-                                             db_levents.bill.created_at,
-                                             db_levents.bill.delivery_date,
-                                             db_levents.bill.updated_at,
-                                             db_levents.bill.voucher_id,
-                                             db_levents.bill.status
-                                             from db_levents.bill
-                                             left  join db_levents.user on db_levents.bill.user_id = db_levents.user.id
-                                             left join db_levents.address on db_levents.bill.address_id = db_levents.address.id
-                                             left join db_levents.user_role on db_levents.user.id = db_levents.user_role.user_id
-                                             inner join db_levents.role on db_levents.user_role.role_id = db_levents.role.id
-                                             where db_levents.bill.status = '3'
-                         """;
-            ResultSet rs = JDBCHelped.executeQuery(sql);
-            while (rs.next()) {
-                String id = rs.getString(1);
-                String name = rs.getString(2);
-                String number_Phone = rs.getString(3);
-                BigDecimal into_money = rs.getBigDecimal(4);
-                BigDecimal total_cost = rs.getBigDecimal(5);
-                String address_detail = rs.getString(6);
-                Date created_at = rs.getDate(7);
-                Date delivery_date = rs.getDate(8);
-                Date updated_at = rs.getDate(9);
-                String voucher = rs.getString(10);
-                String status = rs.getString(11);
-                Bill b;
-                b = new Bill(into_money, total_cost, new Address(address_detail), created_at, delivery_date, id, updated_at, new User(name, number_Phone), new Voucher(voucher), status);
-                list.add(b);
-                ;
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public ArrayList<Bill> getBil_Year() {
-        ArrayList<Bill> list = new ArrayList<>();
-        try {
-            String sql = """
-                     select db_levents.bill.id, 
-                                         db_levents.user.full_name,
-                                         db_levents.user.number_phone ,
-                                         db_levents.bill.into_money,
-                                         db_levents.bill.total_cost,
-                                         db_levents.address.address_detail,
-                                         db_levents.bill.created_at,
-                                         db_levents.bill.delivery_date,
-                                         db_levents.bill.updated_at,
-                                         db_levents.bill.voucher_id,
-                                         db_levents.bill.status
-                                         from db_levents.bill
-                                         left  join db_levents.user on db_levents.bill.user_id = db_levents.user.id
-                                         left join db_levents.address on db_levents.bill.address_id = db_levents.address.id
-                                         left join db_levents.user_role on db_levents.user.id = db_levents.user_role.user_id
-                                         inner join db_levents.role on db_levents.user_role.role_id = db_levents.role.id
-                                         where db_levents.bill.status = '3'
-                                         AND YEAR(db_levents.bill.created_at) = YEAR(CURRENT_DATE());
-                     """;
-
-            ResultSet rs = JDBCHelped.executeQuery(sql);
-            while (rs.next()) {
-                String id = rs.getString(1);
-                String name = rs.getString(2);
-                String number_Phone = rs.getString(3);
-                BigDecimal into_money = rs.getBigDecimal(4);
-                BigDecimal total_cost = rs.getBigDecimal(5);
-                String address_detail = rs.getString(6);
-                Date created_at = rs.getDate(7);
-                Date delivery_date = rs.getDate(8);
-                Date updated_at = rs.getDate(9);
-                String voucher = rs.getString(10);
-                String status = rs.getString(11);
-                Bill b;
-                b = new Bill(into_money, total_cost, new Address(address_detail), created_at, delivery_date, id, updated_at, new User(name, number_Phone), new Voucher(voucher), status);
-                list.add(b);
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public ArrayList<Bill> getBil_Month(int month) {
-        ArrayList<Bill> list = new ArrayList<>();
-        try {
-            String sql = """
-                     select db_levents.bill.id, 
-                                         db_levents.user.full_name,
-                                         db_levents.user.number_phone ,
-                                         db_levents.bill.into_money,
-                                         db_levents.bill.total_cost,
-                                         db_levents.address.address_detail,
-                                         db_levents.bill.created_at,
-                                         db_levents.bill.delivery_date,
-                                         db_levents.bill.updated_at,
-                                         db_levents.bill.voucher_id,
-                                         db_levents.bill.status
-                                         from db_levents.bill
-                                         left  join db_levents.user on db_levents.bill.user_id = db_levents.user.id
-                                         left join db_levents.address on db_levents.bill.address_id = db_levents.address.id
-                                         left join db_levents.user_role on db_levents.user.id = db_levents.user_role.user_id
-                                         inner join db_levents.role on db_levents.user_role.role_id = db_levents.role.id
-                                         where db_levents.bill.status = '3'
-                                         AND MONTH(db_levents.bill.created_at) = ? 
-                                         AND YEAR(db_levents.bill.created_at) = YEAR(CURRENT_DATE());
-                     """;
-
-            // Sử dụng PreparedStatement để tránh tình trạng SQL injection
-            try (PreparedStatement pstmt = JDBCHelped.getConnection().prepareStatement(sql)) {
-                pstmt.setInt(1, month);
-
-                ResultSet rs = pstmt.executeQuery();
-                while (rs.next()) {
-                    String id = rs.getString(1);
-                    String name = rs.getString(2);
-                    String number_Phone = rs.getString(3);
-                    BigDecimal into_money = rs.getBigDecimal(4);
-                    BigDecimal total_cost = rs.getBigDecimal(5);
-                    String address_detail = rs.getString(6);
-                    Date created_at = rs.getDate(7);
-                    Date delivery_date = rs.getDate(8);
-                    Date updated_at = rs.getDate(9);
-                    String voucher = rs.getString(10);
-                    String status = rs.getString(11);
-                    Bill b = new Bill(into_money, total_cost, new Address(address_detail), created_at, delivery_date, id, updated_at, new User(name, number_Phone), new Voucher(voucher), status);
-                    list.add(b);
-                }
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
 
     // BingChiLing is here
     // dùng cho lấy tất cả doanh thu
@@ -261,7 +110,7 @@ public class StatisticsRepository {
     public String getQuantityBillByStatus(int status, int year) {
         String query = "select COUNT(*) from db_levents.bill WHERE status = ? and YEAR(created_at) = ? ";
         try {
-            ResultSet rs = JDBCHelped.executeQuery(query, status,year);
+            ResultSet rs = JDBCHelped.executeQuery(query, status, year);
             if (rs != null && rs.next()) {
                 return rs.getString(1);
             }
@@ -274,7 +123,7 @@ public class StatisticsRepository {
     public String getQuantityBillByStatus(int status, int year, int month) {
         String query = "select COUNT(*) from db_levents.bill WHERE status = ? and YEAR(created_at) = ? and MONTH(created_at) = ?";
         try {
-            ResultSet rs = JDBCHelped.executeQuery(query, status,year, month);
+            ResultSet rs = JDBCHelped.executeQuery(query, status, year, month);
             if (rs != null && rs.next()) {
                 return rs.getString(1);
             }
@@ -283,6 +132,24 @@ public class StatisticsRepository {
         }
         return "0";
     }
-    
+
+    public List<ChartModel> getAllDataChart() {
+        List<ChartModel> list = new ArrayList<>();
+        String query = "SELECT date_format(created_at, '%M') AS 'month', SUM(into_money) AS 'doanh thu'\n" +
+"                 FROM db_levents.bill\n" +
+"                 GROUP BY date_format(created_at, '%M')\n" +
+"                 order by date_format(created_at, '%M') DESC;";
+        
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query);
+            while (rs.next()) {
+                list.add(new ChartModel(rs.getString(1), rs.getDouble(2)));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     // end
 }

@@ -28,7 +28,7 @@ public class Return_Bill_Repository {
 
     //start linh dz
     public boolean insert(ReturnBill returnBill) {
-        String query = "INSERT INTO return_bill(total_cost, bill_id, created_at, reason_description,status,updated_at) VALUES (?,?,NOW(),?,0,NOW()) ";
+        String query = "INSERT INTO return_bill(total_cost, bill_id, created_at, reason_description) VALUES (?,?,NOW(),?) ";
         try {
             JDBCHelped.excuteUpdate(query, returnBill.getTotalCost(), returnBill.getBillId().getId(), returnBill.getReasonDescription());
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class Return_Bill_Repository {
         }
         return returnBill;
     }
-
+   
     public ReturnBill getById(String id) {
         String query = "select * from return_bill WHERE id = ?";
         ReturnBill returnBill = null;
@@ -67,25 +67,24 @@ public class Return_Bill_Repository {
         }
         return returnBill;
     }
-
     // end linh dz
-    public ReturnBill getBy_IdBill(String idBill) {
+        public ReturnBill getBy_IdBill(String idBill) {
         String sql = "select total_cost, bill_id, created_at, id, updated_at, reason_description, status from return_bill WHERE bill_id = ?";
         ReturnBill returnBill = new ReturnBill();
         try {
             ResultSet rs = JDBCHelped.executeQuery(sql, idBill);
             if (rs.next()) {
                 Bill b = new Bill(rs.getString(2));
-                returnBill = new ReturnBill(rs.getBigDecimal(1), b, rs.getDate(3), rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7));
+                returnBill = new ReturnBill(rs.getBigDecimal(1), b, rs.getDate(3), rs.getString(4), rs.getDate(5), rs.getString(6),rs.getString(7));
             }
             return returnBill;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
+        }       
     }
-
-    // BingChiLing is here
+        
+   // BingChiLing is here
     public BigDecimal getSumIntoMoneyByYear(int year) {
         String query = "SELECT SUM(total_cost) FROM db_levents.return_bill where YEAR(created_at) = ? ";
         try {
@@ -212,5 +211,4 @@ public class Return_Bill_Repository {
         }
         return true;
     }
-
 }

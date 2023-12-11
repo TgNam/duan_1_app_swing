@@ -19,6 +19,7 @@ import com.service.imple.ReturnBillDetailImple;
 import com.service.imple.ReturnBillImple;
 import com.swing.EditButtons;
 import com.swing.EditTextField;
+import javax.swing.JPanel;
 import table.TableCustom;
 
 /**
@@ -32,7 +33,9 @@ public class ReturnsForm extends javax.swing.JDialog {
     private Bill bill = null;
     private BillImple billImple = new BillImple();
     private BillDetailImple billDetailImple = new BillDetailImple();
+    InvoiceManagementJPanel  rootPanel ;
 
+    public static InvoiceManagementJPanel invoid = null;
     private Long idBill;
 
      //them vao 9/12
@@ -47,9 +50,10 @@ public class ReturnsForm extends javax.swing.JDialog {
         this.billDetails = billDetails;
     }
 
-    public ReturnsForm(java.awt.Frame parent, boolean modal) {
+    public ReturnsForm(java.awt.Frame parent, boolean modal, InvoiceManagementJPanel root) {
         super(parent, modal);
         initComponents();
+        this.rootPanel = root;
         //them vao 12/9
         bt.Edit(btnHuy);
         bt.Edit(btnXacNhan);
@@ -93,6 +97,11 @@ public class ReturnsForm extends javax.swing.JDialog {
         txtMaKH.setText(bill.getId());
         txtTenKH.setText(bill.getUserId().getFullName());
         txtDaTT.setText(bill.getIntoMoney() + "");
+    }
+    public void hidden(){
+        this.setVisible(false);
+        rootPanel.datarowBill("3","3");
+        rootPanel.loadBillDetail("0");
     }
 
     @SuppressWarnings("unchecked")
@@ -479,8 +488,9 @@ public class ReturnsForm extends javax.swing.JDialog {
                 billImple.updateStatusById(bill.getId(), 4);
             }
             JOptionPane.showMessageDialog(this, "Gửi yêu cầu trả hàng thành công", "Trả hàng", 1);
-            this.setVisible(false);
-            new InvoiceManagementJPanel().datarowBill("3", "3");
+            hidden();
+            
+            
         } else {
             JOptionPane.showMessageDialog(this, "Gửi yêu cầu trả hàng thất bại do lỗi hệ thống", "Trả hàng", 0);
         }
@@ -524,7 +534,7 @@ public class ReturnsForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ReturnsForm dialog = new ReturnsForm(new javax.swing.JFrame(), true);
+                ReturnsForm dialog = new ReturnsForm(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

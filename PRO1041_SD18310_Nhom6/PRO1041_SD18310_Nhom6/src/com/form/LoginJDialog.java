@@ -254,15 +254,15 @@ public class LoginJDialog extends javax.swing.JDialog {
         String pass = new String(txtPass.getPassword());
 
         if(user.equals("") || pass.equals("")){
-            JOptionPane.showMessageDialog(this, "Not be empty!");
+            JOptionPane.showMessageDialog(this, "Chưa điền gì cả!");
             return;
         }
         if(this.checkAccount(user, pass) == true){
-            JOptionPane.showMessageDialog(this, "Logged in successfully!");
+            JOptionPane.showMessageDialog(this, "Đăng nhập thành công.");
             this.setVisible(false);
             return;
         }else{
-            JOptionPane.showMessageDialog(this, "Wrong password or account!");
+            JOptionPane.showMessageDialog(this, "Đăng nhập thất bại do tài khoản hoặc mật khẩu sai.");
             return;
         }
     }

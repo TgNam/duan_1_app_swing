@@ -74,7 +74,7 @@ public class ProductRepository {
     }
 
     // them cai nay ngay 23/11
-    public ArrayList<Product> getNext(int min, int max) {
+    public ArrayList<Product> getNext(String tensp, int min, int max) {
         ArrayList<Product> list = new ArrayList<>();
         try {
             String sql = "select * from \n"
@@ -94,7 +94,10 @@ public class ProductRepository {
                     + "inner join custom on product.custome_id = custom.id \n"
                     + "inner join material on product.material_id = material.id \n"
                     + "inner join thickness on product.thickness_id = thickness.id \n"
-                    + "where product.status = '1') \n"
+                    + "where product.status = '1' and product.name_product like '%"
+                    +tensp
+                    +"%'"
+                    + ") \n"
                     + "AS temp WHERE rownum BETWEEN ? AND ?;";
             ;
             ResultSet rs = JDBCHelped.executeQuery(sql, min, max);
