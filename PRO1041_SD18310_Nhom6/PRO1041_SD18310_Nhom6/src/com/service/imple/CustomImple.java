@@ -51,5 +51,24 @@ public class CustomImple implements CustomService{
     public ArrayList<Custom> getCustom_Sell(int min, int max) {
         return ct.getCustom_Sell(min, max);
     }
+
+    @Override
+    public ArrayList<Custom> getCBB() {
+        return ct.getCBB();
+    }
+
+    @Override
+    public boolean getKP(String id) {
+        if(ct.KhoiPhuc(id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public ArrayList<Custom> getCustom_Stop(int min, int max) {
+        return ct.getCustom_Stop(min, max);
+    }
     
 }

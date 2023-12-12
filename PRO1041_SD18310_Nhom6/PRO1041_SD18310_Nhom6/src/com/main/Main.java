@@ -7,13 +7,11 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import com.form.BillJPanel;
-import com.form.Delivery_notesJpanel;
 import com.form.EMPLOYEEJPanel;
 import com.form.InvoiceManagementJPanel;
 import com.form.LoginJDialog;
 import com.form.Product;
 import com.form.SaleProductJpanel;
-import com.form.StatisticsJPanel;
 import com.form.ThongKeCuaLinh;
 import com.form.UserJPanel;
 import com.form.VoucherJpanel;
@@ -27,9 +25,9 @@ public class Main extends javax.swing.JFrame {
     private BillJPanel hoaDon;
     private SaleProductJpanel dotGiamGia;
     private VoucherJpanel phieuGiamGia;
-    private Delivery_notesJpanel phieuGiaoHang;
+    private AddCreart themNguoiDung;
     private InvoiceManagementJPanel quanLyHoaDon;
-    private StatisticsJPanel thongKe;
+
     private AddCreart themUser;
     private LoginJDialog login;
     //them vao 11/12
@@ -37,8 +35,8 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
-        login.setVisible(true);
+//        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
+//        login.setVisible(true);
 
         setBackground(new Color(0, 0, 0, 0));
         sanPham = new Product();
@@ -47,11 +45,15 @@ public class Main extends javax.swing.JFrame {
         hoaDon = new BillJPanel();
         dotGiamGia = new SaleProductJpanel();
         phieuGiamGia = new VoucherJpanel();
-        phieuGiaoHang = new Delivery_notesJpanel();
-        thongKe = new StatisticsJPanel();
         quanLyHoaDon = new InvoiceManagementJPanel();
+//<<<<<<< HEAD
         themUser = new AddCreart();
-//        UserLogin.getUserLogin().setChucVu("Admin");
+        UserLogin.getUserLogin().setChucVu("Admin");
+//=======
+        themNguoiDung = new AddCreart();
+        
+
+//>>>>>>> 2829913106edc236ab11d9ff58648223e44f876c
         if(UserLogin.getUserLogin().getChucVu().equalsIgnoreCase("Admin")){
             menu.initMoving(Main.this);
             menu.addEventMenuSelected(new EventMenuSelected() {
@@ -73,7 +75,7 @@ public class Main extends javax.swing.JFrame {
                     } else if (index == 6) {
                         setForm(quanLyHoaDon);
                     } else if (index == 7) {
-                        setForm(phieuGiaoHang);
+                        setForm(themNguoiDung);
                     } else if (index == 8) {
                         setForm(new ThongKeCuaLinh());
                     } else if (index == 9) {
@@ -120,7 +122,7 @@ public class Main extends javax.swing.JFrame {
         //  set when system open start with home form
         System.out.println("rong: " + mainPanel.getWidth());
         System.out.println("cao:" + mainPanel.getHeight());
-//        setForm(sanPham);
+        setForm(new ThongKeCuaLinh());
     }
 
     private void setForm(JComponent com) {

@@ -51,5 +51,24 @@ public class ThicknessImple implements ThicknessService{
     public ArrayList<Thickness> getThickness_sell(int min, int max) {
         return t.getThickness_sell(min, max);
     }
+
+    @Override
+    public ArrayList<Thickness> getCBB() {
+        return t.getCBB();
+    }
+
+    @Override
+    public boolean getKP(String id) {
+        if(t.KhoiPhuc(id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public ArrayList<Thickness> getThickness_Stop(int min, int max) {
+        return t.getThickness_Stop(min, max);
+    }
     
 }

@@ -18,4 +18,9 @@ public interface MaterialServict {
      //them vao 1/12
     public boolean xoa(String id);
     ArrayList<Material> getMaterial_Sell(int min, int max);
+    //rthem vao 12/12
+    ArrayList<Material> getCBB();
+    //them 12/12
+    public boolean getKP(String id);
+    ArrayList<Material> getMaterial_Stop(int min, int max);
 }

@@ -26,7 +26,7 @@ public class Header extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Palatino Linotype", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Quản lý Bán Quần Áo Nam với Hiệu Suất Cao: Giải Pháp Hoàn Hảo Cho Doanh Nghiệp Thời Trang Của Bạn!");
+        jLabel3.setText("Quản lý Áo Nam với Hiệu Suất Cao: Giải Pháp Hoàn Hảo Cho Doanh Nghiệp Thời Trang Của Bạn!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
