@@ -18,4 +18,9 @@ public interface CustomService {
      //them vao 1/12
     public boolean xoa(String id);
     ArrayList<Custom> getCustom_Sell(int min, int max);
+    
+    //them vao 12/12
+    ArrayList<Custom> getCBB();
+    public boolean getKP(String id);
+    ArrayList<Custom> getCustom_Stop(int min, int max);
 }

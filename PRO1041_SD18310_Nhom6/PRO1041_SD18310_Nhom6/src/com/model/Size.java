@@ -16,7 +16,8 @@ public class Size {
     private String id;
     private Date updatedAt;
     private String nameSize;
-    private boolean status;
+    private String status;
+    
     public Size() {
     }
 
@@ -31,13 +32,15 @@ public class Size {
         this.nameSize = nameSize;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
+
+    
 
     public Date getCreatedAt() {
         return createdAt;

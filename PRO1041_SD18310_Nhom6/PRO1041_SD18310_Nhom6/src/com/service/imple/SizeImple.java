@@ -51,5 +51,24 @@ public class SizeImple implements SizeSevice{
     public ArrayList<Size> getSize_Sell(int min, int max) {
         return s.getSize_Sell(min, max);
     }
+
+    @Override
+    public ArrayList<Size> getCBB() {
+        return s.getCBB();
+    }
+
+    @Override
+    public ArrayList<Size> getSize_Stop(int min, int max) {
+        return s.getSize_Stop_Sell(min, max);
+    }
+
+    @Override
+    public boolean getKP(String id) {
+        if(s.KhoiPhuc(id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
 }

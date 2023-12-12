@@ -399,44 +399,35 @@ public class UserJPanel extends javax.swing.JPanel {
         });
         jPanel1.add(bthsearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 20, 95, 39));
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Tìm Kiếm");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, -1, 20));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Số điện thoại:");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Ngày Sinh:");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 60, -1));
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Họ và tên:");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Email:");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Tài Khoản:");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Mật Khẩu:");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
 
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Địa Chỉ:");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, -1, -1));
 
         bthUpdateUser.setBackground(new java.awt.Color(153, 204, 255));
         bthUpdateUser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        bthUpdateUser.setForeground(new java.awt.Color(0, 0, 0));
         bthUpdateUser.setText("Update Thông Tin Nhân Viên");
         bthUpdateUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -447,7 +438,6 @@ public class UserJPanel extends javax.swing.JPanel {
 
         bthResetForm.setBackground(new java.awt.Color(153, 204, 255));
         bthResetForm.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        bthResetForm.setForeground(new java.awt.Color(0, 0, 0));
         bthResetForm.setText("Xóa From Thông Tin");
         bthResetForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,7 +448,6 @@ public class UserJPanel extends javax.swing.JPanel {
 
         BthRemoveStatus.setBackground(new java.awt.Color(153, 204, 255));
         BthRemoveStatus.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        BthRemoveStatus.setForeground(new java.awt.Color(0, 0, 0));
         BthRemoveStatus.setText("Xóa Nhân Viên");
         BthRemoveStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -471,8 +460,7 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel3.add(txtfullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 230, 24));
 
         jLabel18.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("_________________________________________________");
+        jLabel18.setText("_______________________________________________");
         jLabel18.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 240, 10));
 
@@ -480,8 +468,7 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel3.add(txtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 230, 24));
 
         jLabel25.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel25.setText("_________________________________________________");
+        jLabel25.setText("_______________________________________________");
         jLabel25.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 240, 10));
 
@@ -489,8 +476,7 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel3.add(txtdateofbirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 230, 24));
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel23.setText("_________________________________________________");
+        jLabel23.setText("_______________________________________________");
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 240, 10));
 
@@ -498,8 +484,7 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel3.add(txtnumblephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 230, 24));
 
         jLabel24.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel24.setText("_________________________________________________");
+        jLabel24.setText("_______________________________________________");
         jLabel24.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 240, 10));
 
@@ -507,8 +492,7 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel3.add(txtaccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 230, 24));
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel22.setText("_________________________________________________");
+        jLabel22.setText("_______________________________________________");
         jLabel22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 240, 10));
 
@@ -516,8 +500,7 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel3.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 230, 24));
 
         jLabel26.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel26.setText("_________________________________________________");
+        jLabel26.setText("_______________________________________________");
         jLabel26.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 240, 10));
 
@@ -525,15 +508,13 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel3.add(txtaddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 230, 24));
 
         jLabel27.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel27.setText("_________________________________________________");
+        jLabel27.setText("_______________________________________________");
         jLabel27.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 240, 10));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 370, 1126, 250));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Khách Hàng");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
@@ -541,8 +522,7 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel1.add(txtSearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 430, 24));
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("___________________________________________________________________________________________");
+        jLabel12.setText("________________________________________________________________________________________");
         jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, 450, 10));
 
@@ -574,20 +554,17 @@ public class UserJPanel extends javax.swing.JPanel {
                 bthsearch0ActionPerformed(evt);
             }
         });
-        jPanel2.add(bthsearch0, new org.netbeans.lib.awtextra.AbsoluteConstraints(1015, 20, 110, 39));
+        jPanel2.add(bthsearch0, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 20, 110, 39));
 
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Tìm Kiếm");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Khách Hàng Đã Xóa");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 215, -1));
 
         bthKhoiPhuc.setBackground(new java.awt.Color(153, 204, 255));
         bthKhoiPhuc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        bthKhoiPhuc.setForeground(new java.awt.Color(0, 0, 0));
         bthKhoiPhuc.setText("Khôi phục Khách Hàng");
         bthKhoiPhuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -598,7 +575,6 @@ public class UserJPanel extends javax.swing.JPanel {
 
         bthResetTable.setBackground(new java.awt.Color(153, 204, 255));
         bthResetTable.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        bthResetTable.setForeground(new java.awt.Color(0, 0, 0));
         bthResetTable.setText("Reset Table");
         bthResetTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -608,13 +584,12 @@ public class UserJPanel extends javax.swing.JPanel {
         jPanel2.add(bthResetTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, 225, 60));
 
         txtSearch0.setBorder(null);
-        jPanel2.add(txtSearch0, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 430, 20));
+        jPanel2.add(txtSearch0, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 430, 20));
 
         jLabel19.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("___________________________________________________________________________________________");
         jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, -1, -1));
 
         swingTabbedPane1.addTab("Đã Xóa", jPanel2);
 
