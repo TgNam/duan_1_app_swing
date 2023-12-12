@@ -35,8 +35,8 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
-        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
-        login.setVisible(true);
+//        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
+//        login.setVisible(true);
 
         setBackground(new Color(0, 0, 0, 0));
         sanPham = new Product();
@@ -46,9 +46,14 @@ public class Main extends javax.swing.JFrame {
         dotGiamGia = new SaleProductJpanel();
         phieuGiamGia = new VoucherJpanel();
         quanLyHoaDon = new InvoiceManagementJPanel();
+//<<<<<<< HEAD
+        themUser = new AddCreart();
+        UserLogin.getUserLogin().setChucVu("Admin");
+//=======
         themNguoiDung = new AddCreart();
         
 
+//>>>>>>> 2829913106edc236ab11d9ff58648223e44f876c
         if(UserLogin.getUserLogin().getChucVu().equalsIgnoreCase("Admin")){
             menu.initMoving(Main.this);
             menu.addEventMenuSelected(new EventMenuSelected() {
@@ -114,7 +119,7 @@ public class Main extends javax.swing.JFrame {
         }
         
         //  set when system open start with home form
-        setForm(sanPham);
+        setForm(new ThongKeCuaLinh());
     }
 
     private void setForm(JComponent com) {

@@ -51,5 +51,24 @@ public class MaterialImple implements MaterialServict{
     public ArrayList<Material> getMaterial_Sell(int min, int max) {
         return m.getMaterial_Sell(min, max);
     }
+
+    @Override
+    public ArrayList<Material> getCBB() {
+        return m.getCBB();
+    }
+
+    @Override
+    public boolean getKP(String id) {
+        if(m.KhoiPhuc(id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public ArrayList<Material> getMaterial_Stop(int min, int max) {
+        return m.getMaterial_Stop(min, max);
+    }
     
 }

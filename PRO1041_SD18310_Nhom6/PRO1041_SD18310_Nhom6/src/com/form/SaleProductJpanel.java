@@ -234,7 +234,6 @@ public class SaleProductJpanel extends javax.swing.JPanel {
         slpSanPham.setViewportView(tblsanpham);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Danh sách sẩn phẩm");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -280,7 +279,6 @@ public class SaleProductJpanel extends javax.swing.JPanel {
         slpKhuyenMai.setViewportView(tblkhuyenmai);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Danh sách khuyến mại");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -310,23 +308,18 @@ public class SaleProductJpanel extends javax.swing.JPanel {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Khuyến mại");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Mức Giảm Giá:");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("TG bắt đầu:");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("TG kết thúc:");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Trạng Thái:");
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
@@ -374,8 +367,7 @@ public class SaleProductJpanel extends javax.swing.JPanel {
         jPanel4.add(txtsale, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 300, 24));
 
         jLabel18.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("________________________________________________________________");
+        jLabel18.setText("______________________________________________________________");
         jLabel18.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 310, 10));
 
@@ -386,14 +378,12 @@ public class SaleProductJpanel extends javax.swing.JPanel {
         jPanel4.add(txttgkt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 300, 24));
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("________________________________________________________________");
+        jLabel21.setText("______________________________________________________________");
         jLabel21.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 310, 10));
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel22.setText("________________________________________________________________");
+        jLabel22.setText("______________________________________________________________");
         jLabel22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 310, 10));
 
