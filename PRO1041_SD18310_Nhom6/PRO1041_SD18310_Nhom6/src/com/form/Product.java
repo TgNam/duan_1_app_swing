@@ -3221,7 +3221,7 @@ public class Product extends javax.swing.JPanel {
             if (pdds.them(prdt) == true) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công.");
                 this.load_Product_Detail();
-                this.clearBien();
+//                this.clearBien();
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại.");
                 return;
@@ -3235,13 +3235,36 @@ public class Product extends javax.swing.JPanel {
 
     private void btnFix_Product_Detail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFix_Product_Detail1ActionPerformed
         // TODO add your handling code here:
-        int row = tblProduct_Detail1.getSelectedRow();
-        if (row < 0) {
-            return;
-        }
+//        int row = tblProduct_Detail1.getSelectedRow();
+//        if (row < 0) {
+//            return;
+//        }
+        System.out.println("da an");
         ProductDetail spct = formct();
+        System.out.println("da an 2");
+        System.out.println("cai" + spct);
         if (spct == null) {
+            System.out.println("qua loc 1");
             spct = formctS();
+            if(spct == null){
+                System.out.println("false ");
+                return;
+            }
+            int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+            if (check == JOptionPane.YES_OPTION) {
+                if (this.pdds.sua(idProduct_Detail, spct) == true) {
+                    JOptionPane.showMessageDialog(this, "Sửa thành công.");
+                    this.load_Product_Detail();
+//                    this.clearBien();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Đã hủy.");
+                return;
+            }
+        }else{
             int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
             if (check == JOptionPane.YES_OPTION) {
                 if (this.pdds.sua(idProduct_Detail, spct) == true) {
@@ -3257,8 +3280,6 @@ public class Product extends javax.swing.JPanel {
                 return;
             }
         }
-
-
     }//GEN-LAST:event_btnFix_Product_Detail1ActionPerformed
 
     private void btnStop_Sell_Product_Detail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStop_Sell_Product_Detail1ActionPerformed
@@ -3272,6 +3293,7 @@ public class Product extends javax.swing.JPanel {
             if (this.pdds.xoa(idProduct_Detail) == true) {
                 JOptionPane.showMessageDialog(this, "Sản phẩm đã ngừng bán.");
                 this.load_Product_Detail();
+                this.loadProduct_Deteail_Stop_Sell();
                 this.clearBien();
             } else {
                 JOptionPane.showMessageDialog(this, "Thất bại.");
@@ -3312,8 +3334,10 @@ public class Product extends javax.swing.JPanel {
 
         btnAdd_Product_Detail1.setEnabled(false);
         btnAdd_Product_Detail1.setBackground(new java.awt.Color(0, 0, 0));
+        
         btnFix_Product_Detail1.setEnabled(true);
         bt.Edit(btnFix_Product_Detail1);
+        
         btnStop_Sell_Product_Detail1.setEnabled(true);
         bt.Edit(btnStop_Sell_Product_Detail1);
 
@@ -3511,6 +3535,7 @@ public class Product extends javax.swing.JPanel {
             JFileChooser fieChooser = new JFileChooser();
             int option = fieChooser.showOpenDialog(this);
             if (option == JFileChooser.APPROVE_OPTION) {
+                lblImage.setText("");
                 file = fieChooser.getSelectedFile();
                 Image img = ImageIO.read(file);
                 String filePath = file.getAbsolutePath();
@@ -3532,6 +3557,7 @@ public class Product extends javax.swing.JPanel {
             JFileChooser fieChooser = new JFileChooser();
             int option = fieChooser.showOpenDialog(this);
             if (option == JFileChooser.APPROVE_OPTION) {
+                lblImage_Detail.setText("");
                 file = fieChooser.getSelectedFile();
                 Image img = ImageIO.read(file);
                 String filePath = file.getAbsolutePath();
@@ -3540,7 +3566,6 @@ public class Product extends javax.swing.JPanel {
                 lblImage_Detail.setIcon(new ImageIcon(img.getScaledInstance(width, height, 0)));
                 nameImage_Product_Detail = filePath.trim();
                 System.out.println("ten file: " + nameImage_Product_Detail);
-
             }
         } catch (Exception e) {
             e.printStackTrace();

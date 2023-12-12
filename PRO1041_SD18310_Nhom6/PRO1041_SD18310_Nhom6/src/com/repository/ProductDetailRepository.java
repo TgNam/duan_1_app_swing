@@ -265,7 +265,7 @@ public class ProductDetailRepository {
                     + "FROM db_levents.product_detail \n"
                     + "inner join db_levents.color on db_levents.product_detail.color_id =db_levents.color.id \n"
                     + "inner join db_levents.size  on db_levents.product_detail.size_id = db_levents.size.id\n"
-                    + "inner join db_levents.product on db_levents.product_detail.product_id = db_levents.product.id where db_levents.product_detail.status = '0';";
+                    + "inner join db_levents.product on db_levents.product_detail.product_id = db_levents.product.id where db_levents.product_detail.status = 0;";
 
             ResultSet rs = JDBCHelped.executeQuery(sql);
             while (rs.next()) {

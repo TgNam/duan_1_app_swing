@@ -36,8 +36,8 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents(); 
-        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
-        login.setVisible(true);
+//        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
+//        login.setVisible(true);
 
         setBackground(new Color(0, 0, 0, 0));
         sanPham = new Product();
@@ -51,7 +51,7 @@ public class Main extends javax.swing.JFrame {
         themUser = new AddCreart();
 //=======
         themNguoiDung = new AddCreart();
-//        UserLogin.getUserLogin().setChucVu("Admin");
+        UserLogin.getUserLogin().setChucVu("Admin");
        
 //>>>>>>> 2829913106edc236ab11d9ff58648223e44f876c
         if(UserLogin.getUserLogin().getChucVu().equalsIgnoreCase("Admin")){
@@ -122,7 +122,7 @@ public class Main extends javax.swing.JFrame {
 ////        setForm(new ThongKeCuaLinh());
 //=======
 //        //  set when system open start with home form
-//        setForm(new ThongKeCuaLinh());
+        setForm(sanPham);
 //>>>>>>> fb856bee1cd6f1203ae61d074911589fce42f164
     }
 
