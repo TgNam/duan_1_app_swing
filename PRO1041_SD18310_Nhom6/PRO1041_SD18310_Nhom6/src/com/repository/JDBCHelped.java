@@ -9,13 +9,6 @@ import java.sql.*;
  * @author TgNam
  */
 public class JDBCHelped {
-        // Định nghĩa phương thức getConnection
-    public static Connection getConnection() throws SQLException {
-        String jdbcUrl = "jdbc:mysql://localhost:3306/db_levents";
-        String username = "root";
-        String password = "root";
-        return DriverManager.getConnection(jdbcUrl, username, password);
-    }
     //sử dụng cho câu truy vấn select
     public static ResultSet executeQuery(String sql, Object... args) {
         Connection con = null;

@@ -254,13 +254,12 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Tài Khoản:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 66, -1, -1));
 
         bthadd.setBackground(new java.awt.Color(153, 204, 255));
         bthadd.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        bthadd.setText("Thêm Nhân Viên");
+        bthadd.setText("Thêm");
         bthadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bthaddActionPerformed(evt);
@@ -269,37 +268,31 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(bthadd, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 290, 680, 52));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Địa Chỉ:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 50, -1));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Mật Khẩu:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 125, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Vai Trò:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 191, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Ngày Sinh:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Số điện thoại:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Email:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 40, -1));
 
         bthResetForm.setBackground(new java.awt.Color(153, 204, 255));
-        bthResetForm.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        bthResetForm.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         bthResetForm.setText("Xóa From Thông Tin");
         bthResetForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,7 +302,6 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(bthResetForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 360, 680, 47));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Họ và tên:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 70, -1));
 
@@ -317,7 +309,6 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(txtfullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 280, 24));
 
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("____________________________________________________________");
         jLabel10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 290, 10));
@@ -326,7 +317,6 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(txtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 24));
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("____________________________________________________________");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 290, 10));
@@ -335,7 +325,6 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(txtnumblephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 280, 24));
 
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("____________________________________________________________");
         jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 290, 10));
@@ -344,7 +333,6 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(txtaddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 280, 24));
 
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("____________________________________________________________");
         jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 290, 10));
@@ -353,7 +341,6 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(txtdateofbirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 280, 24));
 
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("____________________________________________________________");
         jLabel14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 290, 10));
@@ -362,7 +349,6 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(txtaccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 280, 24));
 
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("____________________________________________________________");
         jLabel15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 290, 10));
@@ -371,23 +357,19 @@ public class AddCreart extends javax.swing.JPanel {
         jPanel1.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 280, 24));
 
         jLabel16.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("____________________________________________________________");
         jLabel16.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 290, 10));
 
         buttonGroup1.add(rdocustomer);
-        rdocustomer.setForeground(new java.awt.Color(0, 0, 0));
         rdocustomer.setText("CUSTOMER");
         jPanel1.add(rdocustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 220, -1, -1));
 
         buttonGroup1.add(rdoadmin);
-        rdoadmin.setForeground(new java.awt.Color(0, 0, 0));
         rdoadmin.setText("ADMIN");
         jPanel1.add(rdoadmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
 
         buttonGroup1.add(rdoemployee);
-        rdoemployee.setForeground(new java.awt.Color(0, 0, 0));
         rdoemployee.setText("EMPLOYEE");
         jPanel1.add(rdoemployee, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, -1, -1));
 

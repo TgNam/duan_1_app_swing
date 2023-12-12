@@ -2,6 +2,7 @@ package com.repository;
 
 import com.model.Bill;
 import com.model.ReturnBill;
+import java.math.BigDecimal;
 import java.sql.*;
 
 /**
@@ -27,7 +28,7 @@ public class Return_Bill_Repository {
 
     //start linh dz
     public boolean insert(ReturnBill returnBill) {
-        String query = "INSERT INTO return_bill(total_cost, bill_id, created_at, reason_description,status,updated_at) VALUES (?,?,NOW(),?,0,NOW()) ";
+        String query = "INSERT INTO return_bill(total_cost, bill_id, created_at, reason_description) VALUES (?,?,NOW(),?) ";
         try {
             JDBCHelped.excuteUpdate(query, returnBill.getTotalCost(), returnBill.getBillId().getId(), returnBill.getReasonDescription());
         } catch (Exception e) {
@@ -82,6 +83,113 @@ public class Return_Bill_Repository {
             return null;
         }       
     }
+        
+   // BingChiLing is here
+    public BigDecimal getSumIntoMoneyByYear(int year) {
+        String query = "SELECT SUM(total_cost) FROM db_levents.return_bill where YEAR(created_at) = ? ";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, year);
+            if (rs != null && rs.next()) {
+                return rs.getBigDecimal(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getTotalMoney() {
+        String query = "select SUM(total_cost) from return_bill;";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query);
+            if (rs != null && rs.next()) {
+                return rs.getBigDecimal(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getTotalMoney(int year) {
+        String query = "select SUM(total_cost) from return_bill WHERE YEAR(created_at) = ?;";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, year);
+            if (rs != null && rs.next()) {
+                return rs.getBigDecimal(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getTotalMoneyByIdBill(Long idBill) {
+        String query = "select SUM(total_cost) from return_bill WHERE bill_id = ?";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, idBill);
+            if (rs != null && rs.next()) {
+                return rs.getBigDecimal(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public BigDecimal getTotalMoney(int year, int month) {
+        String query = "select SUM(total_cost) from return_bill WHERE YEAR(created_at) = ? and MONTH(created_at) = ?;";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, year, month);
+            if (rs != null && rs.next()) {
+                return rs.getBigDecimal(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return BigDecimal.ZERO;
+    }
+
+    public String getQuantityByDate() {
+        String query = "select COUNT(*) from db_levents.return_bill ";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+
+    public String getQuantityByDate(int year) {
+        String query = "select COUNT(*) from db_levents.return_bill where YEAR(created_at) = ?";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, year);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+
+    public String getQuantityByDate(int year, int month) {
+        String query = "select COUNT(*) from db_levents.return_bill where YEAR(created_at) = ? and MONTH(created_at) = ?";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, year, month);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+    // end
+
         public boolean update_status(ReturnBill returnBill) {
         String query = "update db_levents.return_bill set status = 1 where id = ?;";
         try {

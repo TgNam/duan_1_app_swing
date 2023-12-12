@@ -45,12 +45,14 @@ import com.service.imple.UserImple;
 import com.service.imple.UserRoleImple;
 import com.swing.EditButtons;
 import com.swing.EditTextField;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JPanel;
 import table.TableCustom;
 
 /**
@@ -72,7 +74,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     private String checkStatus = "1";
     private JFrame jFrame = new JFrame();
     private Exchange_detailServict exchange_detailServict = new Exchage_DetailImple();
-    private ReturnsForm returnsForm = new ReturnsForm(jFrame, true);
+    private ReturnsForm returnsForm = new ReturnsForm(jFrame, true,this);
     private List<BillDetail> listProductReturn = null;
     private ExchangeService exchangeService = new ExchangeImple();
     private ReturnBillService returnBillService = new ReturnBillImple();
@@ -88,6 +90,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
     private EditButtons bt = new EditButtons();
     private EditTextField txt = new EditTextField();
 
+    
     /**
      * Creates new form InvoiceManagementJPanel
      */
@@ -117,6 +120,13 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         TableCustom.apply(slpBill_Details, TableCustom.TableType.MULTI_LINE);
 
     }
+
+    @Override
+    public void setVisible(boolean b) {
+        super.setVisible(b);
+        datarowBill("3", "3");
+    }
+
 
     //lấy thời gian hiện tại
     public static Date getCurrentDateTime() {
@@ -236,31 +246,32 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             }
         } else {
             for (Bill bill : billService.getBill_status(status1, status2)) {
-                    String LyDo = null;
-                    String idBill = bill.getId();
-                    ReturnBill returnBill = returnBillService.getBy_IdBill(idBill);
-                    String reason_description = returnBill.getReasonDescription();
-                    ExchangeBill exchangeBill = exchangeService.getExchangeBill_id(idBill);
-                    String describe_reason = exchangeBill.getDescribeReason();
-                    if (describe_reason != null) {
-                        LyDo = describe_reason;
-                    }
-                    if (reason_description != null) {
-                        LyDo = reason_description;
-                    }
-                    tableModel.addRow(new Object[]{
-                        index++,
-                        bill.getId(),
-                        bill.getUserId().getFullName(),
-                        bill.getUserId().getNumberPhone(),
-                        bill.checkTrangThai(),
-                        bill.getCreatedAt(),
-                        LyDo
-                    });
+                String LyDo = null;
+                String idBill = bill.getId();
+                ReturnBill returnBill = returnBillService.getBy_IdBill(idBill);
+                String reason_description = returnBill.getReasonDescription();
+                ExchangeBill exchangeBill = exchangeService.getExchangeBill_id(idBill);
+                String describe_reason = exchangeBill.getDescribeReason();
+                if (describe_reason != null) {
+                    LyDo = describe_reason;
+                }
+                if (reason_description != null) {
+                    LyDo = reason_description;
+                }
+                tableModel.addRow(new Object[]{
+                    index++,
+                    bill.getId(),
+                    bill.getUserId().getFullName(),
+                    bill.getUserId().getNumberPhone(),
+                    bill.checkTrangThai(),
+                    bill.getCreatedAt(),
+                    LyDo
+                });
             }
         }
 
     }
+    
     //them vao 11/12
 
     private Date getDateWithDaysOffset(int daysOffset) {
@@ -652,6 +663,11 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
         checkclick = "1";
     }//GEN-LAST:event_bthBill2ActionPerformed
 
+    public JButton getBthBill3() {
+        return bthBill3;
+    }
+    
+    
     private void bthBill3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bthBill3ActionPerformed
         columns_yes_checkbox();
         columns_tblBill();
@@ -753,7 +769,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             List<BillDetail> billDetails = billDetailService.getbill_all(bill.getId());
             Boolean isChecked = null;
             listProductReturn = new ArrayList<>();
-            returnsForm = new ReturnsForm(jFrame, true);
+            returnsForm = new ReturnsForm(jFrame, true,this);
             // duyệt qua từng dòng với i là đại diện cho index của các dòng
             for (int i = 0; i < rowCount; i++) {
                 isChecked = (Boolean) tblBillDetails.getValueAt(i, tblBillDetails.getColumnCount() - 1);
@@ -770,6 +786,7 @@ public class InvoiceManagementJPanel extends javax.swing.JPanel {
             returnsForm.setBillDetails(listProductReturn);
             returnsForm.setIdBill(Long.valueOf(bill.getId()));
             returnsForm.setVisible(true);
+            
         } else {
             JOptionPane.showMessageDialog(this, "Chưa chọn hóa đơn", "Lỗi", 0);
             return;

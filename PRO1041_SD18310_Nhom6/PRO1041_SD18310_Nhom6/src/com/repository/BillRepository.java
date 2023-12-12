@@ -13,6 +13,8 @@ import com.model.Address;
 import com.model.User;
 import com.model.Voucher;
 import com.service.imple.VoucherImple;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -235,7 +237,7 @@ public class BillRepository {
             ResultSet rs = JDBCHelped.executeQuery(sql, status1, status2);
             while (rs.next()) {
                 Address address = new Address(rs.getString(6), rs.getString(7));
-                list.add(new Bill(address,rs.getDate(1), rs.getString(2), new User(rs.getString(6), rs.getString(3), rs.getString(4)), rs.getString(5))
+                list.add(new Bill(address, rs.getDate(1), rs.getString(2), new User(rs.getString(6), rs.getString(3), rs.getString(4)), rs.getString(5))
                 );
             }
             return list;
@@ -248,22 +250,24 @@ public class BillRepository {
     public boolean updateVoucherByIdBill(String voucher_id, String id) {
         try {
             String sql = "update db_levents.bill set voucher_id = ? where id =? ;";
-            JDBCHelped.excuteUpdate(sql, voucher_id,id);
+            JDBCHelped.excuteUpdate(sql, voucher_id, id);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
+
     public boolean updatemoneyByIdBill(BigDecimal into_money, BigDecimal total_cost, String id) {
         try {
             String sql = "update db_levents.bill set into_money = ?,total_cost = ?,status = '1' where id =? ;";
-            JDBCHelped.excuteUpdate(sql, into_money,total_cost,id);
+            JDBCHelped.excuteUpdate(sql, into_money, total_cost, id);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
-        public boolean update_Status(String status,String idBill) {
+
+    public boolean update_Status(String status, String idBill) {
         try {
             String sql = "update db_levents.bill set status = ? where id =? ;";
             JDBCHelped.excuteUpdate(sql, status, idBill);
@@ -272,7 +276,8 @@ public class BillRepository {
             return false;
         }
     }
-        public boolean update_address(String address_id,String idBill) {
+
+    public boolean update_address(String address_id, String idBill) {
         try {
             String sql = "Update db_levents.bill set address_id = ? where id = ?;";
             JDBCHelped.excuteUpdate(sql, address_id, idBill);
@@ -281,4 +286,99 @@ public class BillRepository {
             return false;
         }
     }
+
+    // link 
+    public Set<String> getYearCreated() {
+        Set<String> set = new HashSet<>();
+        String query = "SELECT YEAR(created_at) FROM db_levents.bill;";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query);
+            while (rs.next()) {
+                set.add(rs.getString(1));
+            }
+            return set;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getQuantity() {
+        String query = "select COUNT(*) from db_levents.bill";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+
+    public String getQuantity(int year) {
+        String query = "select COUNT(*) from db_levents.bill where YEAR(created_at) = ? ";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, year);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+    
+    public String getQuantity(int year, int month) {
+        String query = "select COUNT(*) from db_levents.bill where YEAR(created_at) = ? and MONTH(created_at) = ?";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, year, month);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+    
+    public String getIdByUpdatedAt(int status) {
+        String query = "select id from db_levents.bill WHERE status = ? ";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, status);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+    
+    public String getIdByUpdatedAt(int status, int year) {
+        String query = "select id from db_levents.bill WHERE status = ? and YEAR(updated_at) = ? ";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, status,year);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+    
+    public String getIdByUpdatedAt(int status, int year,int month) {
+        String query = "select id from db_levents.bill WHERE status = ? and YEAR(updated_at) = ? and MONTH(updated_at) = ? ";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query, status,year, month);
+            if (rs != null && rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0";
+    }
+    // end
 }
