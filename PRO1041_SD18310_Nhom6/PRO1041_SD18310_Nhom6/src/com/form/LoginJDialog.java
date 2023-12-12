@@ -269,8 +269,7 @@ public class LoginJDialog extends javax.swing.JDialog {
         }
         if(this.checkAccount(user, pass) == true){
             JOptionPane.showMessageDialog(this, "Đăng nhập thành công.");
-            this.setVisible(false);
-            return;
+            this.dispose();
         }else{
             JOptionPane.showMessageDialog(this, "Đăng nhập thất bại do tài khoản hoặc mật khẩu sai.");
             return;
