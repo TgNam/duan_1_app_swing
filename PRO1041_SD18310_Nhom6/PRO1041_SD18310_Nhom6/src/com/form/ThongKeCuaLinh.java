@@ -38,11 +38,14 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
     public void openForm() {
         chart.setTitle("Biểu đồ thống kê tổng doanh thu");
         List<ChartModel> data = statisticsRepository.getAllDataChart();
-
+// sửa lại tổng tiền trừ trả hàng
         if (data.size() <= 1) {
             ChartModel chartModel = new ChartModel();
+            ChartModel chartModel1 = statisticsRepository.getAllDataChart().get(0);
+            chart.addData(new ModelChart(chartModel1.getMonth(), new double[]{chartModel1.getTotalMoney()}));
             for (int i = chartModel.getDataNull().length - 1; i >= 0; i--) {
-                chart.addData(new ModelChart(chartModel.getDataNull()[i], new double[]{0.0,0.0}));
+                chart.addData(new ModelChart(chartModel.getDataNull()[i], new double[]{0.0, 0.0}));
+
             }
         } else {
             for (int i = data.size() - 1; i >= 0; i--) {
@@ -244,8 +247,9 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pnChart.setBackground(new java.awt.Color(75, 95, 115));
+        pnChart.setBackground(new java.awt.Color(40, 58, 80));
         pnChart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnChart.setForeground(new java.awt.Color(27, 77, 90));
 
         chart.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         chart.setFillColor(true);
