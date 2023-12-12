@@ -60,7 +60,6 @@ public class Main extends javax.swing.JFrame {
                 @Override
                 public void selected(int index) {
                     if (index == 0) {
-                        System.out.println("cv: " + UserLogin.getUserLogin().getChucVu());
                         setForm(sanPham);
                     } else if (index == 1) {
                         setForm(khachHang);
@@ -119,7 +118,12 @@ public class Main extends javax.swing.JFrame {
             });
         }
         
+//<<<<<<< HEAD
+////        setForm(new ThongKeCuaLinh());
+//=======
+//        //  set when system open start with home form
 //        setForm(new ThongKeCuaLinh());
+//>>>>>>> fb856bee1cd6f1203ae61d074911589fce42f164
     }
 
  
