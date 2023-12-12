@@ -34,7 +34,7 @@ public class XImage {
     }
     
     public static Image getAppIcon(){
-        URL url = XImage.class.getResource("/Icon/fpt.png");
+        URL url = XImage.class.getResource("/util.User2_1.png");
         return new ImageIcon(url).getImage();  
     }
     

@@ -101,7 +101,7 @@ public class Product extends javax.swing.JPanel {
     //them 1/12
     int maxAttribute = 10;
     int minAttribute = 1;
-    
+
     //them 12/12
     int maxAttribute_Stop = 10;
     int minAttribute_stop = 1;
@@ -133,6 +133,7 @@ public class Product extends javax.swing.JPanel {
     EditButtons bt = new EditButtons();
     EditTextField txt = new EditTextField();
     BufferedImage editedImage;
+    BufferedImage editedImage_Detail;
 
     /**
      * Creates new form Product
@@ -160,7 +161,6 @@ public class Product extends javax.swing.JPanel {
         this.loadcbbColor();
         this.loadcbbDanhMuc();
         nameCategory = String.valueOf(cbbCategory.getItemAt(0));
-        System.out.println("1lan thoi:" + nameCategory);
 
         this.loadCatory_not_Pr();
         this.loadCatory_Pr();
@@ -258,7 +258,7 @@ public class Product extends javax.swing.JPanel {
         //them 12/12
         pnlProduct_Detail.setVisible(false);
         TableCustom.apply(slpAttribute_Stop, TableCustom.TableType.MULTI_LINE);
-        
+
         btnAdd_Product.setEnabled(true);
         bt.Edit(btnAdd_Product);
         btnFix_Produc.setEnabled(false);
@@ -267,7 +267,7 @@ public class Product extends javax.swing.JPanel {
         btnStop_Sell_Product.setBackground(new java.awt.Color(0, 0, 0));
 
         pnlProduct_Detail.setVisible(false);
-        
+
         btnAdd_Product_Detail1.setEnabled(true);
         bt.Edit(btnAdd_Product_Detail1);
         btnFix_Product_Detail1.setEnabled(false);
@@ -291,7 +291,6 @@ public class Product extends javax.swing.JPanel {
                 sp.getMaterial_id().getNameMaterial(),
                 sp.getThickness_id().getGsm()};
             dtm.addRow(ob);
-            System.out.println("anh " + i + ": " + sp.getImage_Type());
             i++;
         }
     }
@@ -548,7 +547,6 @@ public class Product extends javax.swing.JPanel {
                 ProductDetail spct = new ProductDetail(soLuong, new Color(mau), new com.model.Product(ten), new Size(size), img);
                 return spct;
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Lỗi ảnh");
                 e.printStackTrace();
             }
 
@@ -685,7 +683,7 @@ public class Product extends javax.swing.JPanel {
                 spct.getColorId().getNameColor(),
                 spct.getQuantity()
             };
-            
+
             dtm.addRow(ob);
             i++;
         }
@@ -919,7 +917,7 @@ public class Product extends javax.swing.JPanel {
         }
         return false;
     }
-    
+
     public void loadSize_Stop() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute_Stop.getModel();
         dtm.setRowCount(0);
@@ -936,8 +934,8 @@ public class Product extends javax.swing.JPanel {
             i++;
         }
     }
-    
-     public void loadColer_Stop() {
+
+    public void loadColer_Stop() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute_Stop.getModel();
         dtm.setRowCount(0);
         int i = 1;
@@ -953,8 +951,8 @@ public class Product extends javax.swing.JPanel {
             i++;
         }
     }
-     
-     public void loadMaterial_Stop() {
+
+    public void loadMaterial_Stop() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute_Stop.getModel();
         dtm.setRowCount(0);
         int i = 1;
@@ -970,8 +968,8 @@ public class Product extends javax.swing.JPanel {
             i++;
         }
     }
-     
-     public void loadThickness_Stop() {
+
+    public void loadThickness_Stop() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute_Stop.getModel();
         dtm.setRowCount(0);
         int i = 1;
@@ -987,8 +985,8 @@ public class Product extends javax.swing.JPanel {
             i++;
         }
     }
-     
-     public void loadCustom_Stop() {
+
+    public void loadCustom_Stop() {
         DefaultTableModel dtm = (DefaultTableModel) this.tblAttribute_Stop.getModel();
         dtm.setRowCount(0);
         int i = 1;
@@ -1004,8 +1002,8 @@ public class Product extends javax.swing.JPanel {
             i++;
         }
     }
-     
-    public void clearBien(){
+
+    public void clearBien() {
         minProduct_tab1 = 1;
         maxProduct_tab1 = 10;
         minProduct_detail = 1;
@@ -1054,9 +1052,40 @@ public class Product extends javax.swing.JPanel {
         String id_cbbDanhMuc = "";
         //them vao 11/12
         byte[] name_img_mount = null;
-        idTT_Stop ="";
+        idTT_Stop = "";
         this.clear();
     }
+
+    public ProductDetail formctS() {
+        String ten = txtName_Product.getText();
+        String size = cbbSize1.getSelectedItem().toString().trim();
+        String mau = cbbColor1.getSelectedItem().toString().trim();
+        String sl = txtQuantity1.getText().trim();
+        if (ten.equals("")) {
+            JOptionPane.showMessageDialog(this, "Chưa có sản phẩm để thêm.");
+            return null;
+        }
+        if (lblImage_Detail.getText().equalsIgnoreCase("Ảnh")) {
+            JOptionPane.showMessageDialog(this, "Chưa chọn ảnh");
+            return null;
+        }
+        try {
+            int soLuong = Integer.parseInt(sl);
+            try {
+                byte[] img = getByteArrayFromImage(editedImage_Detail);
+                ProductDetail spct = new ProductDetail(soLuong, new Color(mau), new com.model.Product(ten), new Size(size), img);
+                return spct;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi ảnh");
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     //
     /**
      * This method is called from within the constructor to initialize the form.
@@ -2434,7 +2463,7 @@ public class Product extends javax.swing.JPanel {
         this.loadcbbMaterial();
         this.loadcbbThickness();
         this.loadcbbCustom();
-        
+
         pnlProduct_Detail.setVisible(true);
 
         btnAdd_Product.setEnabled(false);
@@ -2443,7 +2472,7 @@ public class Product extends javax.swing.JPanel {
         bt.Edit(btnFix_Produc);
         btnStop_Sell_Product.setEnabled(true);
         bt.Edit(btnStop_Sell_Product);
-        
+
         this.pnlProduct_Detail.setVisible(true);
         int row_pr = tblProduct.getSelectedRow();
         com.model.Product pr = this.pds.getNext(txtTenTim.getText().trim(), minProduct_tab1, maxProduct_tab1).get(row_pr);
@@ -2553,7 +2582,7 @@ public class Product extends javax.swing.JPanel {
 
     private void rdoColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoColorActionPerformed
         // TODO add your handling code here:
-        idTT="";
+        idTT = "";
         idTT_Stop = "";
         minAttribute = 1;
         maxAttribute = 10;
@@ -2563,7 +2592,7 @@ public class Product extends javax.swing.JPanel {
 
     private void rdoSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoSizeActionPerformed
         // TODO add your handling code here:
-        idTT="";
+        idTT = "";
         idTT_Stop = "";
         minAttribute = 1;
         maxAttribute = 10;
@@ -2573,7 +2602,7 @@ public class Product extends javax.swing.JPanel {
 
     private void rdoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoMaterialActionPerformed
         // TODO add your handling code here:
-        idTT="";
+        idTT = "";
         idTT_Stop = "";
         minAttribute = 1;
         maxAttribute = 10;
@@ -2583,7 +2612,7 @@ public class Product extends javax.swing.JPanel {
 
     private void rdoThicknessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoThicknessActionPerformed
         // TODO add your handling code here:
-        idTT="";
+        idTT = "";
         idTT_Stop = "";
         minAttribute = 1;
         maxAttribute = 10;
@@ -2593,7 +2622,7 @@ public class Product extends javax.swing.JPanel {
 
     private void rdoCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoCustomActionPerformed
         // TODO add your handling code here:
-        idTT="";
+        idTT = "";
         idTT_Stop = "";
         minAttribute = 1;
         maxAttribute = 10;
@@ -3055,7 +3084,7 @@ public class Product extends javax.swing.JPanel {
             return;
         }
         idProduct_Detail_Stop_Sell = tblProduct_Detail_Stop_Sell.getValueAt(row, 1).toString();
-        System.out.println("san pham chi teit ngung ban: "+ idProduct_Detail_Stop_Sell);
+        System.out.println("san pham chi teit ngung ban: " + idProduct_Detail_Stop_Sell);
     }//GEN-LAST:event_tblProduct_Detail_Stop_SellMouseClicked
 
     private void btnStop_Working_AttributeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStop_Working_AttributeActionPerformed
@@ -3211,20 +3240,24 @@ public class Product extends javax.swing.JPanel {
             return;
         }
         ProductDetail spct = formct();
-        int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
-        if (check == JOptionPane.YES_OPTION) {
-            if (this.pdds.sua(idProduct_Detail, spct) == true) {
-                JOptionPane.showMessageDialog(this, "Sửa thành công.");
-                this.load_Product_Detail();
-                this.clearBien();
+        if (spct == null) {
+            spct = formctS();
+            int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Sửa", JOptionPane.YES_NO_OPTION);
+            if (check == JOptionPane.YES_OPTION) {
+                if (this.pdds.sua(idProduct_Detail, spct) == true) {
+                    JOptionPane.showMessageDialog(this, "Sửa thành công.");
+                    this.load_Product_Detail();
+                    this.clearBien();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                    return;
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Sửa thất bại.");
+                JOptionPane.showMessageDialog(this, "Đã hủy.");
                 return;
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Đã hủy.");
-            return;
         }
+
 
     }//GEN-LAST:event_btnFix_Product_Detail1ActionPerformed
 
@@ -3259,13 +3292,12 @@ public class Product extends javax.swing.JPanel {
         btnFix_Product_Detail1.setBackground(new java.awt.Color(0, 0, 0));
         btnStop_Sell_Product_Detail1.setEnabled(false);
         btnStop_Sell_Product_Detail1.setBackground(new java.awt.Color(0, 0, 0));
-        
-        
+
         this.loadcbbColor();
         this.loadSize();
         cbbColor1.setSelectedIndex(0);
         cbbSize1.setSelectedIndex(0);
-  
+
         txtQuantity1.setText("");
         lblImage_Detail.setIcon(null);
         lblImage_Detail.setText("Ảnh");
@@ -3277,7 +3309,7 @@ public class Product extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.loadcbbSize();
         this.loadcbbColor();
-        
+
         btnAdd_Product_Detail1.setEnabled(false);
         btnAdd_Product_Detail1.setBackground(new java.awt.Color(0, 0, 0));
         btnFix_Product_Detail1.setEnabled(true);
@@ -3298,23 +3330,24 @@ public class Product extends javax.swing.JPanel {
         //xuat anh
         byte[] retrievedImageData = prd.getImage();
         BufferedImage image = getImageFromByteArray(retrievedImageData);
-        
-        if(comboBoxContainsItem(cbbSize1, tblProduct_Detail1.getValueAt(row, 2).toString().trim()) == true) {
+
+        if (comboBoxContainsItem(cbbSize1, tblProduct_Detail1.getValueAt(row, 2).toString().trim()) == true) {
             this.loadcbbSize();
-            cbbSize1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 2).toString().trim());        
+            cbbSize1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 2).toString().trim());
         } else {
             cbbSize1.addItem(tblProduct_Detail1.getValueAt(row, 2).toString().trim());
-            cbbSize1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 2).toString().trim());        
+            cbbSize1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 2).toString().trim());
         }
-        
-         if(comboBoxContainsItem(cbbColor1, tblProduct_Detail1.getValueAt(row, 3).toString().trim()) == true) {
+
+        if (comboBoxContainsItem(cbbColor1, tblProduct_Detail1.getValueAt(row, 3).toString().trim()) == true) {
             this.loadcbbColor();
-            cbbColor1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 3).toString().trim());        
+            cbbColor1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 3).toString().trim());
         } else {
             cbbColor1.addItem(tblProduct_Detail1.getValueAt(row, 3).toString().trim());
-            cbbColor1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 3).toString().trim());        
+            cbbColor1.setSelectedItem(tblProduct_Detail1.getValueAt(row, 3).toString().trim());
         }
-        
+
+        editedImage_Detail = image;
         lblImage_Detail.setText("");
         lblImage_Detail.setIcon(null);
         if (image != null) {
@@ -3936,7 +3969,7 @@ public class Product extends javax.swing.JPanel {
 
     private void btnKhoiPhuc_ActributeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhoiPhuc_ActributeActionPerformed
         // TODO add your handling code here:
-         if (idTT_Stop.equals("")) {
+        if (idTT_Stop.equals("")) {
             return;
         }
         int check = JOptionPane.showConfirmDialog(this, "Bạn chắc chứ?", "Khôi phục", JOptionPane.YES_NO_OPTION);

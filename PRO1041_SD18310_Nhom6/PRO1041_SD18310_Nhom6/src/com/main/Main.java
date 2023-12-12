@@ -15,6 +15,7 @@ import com.form.SaleProductJpanel;
 import com.form.ThongKeCuaLinh;
 import com.form.UserJPanel;
 import com.form.VoucherJpanel;
+import com.untils.XImage;
 import util.UserLogin;
 
 public class Main extends javax.swing.JFrame {
@@ -34,9 +35,9 @@ public class Main extends javax.swing.JFrame {
 //    String cv;
 
     public Main() {
-        initComponents();
-//        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
-//        login.setVisible(true);
+        initComponents(); 
+        login = new  LoginJDialog(this, rootPaneCheckingEnabled);
+        login.setVisible(true);
 
         setBackground(new Color(0, 0, 0, 0));
         sanPham = new Product();
@@ -48,11 +49,10 @@ public class Main extends javax.swing.JFrame {
         quanLyHoaDon = new InvoiceManagementJPanel();
 //<<<<<<< HEAD
         themUser = new AddCreart();
-        UserLogin.getUserLogin().setChucVu("Admin");
 //=======
         themNguoiDung = new AddCreart();
-        
-
+//        UserLogin.getUserLogin().setChucVu("Admin");
+       
 //>>>>>>> 2829913106edc236ab11d9ff58648223e44f876c
         if(UserLogin.getUserLogin().getChucVu().equalsIgnoreCase("Admin")){
             menu.initMoving(Main.this);
@@ -118,9 +118,15 @@ public class Main extends javax.swing.JFrame {
             });
         }
         
-        //  set when system open start with home form
-        setForm(new ThongKeCuaLinh());
+//<<<<<<< HEAD
+////        setForm(new ThongKeCuaLinh());
+//=======
+//        //  set when system open start with home form
+//        setForm(new ThongKeCuaLinh());
+//>>>>>>> fb856bee1cd6f1203ae61d074911589fce42f164
     }
+
+ 
 
     private void setForm(JComponent com) {
         mainPanel.removeAll();
