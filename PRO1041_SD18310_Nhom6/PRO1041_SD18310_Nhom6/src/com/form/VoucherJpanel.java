@@ -4,16 +4,19 @@
  */
 package com.form;
 
+import com.model.User;
 import java.util.Date;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.model.Voucher;
+import com.repository.UserRepository;
 import com.repository.UserVoucherResponsitory;
 import com.service.imple.UserImple;
 import com.service.imple.VoucherImple;
 import com.swing.EditButtons;
 import com.swing.EditTextField;
+import java.util.List;
 import table.TableCustom;
 
 /**
@@ -26,31 +29,38 @@ public class VoucherJpanel extends javax.swing.JPanel {
     private int index = -1;
     private UserVoucherResponsitory userVoucherResponsitory = new UserVoucherResponsitory();
     private UserImple userImple = new UserImple();
-    
-     //them cai nay 8/12
+    private UserRepository userRepository = new UserRepository();
+
+    //them cai nay 8/12
     EditButtons bt = new EditButtons();
     EditTextField txt = new EditTextField();
-    
+
     public VoucherJpanel() {
         initComponents();
         FormVoucherPanel.setVisible(false);
         FormVoucherUpdate.setVisible(false);
         fillTableVoucher();
-        fillTableKhachHang();
+        fillTableKhachHang(userImple.getCustomer());
         //them vao 8/12
         TableCustom.apply(slpKH, TableCustom.TableType.MULTI_LINE);
         TableCustom.apply(slpKH2, TableCustom.TableType.MULTI_LINE);
         TableCustom.apply(slpVoucher, TableCustom.TableType.MULTI_LINE);
-        
+
         txt.edit(txtSaleOf);
         txt.edit(txtSaleOf1);
-        
+        txt.edit(txtSearch);
+        txt.edit(txtSearch1);
+
         bt.Edit(btnCreateVoucher);
         bt.Edit(btnCreate);
         bt.Edit(btnBack);
         bt.Edit(btnUUpdate1);
         bt.Edit(btnRemove1);
         bt.Edit(btnBack1);
+        bt.Edit(btnResetTableKh1);
+        bt.Edit(btnResetTableKh2);
+        bt.Edit(btnSearch);
+        bt.Edit(btnSearch1);
     }
 
     public void fillTableVoucher() {
@@ -59,26 +69,32 @@ public class VoucherJpanel extends javax.swing.JPanel {
         voucherImple.resetStatus();
         // vòng lặp viết nhanh
         voucherImple.getAll().forEach(i -> tableModel.addRow(new Object[]{
-            i.getId(), i.getSaleOf(), i.getStartAt(), i.getEndAt(), i.getCreatedAt(), i.getUpdatedAt(), i.getStatus()
+            i.getId(), i.getSaleOf(), i.getStartAt(), i.getEndAt(), i.getCreatedAt(), i.getUpdatedAt(), i.getStatus().equals("1")?"Đang hoạt động":"Ngừng hoạt động"
         }));
     }
 
-    public void fillTableKhachHang() {
+    public void fillTableKhachHang(List<User> list) {
         DefaultTableModel tableModel = (DefaultTableModel) tblKhachHang.getModel();
         tableModel.setRowCount(0);
         // vòng lặp viết nhanh
-        userImple.getCustomer().forEach(i -> tableModel.addRow(new Object[]{
+        list.forEach(i -> tableModel.addRow(new Object[]{
             i.getId(), i.getFullName(), i.getNumberPhone(), i.getEmail()
         }));
     }
 
-    public void fillTableKhachHang1() {
+    public void fillTableKhachHang1(List<User> list) {
         DefaultTableModel tableModel = (DefaultTableModel) tblKhachHang1.getModel();
         tableModel.setRowCount(0);
         // vòng lặp viết nhanh
-        userImple.getCustomer().forEach(i -> tableModel.addRow(new Object[]{
+        list.forEach(i -> tableModel.addRow(new Object[]{
             i.getId(), i.getFullName(), i.getNumberPhone(), i.getEmail()
         }));
+        for (int i = 0; i < tblKhachHang1.getRowCount(); i++) {
+            int check = userVoucherResponsitory.getCountVoucherUser(voucherImple.getAll().get(index).getId(), userImple.getCustomer().get(i).getId());
+            if (check > 0) {
+                tblKhachHang1.setValueAt(true, i, tblKhachHang.getColumnCount() - 1);
+            }
+        }
     }
 
     public void resetForm() {
@@ -188,6 +204,9 @@ public class VoucherJpanel extends javax.swing.JPanel {
         tblKhachHang = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        btnResetTableKh1 = new javax.swing.JButton();
         TableVoucherPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         slpVoucher = new javax.swing.JScrollPane();
@@ -209,6 +228,9 @@ public class VoucherJpanel extends javax.swing.JPanel {
         tblKhachHang1 = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         btnBack1 = new javax.swing.JButton();
+        txtSearch1 = new javax.swing.JTextField();
+        btnSearch1 = new javax.swing.JButton();
+        btnResetTableKh2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -312,6 +334,27 @@ public class VoucherJpanel extends javax.swing.JPanel {
             }
         });
 
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
+
+        btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSearch.setText("Tìm kiếm");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnResetTableKh1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/reset.png"))); // NOI18N
+        btnResetTableKh1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetTableKh1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout FormVoucherPanelLayout = new javax.swing.GroupLayout(FormVoucherPanel);
         FormVoucherPanel.setLayout(FormVoucherPanelLayout);
         FormVoucherPanelLayout.setHorizontalGroup(
@@ -327,17 +370,28 @@ public class VoucherJpanel extends javax.swing.JPanel {
                                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(slpKH, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(slpKH, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(FormVoucherPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnResetTableKh1)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         FormVoucherPanelLayout.setVerticalGroup(
             FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormVoucherPanelLayout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
+                .addGap(24, 24, 24)
+                .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch)
+                    .addComponent(btnResetTableKh1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FormVoucherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FormVoucherPanelLayout.createSequentialGroup()
@@ -345,7 +399,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(slpKH, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
+                    .addComponent(slpKH, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -541,6 +595,27 @@ public class VoucherJpanel extends javax.swing.JPanel {
             }
         });
 
+        txtSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearch1ActionPerformed(evt);
+            }
+        });
+
+        btnSearch1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSearch1.setText("Tìm kiếm");
+        btnSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearch1ActionPerformed(evt);
+            }
+        });
+
+        btnResetTableKh2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/reset.png"))); // NOI18N
+        btnResetTableKh2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetTableKh2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout FormVoucherUpdateLayout = new javax.swing.GroupLayout(FormVoucherUpdate);
         FormVoucherUpdate.setLayout(FormVoucherUpdateLayout);
         FormVoucherUpdateLayout.setHorizontalGroup(
@@ -556,8 +631,15 @@ public class VoucherJpanel extends javax.swing.JPanel {
                                 .addComponent(btnBack1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(FormVoucherUpdateLayout.createSequentialGroup()
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnResetTableKh2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(slpKH2, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -566,7 +648,12 @@ public class VoucherJpanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FormVoucherUpdateLayout.createSequentialGroup()
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13)
+                .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(txtSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch1))
+                    .addComponent(btnResetTableKh2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FormVoucherUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FormVoucherUpdateLayout.createSequentialGroup()
@@ -574,7 +661,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBack1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(slpKH2, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
+                    .addComponent(slpKH2, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -607,7 +694,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
                         rowSelected = i;
 
                         // tạo ra voucher với những khách hàng nào được sử dụng voucher này
-                        String userId = userImple.getCustomer().get(rowSelected).getId();
+                        String userId = (String) tblKhachHang1.getValueAt(i, 0);
                         userVoucherResponsitory.createAll(voucher.getId(), userId);
                     }
                 }
@@ -643,14 +730,13 @@ public class VoucherJpanel extends javax.swing.JPanel {
         index = tblVoucher.getSelectedRow();
         if (index != -1 && evt.getClickCount() == 2) {
             index = tblVoucher.getSelectedRow();
-            System.out.println(index);
             Voucher voucher = voucherImple.getAll().get(index);
             txtSaleOf1.setText(voucher.getSaleOf() + "");
             jXStartAt1.setDate(voucher.getStartAt());
             jXEndAt1.setDate(voucher.getEndAt());
 
             // khi click vào dòng này sẽ chuyển qua form chỉnh sửa của voucher
-            fillTableKhachHang1();
+            fillTableKhachHang1(userImple.getCustomer());
             TableVoucherPanel.setVisible(false);
             FormVoucherPanel.setVisible(false);
             FormVoucherUpdate.setVisible(true);
@@ -689,8 +775,8 @@ public class VoucherJpanel extends javax.swing.JPanel {
                             rowSelected = i;
 
                             // tạo ra voucher với những khách hàng nào được sử dụng voucher này
-                            String userId = userImple.getCustomer().get(rowSelected).getId();
-
+//                            String userId = userImple.getCustomer().get(rowSelected).getId();
+                            String userId = (String) tblKhachHang1.getValueAt(i, 0);
                             userVoucherResponsitory.createAll(voucher.getId(), userId);
                         }
                     }
@@ -742,6 +828,78 @@ public class VoucherJpanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jXStartAt1ActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        String text = txtSearch.getText();
+        if (text != null && !text.trim().equals("")) {
+            try {
+                fillTableKhachHang(userRepository.getCustomersById(Integer.valueOf(text)));
+                for (int i = 0; i < tblKhachHang.getRowCount(); i++) {
+                    int check = userVoucherResponsitory.getCountVoucherUser(voucherImple.getAll().get(index).getId(), userRepository.getCustomersById(Integer.valueOf(text)).get(i).getId());
+                    if (check > 0) {
+                        tblKhachHang.setValueAt(true, i, tblKhachHang.getColumnCount() - 1);
+                    }
+                }
+            } catch (NumberFormatException nbe) {
+                fillTableKhachHang(userRepository.getCustomersByName(text));
+                for (int i = 0; i < tblKhachHang.getRowCount(); i++) {
+                    int check = userVoucherResponsitory.getCountVoucherUser(voucherImple.getAll().get(index).getId(), userRepository.getCustomersByName(text).get(i).getId());
+                    if (check > 0) {
+                        tblKhachHang.setValueAt(true, i, tblKhachHang.getColumnCount() - 1);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập gì", "Loi", 2);
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void txtSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearch1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearch1ActionPerformed
+
+    private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
+        String text = txtSearch1.getText();
+        if (text != null && !text.trim().equals("")) {
+            try {
+                fillTableKhachHang1(userRepository.getCustomersById(Integer.valueOf(text)));
+                for (int i = 0; i < tblKhachHang1.getRowCount(); i++) {
+                    int check = userVoucherResponsitory.getCountVoucherUser(voucherImple.getAll().get(index).getId(), userRepository.getCustomersById(Integer.valueOf(text)).get(i).getId());
+                    if (check > 0) {
+                        tblKhachHang1.setValueAt(true, i, tblKhachHang1.getColumnCount() - 1);
+                    }
+                }
+            } catch (NumberFormatException nbe) {
+                fillTableKhachHang1(userRepository.getCustomersByName(text));
+                for (int i = 0; i < tblKhachHang1.getRowCount(); i++) {
+                    int check = userVoucherResponsitory.getCountVoucherUser(voucherImple.getAll().get(index).getId(), userRepository.getCustomersByName(text).get(i).getId());
+                    if (check > 0) {
+                        tblKhachHang1.setValueAt(true, i, tblKhachHang1.getColumnCount() - 1);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập gì", "Loi", 2);
+        }
+    }//GEN-LAST:event_btnSearch1ActionPerformed
+
+    private void btnResetTableKh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetTableKh1ActionPerformed
+        fillTableKhachHang(userImple.getCustomer());
+        txtSearch.setText("");
+    }//GEN-LAST:event_btnResetTableKh1ActionPerformed
+
+    private void btnResetTableKh2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetTableKh2ActionPerformed
+        fillTableKhachHang1(userImple.getCustomer());
+        txtSearch1.setText("");
+    }//GEN-LAST:event_btnResetTableKh2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FormVoucherPanel;
@@ -752,6 +910,10 @@ public class VoucherJpanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnCreateVoucher;
     private javax.swing.JButton btnRemove1;
+    private javax.swing.JButton btnResetTableKh1;
+    private javax.swing.JButton btnResetTableKh2;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSearch1;
     private javax.swing.JButton btnUUpdate1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -780,5 +942,7 @@ public class VoucherJpanel extends javax.swing.JPanel {
     private javax.swing.JTable tblVoucher;
     private javax.swing.JTextField txtSaleOf;
     private javax.swing.JTextField txtSaleOf1;
+    private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtSearch1;
     // End of variables declaration//GEN-END:variables
 }

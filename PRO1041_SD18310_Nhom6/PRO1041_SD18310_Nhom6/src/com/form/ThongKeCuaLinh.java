@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.math.BigDecimal;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -36,13 +37,18 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
     }
 
     public void openForm() {
-        chart.setTitle("Biểu đồ thống kê tổng doanh thu");
-        List<ChartModel> data = statisticsRepository.getAllDataChart();
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
 
+        chart.setTitle("Biểu đồ thống kê tổng doanh thu năm "+year);
+        List<ChartModel> data = statisticsRepository.getAllDataChart();
+        // sửa lại tổng tiền trừ trả hàng
         if (data.size() <= 1) {
             ChartModel chartModel = new ChartModel();
+            ChartModel chartModel1 = statisticsRepository.getAllDataChart().get(0);
+            chart.addData(new ModelChart(chartModel1.getMonth(), new double[]{chartModel1.getTotalMoney()- Double.valueOf(returnBillRepository.getTotalMoney()+"")}));
             for (int i = chartModel.getDataNull().length - 1; i >= 0; i--) {
-                chart.addData(new ModelChart(chartModel.getDataNull()[i], new double[]{0.0,0.0}));
+                chart.addData(new ModelChart(chartModel.getDataNull()[i], new double[]{0.0, 0.0}));
             }
         } else {
             for (int i = data.size() - 1; i >= 0; i--) {
@@ -127,7 +133,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
             return;
         }
         try {
-            totalBillSuccess = statisticsRepository.getSumIntoMoneyByStatus(3, 7, 0, Integer.valueOf(year), Integer.valueOf(month));
+            totalBillSuccess = statisticsRepository.getSumIntoMoneyByStatus(3, 7, 5, Integer.valueOf(year), Integer.valueOf(month));
 
             totalReturnBill = returnBillRepository.getTotalMoneyByIdBill(Long.valueOf(billRepository.getIdByUpdatedAt(5, Integer.parseInt(year), Integer.valueOf(month))));
 
@@ -155,7 +161,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
             }
         } catch (NumberFormatException e) {
             if (!year.trim().toLowerCase().equals("tất cả") && month.trim().toLowerCase().equals("tất cả")) {
-                totalBillSuccess = statisticsRepository.getSumIntoMoneyByStatusAndYear(3, 7, 0, Integer.valueOf(year));
+                totalBillSuccess = statisticsRepository.getSumIntoMoneyByStatusAndYear(3, 7, 5, Integer.valueOf(year));
                 totalReturnBill = returnBillRepository.getTotalMoneyByIdBill(Long.valueOf(billRepository.getIdByUpdatedAt(5, Integer.parseInt(year))));
 
                 lbMoneyBillSucess.setText(formatCurrency(statisticsRepository.getSumIntoMoneyByStatus(3, 3, 3, Integer.valueOf(year))));
@@ -181,7 +187,7 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
                     txtRevenue.setText(formatCurrency(totalMoney) + "");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Không thể xem 1 tháng của thất cả các năm", "Loi", 2);
+                JOptionPane.showMessageDialog(this, "Không thể xem tất cả", "Loi", 2);
                 cboFilterByMonth.setSelectedIndex(0);
             }
         } catch (Exception ex) {
@@ -250,8 +256,9 @@ public class ThongKeCuaLinh extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pnChart.setBackground(new java.awt.Color(75, 95, 115));
+        pnChart.setBackground(new java.awt.Color(40, 58, 80));
         pnChart.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnChart.setForeground(new java.awt.Color(27, 77, 90));
 
         chart.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         chart.setFillColor(true);
