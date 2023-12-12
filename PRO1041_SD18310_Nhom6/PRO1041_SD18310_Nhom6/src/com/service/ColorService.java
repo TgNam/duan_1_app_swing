@@ -18,4 +18,8 @@ public interface ColorService {
      //them vao 1/12
     public boolean xoa(String id);
     ArrayList<Color> getColor_Sell(int min, int max);
+    //them vao 12/12
+    ArrayList<Color> getCBB();
+    public boolean getKP(String id);
+    ArrayList<Color> getColor_Stop(int min, int max);
 }

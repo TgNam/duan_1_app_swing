@@ -176,7 +176,7 @@ public class ProductRepository {
                     + "thickness.gsm,"
                     + "product.DESCRIPTION, "
                     + "product.status "
-                    + "from product inner join custom on product.custome_id = custom.id inner join material on product.material_id = material.id inner join thickness on product.thickness_id = thickness.id where product.status = '2';";
+                    + "from product inner join custom on product.custome_id = custom.id inner join material on product.material_id = material.id inner join thickness on product.thickness_id = thickness.id where product.status = '0';";
             ResultSet rs = JDBCHelped.executeQuery(sql);
             while (rs.next()) {
                 Product pr;
@@ -228,7 +228,7 @@ public class ProductRepository {
 
     public boolean Delete(String name) {
         try {
-            String sql = "UPDATE `db_levents`.`product` SET `updated_at` =  curdate(), `status` = '2' WHERE name_product = ?;";
+            String sql = "UPDATE `db_levents`.`product` SET `updated_at` =  curdate(), `status` = '0' WHERE name_product = ?;";
             JDBCHelped.excuteUpdate(sql, name);
             return true;
         } catch (Exception e) {
@@ -257,7 +257,7 @@ public class ProductRepository {
                     + "inner join custom on product.custome_id = custom.id \n"
                     + "inner join material on product.material_id = material.id \n"
                     + "inner join thickness on product.thickness_id = thickness.id \n"
-                    + "where product.status = '2') \n"
+                    + "where product.status = '0') \n"
                     + "AS temp WHERE rownum BETWEEN ? AND ?;";
             ;
             ResultSet rs = JDBCHelped.executeQuery(sql, min, max);

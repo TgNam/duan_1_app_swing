@@ -63,24 +63,60 @@ public class ProductDetailRepository {
     public ArrayList<ProductDetail> getProductDetails_Exchange() {
         ArrayList<ProductDetail> list = new ArrayList<>();
         try {
-            String sql = "select \n"
-                    + "db_levents.product_detail.id,\n"
-                    + "db_levents.product.name_product,\n"
-                    + "db_levents.custom.name_custom,\n"
-                    + "db_levents.material.name_material,\n"
-                    + "db_levents.thickness.gsm,\n"
-                    + "db_levents.color.name_color,\n"
-                    + "db_levents.size.name_size,\n"
-                    + "db_levents.product.product_price,\n"
-                    + "db_levents.product_detail.quantity\n"
-                    + "from db_levents.product \n"
-                    + "inner join db_levents.product_detail  on db_levents.product.id = db_levents.product_detail.product_id\n"
-                    + "inner join db_levents.color on db_levents.product_detail.color_id = db_levents.color.id \n"
-                    + "inner join db_levents.size  on db_levents.product_detail.size_id = db_levents.size.id\n"
-                    + "inner join custom on product.custome_id = custom.id \n"
-                    + "inner join material on product.material_id = material.id \n"
-                    + "inner join thickness on product.thickness_id = thickness.id\n"
-                    + "where db_levents.product.status = 1;";
+//            String sql = "select \n"
+//                    + "db_levents.product_detail.id,\n"
+//                    + "db_levents.product.name_product,\n"
+//                    + "db_levents.custom.name_custom,\n"
+//                    + "db_levents.material.name_material,\n"
+//                    + "db_levents.thickness.gsm,\n"
+//                    + "db_levents.color.name_color,\n"
+//                    + "db_levents.size.name_size,\n"
+//                    + "db_levents.product.product_price,\n"
+//                    + "db_levents.product_detail.quantity\n"
+//                    + "from db_levents.product \n"
+//                    + "inner join db_levents.product_detail  on db_levents.product.id = db_levents.product_detail.product_id\n"
+//                    + "inner join db_levents.color on db_levents.product_detail.color_id = db_levents.color.id \n"
+//                    + "inner join db_levents.size  on db_levents.product_detail.size_id = db_levents.size.id\n"
+//                    + "inner join custom on product.custome_id = custom.id \n"
+//                    + "inner join material on product.material_id = material.id \n"
+//                    + "inner join thickness on product.thickness_id = thickness.id\n"
+//                    + "where db_levents.product.status = 1;";
+            String sql = """
+                         SELECT 
+                             pd.id AS product_detail_id,
+                             p.name_product,
+                             c.name_custom,
+                             m.name_material,
+                             t.gsm AS thickness_gsm,
+                             col.name_color,
+                             s.name_size,
+                              CASE 
+                             WHEN sp.id IS NOT NULL AND sp.start_at <= CURDATE() AND sp.end_at >= CURDATE() THEN
+                                 p.product_price - (p.product_price * (sp.sale / 100))
+                             ELSE 
+                                 p.product_price
+                         END AS discounted_price,
+                             pd.quantity ,
+                             sp.sale
+                         FROM 
+                             db_levents.product AS p
+                         left join 
+                         	db_levents.sale_product sp on p.sale_id = sp.id
+                         INNER JOIN 
+                             db_levents.product_detail AS pd ON p.id = pd.product_id
+                         INNER JOIN 
+                             db_levents.color AS col ON pd.color_id = col.id 
+                         INNER JOIN 
+                             db_levents.size AS s ON pd.size_id = s.id
+                         INNER JOIN 
+                             db_levents.custom AS c ON p.custome_id = c.id 
+                         INNER JOIN 
+                             db_levents.material AS m ON p.material_id = m.id 
+                         INNER JOIN 
+                             db_levents.thickness AS t ON p.thickness_id = t.id
+                         WHERE 
+                             p.status = 1;
+                         """;
             ResultSet rs = JDBCHelped.executeQuery(sql);
             while (rs.next()) {
                 String id = rs.getString(1);
@@ -145,7 +181,7 @@ public class ProductDetailRepository {
                     + "FROM db_levents.product_detail \n"
                     + "inner join db_levents.color on db_levents.product_detail.color_id =db_levents.color.id \n"
                     + "inner join db_levents.size  on db_levents.product_detail.size_id = db_levents.size.id\n"
-                    + "inner join db_levents.product on db_levents.product_detail.product_id = db_levents.product.id where db_levents.product.id = ? and  db_levents.product_detail.status not in (select db_levents.product_detail.status  from db_levents.product_detail where db_levents.product_detail.status  = '2' );";
+                    + "inner join db_levents.product on db_levents.product_detail.product_id = db_levents.product.id where db_levents.product.id = ? and  db_levents.product_detail.status not in (select db_levents.product_detail.status  from db_levents.product_detail where db_levents.product_detail.status  = '0' );";
 
             ResultSet rs = JDBCHelped.executeQuery(sql, idPR);
             while (rs.next()) {
@@ -323,7 +359,7 @@ public class ProductDetailRepository {
 
     public boolean Delete(String id) {
         try {
-            String sql = "UPDATE `db_levents`.`product_detail` SET `status` = '2' WHERE (`id` = ?);";
+            String sql = "UPDATE `db_levents`.`product_detail` SET `status` = '0' WHERE (`id` = ?);";
             JDBCHelped.excuteUpdate(sql, id);
             return true;
         } catch (Exception e) {

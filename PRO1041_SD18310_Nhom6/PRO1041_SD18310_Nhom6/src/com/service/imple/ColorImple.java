@@ -51,5 +51,24 @@ public class ColorImple implements ColorService{
     public ArrayList<Color> getColor_Sell(int min, int max) {
         return cl.getColor_sell(min, max);
     }
+
+    @Override
+    public ArrayList<Color> getCBB() {
+        return cl.getCBB();
+    }
+
+    @Override
+    public boolean getKP(String id) {
+        if(cl.KhoiPhuc(id)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public ArrayList<Color> getColor_Stop(int min, int max) {
+        return cl.getColor_Stop(min, max);
+    }
     
 }

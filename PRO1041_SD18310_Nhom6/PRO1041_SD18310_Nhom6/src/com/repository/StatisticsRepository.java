@@ -135,11 +135,11 @@ public class StatisticsRepository {
 
     public List<ChartModel> getAllDataChart() {
         List<ChartModel> list = new ArrayList<>();
-        String query = "SELECT date_format(created_at, '%M') AS 'month', SUM(into_money) AS 'doanh thu'\n" +
-"                 FROM db_levents.bill\n" +
-"                 GROUP BY date_format(created_at, '%M')\n" +
-"                 order by date_format(created_at, '%M') DESC;";
-        
+        String query = "SELECT date_format(created_at, '%M') AS 'month', SUM(into_money) AS 'doanh thu'\n"
+                + "              FROM db_levents.bill where status in (3,5,7) and year(created_at) = YEAR(now())\n"
+                + "               GROUP BY date_format(created_at, '%M')\n"
+                + "                order by date_format(created_at, '%M') DESC;";
+
         try {
             ResultSet rs = JDBCHelped.executeQuery(query);
             while (rs.next()) {

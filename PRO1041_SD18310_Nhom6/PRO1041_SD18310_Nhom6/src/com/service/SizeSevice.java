@@ -18,4 +18,9 @@ public interface SizeSevice {
      //them vao 1/12
     public boolean remove(String id);
     ArrayList<Size> getSize_Sell(int min, int max);
+    //them vao 12/12
+    
+    ArrayList<Size> getCBB();
+    ArrayList<Size> getSize_Stop(int min, int max);
+    public boolean getKP(String id);
 }

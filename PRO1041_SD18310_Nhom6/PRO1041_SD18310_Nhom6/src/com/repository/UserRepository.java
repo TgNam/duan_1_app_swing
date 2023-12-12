@@ -155,6 +155,38 @@ public class UserRepository {
         }
         return null;
     }
+    
+    public ArrayList<User> getCustomersById(int id) {
+        ArrayList<User> list = new ArrayList<>();
+        String query = "select * from user where id in (SELECT user_id FROM db_levents.user_role where role_id = 3) and id = ?";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query,id);
+            while (rs.next()) {
+                list.add(new User(rs.getString("id"), rs.getString("full_name"), rs.getString("number_phone"), rs.getString("email"))    
+                );
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    public ArrayList<User> getCustomersByName(String name) {
+        ArrayList<User> list = new ArrayList<>();
+        String query = "select * from user where id in (SELECT user_id FROM db_levents.user_role where role_id = 3) and full_name like ?";
+        try {
+            ResultSet rs = JDBCHelped.executeQuery(query,"%"+name+"%");
+            while (rs.next()) {
+                list.add(new User(rs.getString("id"), rs.getString("full_name"), rs.getString("number_phone"), rs.getString("email"))    
+                );
+            }
+            return list;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
     // end linhz----------------------------
     public boolean Update_user_address(String address_id, String id) {
         try {

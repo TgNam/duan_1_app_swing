@@ -311,7 +311,7 @@ public class AddCreart extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel10.setText("____________________________________________________________");
         jLabel10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 290, 10));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 320, 10));
 
         txtemail.setBorder(null);
         jPanel1.add(txtemail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 24));
@@ -319,7 +319,7 @@ public class AddCreart extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel11.setText("____________________________________________________________");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 290, 10));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 330, 10));
 
         txtnumblephone.setBorder(null);
         jPanel1.add(txtnumblephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 280, 24));
@@ -327,7 +327,7 @@ public class AddCreart extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel12.setText("____________________________________________________________");
         jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 290, 10));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 320, 10));
 
         txtaddress.setBorder(null);
         jPanel1.add(txtaddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 280, 24));
@@ -335,7 +335,7 @@ public class AddCreart extends javax.swing.JPanel {
         jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel13.setText("____________________________________________________________");
         jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 290, 10));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 330, 10));
 
         txtdateofbirth.setBorder(null);
         jPanel1.add(txtdateofbirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 280, 24));
@@ -343,7 +343,7 @@ public class AddCreart extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel14.setText("____________________________________________________________");
         jLabel14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 290, 10));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 340, 10));
 
         txtaccount.setBorder(null);
         jPanel1.add(txtaccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 280, 24));
@@ -351,7 +351,7 @@ public class AddCreart extends javax.swing.JPanel {
         jLabel15.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel15.setText("____________________________________________________________");
         jLabel15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 290, 10));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 330, 10));
 
         txtpassword.setBorder(null);
         jPanel1.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 280, 24));
@@ -359,7 +359,7 @@ public class AddCreart extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
         jLabel16.setText("____________________________________________________________");
         jLabel16.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 290, 10));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 340, 10));
 
         buttonGroup1.add(rdocustomer);
         rdocustomer.setText("CUSTOMER");
@@ -380,7 +380,7 @@ public class AddCreart extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTongLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(425, Short.MAX_VALUE))
+                .addContainerGap(381, Short.MAX_VALUE))
         );
         pnlTongLayout.setVerticalGroup(
             pnlTongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

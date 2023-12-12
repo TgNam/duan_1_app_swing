@@ -316,7 +316,6 @@ public class EMPLOYEEJPanel extends javax.swing.JPanel {
         jPanel3.add(slpDanhSachNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 850, 530));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Tìm Kiếm");
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
@@ -334,7 +333,6 @@ public class EMPLOYEEJPanel extends javax.swing.JPanel {
         jPanel3.add(txtSearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 430, 24));
 
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("___________________________________________________________________________________________");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 490, 10));
@@ -343,42 +341,34 @@ public class EMPLOYEEJPanel extends javax.swing.JPanel {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Họ và tên:");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 60, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Email:");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 40, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Số điện thoại:");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Ngày Sinh:");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 80, -1));
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Tài Khoản:");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 70, -1));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Mật Khẩu:");
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 70, -1));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Địa Chỉ:");
         jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 50, -1));
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Vai Trò:");
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
 
@@ -442,44 +432,37 @@ public class EMPLOYEEJPanel extends javax.swing.JPanel {
         jPanel4.add(txtaddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 230, 24));
 
         jLabel18.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("_________________________________________________");
+        jLabel18.setText("______________________________________________");
         jLabel18.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 240, 10));
 
         jLabel20.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel20.setText("_________________________________________________");
+        jLabel20.setText("______________________________________________");
         jLabel20.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 240, 10));
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("_________________________________________________");
+        jLabel21.setText("______________________________________________");
         jLabel21.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 240, 10));
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel22.setText("_________________________________________________");
+        jLabel22.setText("______________________________________________");
         jLabel22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 240, 10));
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel23.setText("_________________________________________________");
+        jLabel23.setText("______________________________________________");
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 240, 10));
 
         jLabel24.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel24.setText("_________________________________________________");
+        jLabel24.setText("______________________________________________");
         jLabel24.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 240, 10));
 
         jLabel25.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel25.setText("_________________________________________________");
+        jLabel25.setText("______________________________________________");
         jLabel25.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel4.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 240, 10));
 
@@ -555,7 +538,6 @@ public class EMPLOYEEJPanel extends javax.swing.JPanel {
         txtSearch0.setBorder(null);
 
         jLabel19.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("___________________________________________________________________________________________");
         jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 

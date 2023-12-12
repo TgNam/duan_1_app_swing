@@ -4,6 +4,7 @@
  */
 package com.service;
 
+import com.model.Material;
 import java.util.ArrayList;
 import com.model.Thickness;
 
@@ -18,4 +19,8 @@ public interface ThicknessService {
      //them vao 1/12
     public boolean xoa(String id);
     ArrayList<Thickness> getThickness_sell(int min, int max);
+    //them vao 12/12
+    ArrayList<Thickness> getCBB();
+    public boolean getKP(String id);
+    ArrayList<Thickness> getThickness_Stop(int min, int max);
 }
